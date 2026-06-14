@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>I Migliori AI Tools del Momento — @giampiero.ai</title>
+<title>Crea la tua foto Strava incredibile con AI — @giampiero.ai</title>
+<meta name="description" content="Il prompt AI per trasformare la tua foto Strava in un visual da creator professionista. Gratis, in 2 minuti.">
 <link rel="icon" type="image/png" href="favicon.png">
 <style>
 :root {
@@ -29,7 +30,7 @@ body {
 .logo { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); text-decoration: none; }
 .avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
 .logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+.nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.15s; }
 .nav-ig:hover { color: var(--fg); }
 .breadcrumb { padding: 20px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
 .breadcrumb a { color: var(--muted); text-decoration: none; }
@@ -48,12 +49,60 @@ body {
 .step { display: flex; gap: 16px; align-items: baseline; margin-bottom: 12px; max-width: 60ch; }
 .step-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
 .step-text { font-size: 17px; line-height: 1.65; color: var(--fg); }
+
+/* ---- prompt box ---- */
+.prompt-box {
+  position: relative;
+  background: var(--fg);
+  padding: 28px 28px 24px;
+  margin: 28px 0 24px;
+  max-width: 65ch;
+}
+.prompt-box .prompt-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: oklch(60% 0.008 70);
+  margin-bottom: 14px;
+}
+.prompt-box pre {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  color: oklch(92% 0.004 95);
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid oklch(38% 0.012 70);
+  color: oklch(75% 0.006 70);
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.copy-btn:hover { border-color: oklch(65% 0.008 70); color: oklch(90% 0.004 95); }
+.copy-btn.copied { color: oklch(75% 0.12 145); border-color: oklch(55% 0.10 145); }
+
+/* ---- preview / mask ---- */
 .preview-wrap { position: relative; }
 .preview-mask { position: relative; overflow: hidden; }
 .preview-mask::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
 .preview-mask.unlocked::after { display: none; }
+
+/* ---- paywall ---- */
 #paywall-gate { padding: 48px 0 60px; border-top: 1px solid var(--border); margin-top: 8px; }
-.paywall-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.paywall-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
 .paywall-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; color: var(--fg); margin-bottom: 10px; }
 .paywall-sub { font-size: 15px; color: var(--muted); max-width: 44ch; line-height: 1.6; margin-bottom: 28px; }
 .access-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
@@ -69,7 +118,9 @@ body {
 #article-full.visible { display: block; }
 .unlock-note { display: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 8px; }
 .unlock-note.visible { display: block; }
-.cta-callout { background: var(--fg); margin-top: 48px; padding: 44px 40px; }
+
+/* ---- cta callout ---- */
+.cta-callout { background: var(--fg); padding: 44px 40px; }
 .cta-callout .cta-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
 .cta-callout h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25; color: var(--surface); max-width: 38ch; margin-bottom: 28px; }
 .cta-btns { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -77,20 +128,25 @@ body {
 .cta-btn-primary { background: var(--surface); color: var(--fg); }
 .cta-btn-secondary { background: transparent; color: var(--surface); border: 1px solid oklch(38% 0.012 70); }
 .cta-btn:hover { opacity: 0.75; }
-.site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 48px; }
+
+/* ---- footer ---- */
+.site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 0; }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; }
 .f-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; }
 .f-text:hover { color: var(--fg); }
+
 @media (max-width: 580px) {
   .article-title { font-size: 28px; }
   .paywall-title { font-size: 22px; }
+  .prompt-box { padding: 22px 18px 18px; }
+  .cta-callout { padding: 36px 24px; }
   .site-footer .footer-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
 }
 </style>
 </head>
 <body>
 
-<header class="site-header" data-od-id="header">
+<header class="site-header">
   <div class="header-inner">
     <a class="logo-wrap" href="index.html">
       <img class="avatar" src="avatar.png" alt="Giampiero">
@@ -105,68 +161,89 @@ body {
   <nav class="breadcrumb">
     <a href="index.html">Guide</a>
     <span>·</span>
-    <span>I Migliori AI Tools del Momento</span>
+    <span>Foto Strava con AI</span>
   </nav>
 
-  <header class="article-header" data-od-id="article-header">
-    <span class="article-tag">Strumenti</span>
-    <h1 class="article-title">I Migliori AI Tools del Momento</h1>
-    <p class="article-meta">Giampiero · Giugno 2026 · 5 min di lettura</p>
+  <header class="article-header">
+    <span class="article-tag">Prompt AI</span>
+    <h1 class="article-title">Crea la tua foto Strava incredibile con AI [Prompt]</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 3 min di lettura</p>
   </header>
 
-  <div class="article-content" data-od-id="article-preview">
+  <div class="article-content">
+
+    <!-- Preview visibile a tutti -->
     <div class="preview-wrap">
       <div class="preview-mask" id="preview-mask">
-        <p>Ogni settimana esce un nuovo tool AI "che cambia tutto". La verità è che il 90% non lo userai mai due volte. Questa è la lista degli strumenti che uso davvero ogni settimana — testati sul campo, non perché fanno tendenza.</p>
-        <p>Li ho divisi per cosa servono: scrittura, immagini, video, ricerca e automazioni. Per ognuno trovi a cosa serve, quando ha senso usarlo, e quando invece puoi farne a meno.</p>
-        <p>Una premessa: non ti serve tutto questo stack. Scegli un tool per categoria, imparalo bene, e passa al successivo solo quando il primo è diventato un automatismo. Accumulare strumenti è l'illusione del progresso.</p>
+        <p>Hai mai visto quelle foto Strava con il tracciato GPS inciso nella scena, i dati sovrapposti in modo pulito, e la sensazione che siano uscite da un set fotografico? Si fanno con l'AI — e ci vuole meno di 2 minuti.</p>
+        <p>In questo reel ho mostrato il processo dal vivo: carichi la tua foto e lo screenshot Strava, usi il prompt giusto, e ottieni un visual da creator professionista. Niente Photoshop, niente skill di design.</p>
+        <p>Il risultato mantiene la tua identità — faccia, fisico, outfit, posa — e ci integra il tracciato reale del tuo workout con dati puliti in stile Strava: distanza, ritmo, tempo, dislivello.</p>
       </div>
     </div>
 
+    <!-- Contenuto completo -->
     <div id="article-full">
-      <h2>Scrittura &amp; ragionamento</h2>
+      <h2>Cosa ti serve</h2>
       <ul>
-        <li><strong>Claude</strong> — il mio default per testi editoriali, script e ragionamenti lunghi. Tono più naturale e meno "robotico" della media. È anche dove costruisco le mie skills.</li>
-        <li><strong>ChatGPT</strong> — utile come secondo parere e per task veloci. Buono l'ecosistema, ma per i contenuti lunghi preferisco Claude.</li>
+        <li><strong>Una tua foto</strong> — verticale, buona luce, formato social. Funziona anche una foto dal telefono.</li>
+        <li><strong>Uno screenshot Strava</strong> — il recap dell'attività con il tracciato visibile. Più è leggibile, meglio.</li>
+        <li><strong>ChatGPT con generazione immagini</strong> — o qualsiasi tool che accetti immagini come input (Gemini, Claude, ecc.).</li>
       </ul>
 
-      <h2>Immagini</h2>
-      <ul>
-        <li><strong>Midjourney</strong> — qualità estetica ancora imbattuta per visual e copertine. Curva di apprendimento sui prompt, ma ne vale la pena.</li>
-        <li><strong>Canva AI</strong> — non per l'arte, ma per mettere insieme grafiche di brand velocemente. Magic Design fa risparmiare ore sui caroselli.</li>
-      </ul>
+      <h2>Come si usa il prompt</h2>
+      <div class="step"><span class="step-num">01</span><span class="step-text">Apri ChatGPT (o il tool che preferisci) e allega le due immagini: la tua foto e lo screenshot Strava.</span></div>
+      <div class="step"><span class="step-num">02</span><span class="step-text">Copia il prompt qui sotto e incollalo nel campo di testo, senza modificarlo.</span></div>
+      <div class="step"><span class="step-num">03</span><span class="step-text">Invia. Il modello userà la tua foto come riferimento per identità e scena, e lo screenshot Strava per tracciato e dati.</span></div>
+      <div class="step"><span class="step-num">04</span><span class="step-text">Se il risultato non ti convince al 100%, scrivi "rigenera mantenendo identità e posa" — spesso la seconda è meglio della prima.</span></div>
 
-      <h2>Video &amp; reel</h2>
-      <ul>
-        <li><strong>CapCut</strong> — sottotitoli automatici e editing veloce. Lo standard de facto per i reel.</li>
-        <li><strong>Opus Clip</strong> — taglia i video lunghi in clip pronte per i social. Ottimo se fai anche contenuti lunghi.</li>
-      </ul>
+      <h2>Il prompt</h2>
+      <p>Copia tutto, incolla, invia.</p>
 
-      <h2>Ricerca &amp; verifica</h2>
-      <ul>
-        <li><strong>Perplexity</strong> — quando ti servono dati con le fonti. Lo uso per verificare statistiche prima di metterle in un post.</li>
-      </ul>
+      <div class="prompt-box">
+        <div class="prompt-label">Prompt — copia e incolla</div>
+        <pre id="prompt-text">Create an ultra-realistic vertical social-media fitness image using two inputs:
+- Image A: the main photo of the person
+- Image B: the Strava screenshot / route recap
 
-      <h2>Automazioni</h2>
-      <ul>
-        <li><strong>Zapier / Make</strong> — collegano i tool tra loro. È il livello che quasi tutti saltano, ed è dove c'è il guadagno di tempo più grosso.</li>
-      </ul>
+Use Image A as the identity and scene reference. Preserve the person's facial features, body proportions, skin tone, outfit, pose, camera angle, and overall realism. The final result should remain faithful to the original photo and look like a polished version of that same image, not a completely different scene.
 
-      <h2>Come scegliere senza impazzire</h2>
-      <div class="step"><span class="step-num">01</span><span class="step-text">Parti dal collo di bottiglia: qual è la cosa che ti ruba più tempo ogni settimana?</span></div>
-      <div class="step"><span class="step-num">02</span><span class="step-text">Adotta un solo tool per risolverla. Imparalo finché non ci pensi più.</span></div>
-      <div class="step"><span class="step-num">03</span><span class="step-text">Solo allora passa al collo di bottiglia successivo. Mai prima.</span></div>
+Use Image B as the data and route reference. Extract the route shape, workout style, and recap information from the Strava screenshot, and integrate them into the image in a premium AI fitness-edit style. The final image should look like a realistic fitness creator post or running recap.
+
+Integrate the route from Image B as a glowing orange GPS line or 3D route overlay, cleanly and elegantly placed in the environment or around the subject. The route should follow the real shape from the Strava screenshot as closely as possible, not a random abstract path.
+
+Also add clean Strava-inspired data overlays based on the screenshot, such as: distance, pace, time, elevation gain, calories, heart rate, map preview, and workout summary elements. The overlays should feel modern, minimal, premium, and easy to read, using a Strava-inspired visual language: orange and white accents, thin lines, clean typography, subtle map-grid elements, and refined spacing. Do not make the design too cluttered.
+
+The route and the UI overlays must feel naturally integrated into the real photo: correct perspective, subtle glow, slight transparency, realistic depth, believable placement, consistent lighting, and visual harmony with the scene. They should feel like a premium augmented-reality fitness recap layered into a real photo, not pasted on top.
+
+Maintain the realism of the original image: natural lighting, realistic shadows, authentic skin texture, believable environment, and a polished but not artificial look. The result should feel like a high-end social media fitness visual created from a real photo and a real Strava workout screenshot.
+
+Style: ultra-realistic, premium, clean, athletic, modern, social-media-ready, visually striking but still believable.
+
+Avoid: random route shapes, cluttered interface, unreadable text, fake plastic skin, overly futuristic sci-fi effects, heavy neon overload, distorted anatomy, or changing the identity of the subject.</pre>
+        <button class="copy-btn" id="copy-btn" onclick="copyPrompt()">
+          <span id="copy-label">Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Pro tips per un risultato migliore</h2>
+      <ul>
+        <li><strong>Foto verticale 4:5 o 9:16</strong> — il modello lavora meglio con proporzioni social-native.</li>
+        <li><strong>Screenshot Strava con mappa visibile</strong> — se il tracciato è piccolo o tagliato, il risultato sarà meno preciso.</li>
+        <li><strong>Foto con sfondo pulito</strong> — strade, parchi, natura. Sfondi neutri permettono all'overlay di integrarsi meglio.</li>
+        <li><strong>Non stai correndo nella foto?</strong> Funziona lo stesso — l'AI capisce il contesto dal prompt e dallo screenshot, non dalla posa.</li>
+      </ul>
     </div>
 
     <div class="unlock-note" id="unlock-note">
       Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.
     </div>
+
   </div>
 
-  <div id="paywall-gate" data-od-id="paywall">
+  <div id="paywall-gate">
     <p class="paywall-eyebrow">Continua a leggere</p>
-    <h2 class="paywall-title">Accedi alla guida completa</h2>
-    <p class="paywall-sub">Lascia la tua email per leggere tutto — è gratis. Riceverai anche le prossime risorse appena escono.</p>
+    <h2 class="paywall-title">Accedi al prompt completo</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito il prompt e ricevi le prossime risorse appena escono.</p>
     <form class="access-form" id="access-form" novalidate>
       <div class="form-row">
         <label class="form-label" for="nome">Nome</label>
@@ -176,10 +253,9 @@ body {
         <label class="form-label" for="email">Email</label>
         <input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required>
       </div>
-      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <button class="form-submit" type="submit">Leggi il prompt completo</button>
       <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
     </form>
-  </div>
   </div>
 
 </div>
@@ -189,13 +265,14 @@ body {
     <p class="cta-eyebrow">Formazione & Consulenza</p>
     <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
     <div class="cta-btns">
-    <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
-    <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
   </div>
 </div>
 
 <div class="wrap">
-  <footer class="site-footer" data-od-id="footer">
+  <footer class="site-footer">
     <div class="footer-inner">
       <span class="f-text">© 2026 @giampiero.ai</span>
       <a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
@@ -206,18 +283,21 @@ body {
 <script>
 (function () {
   var STORE = 'giampiero_ai_subscriber';
-  var gate = document.getElementById('paywall-gate');
-  var full = document.getElementById('article-full');
-  var mask = document.getElementById('preview-mask');
-  var note = document.getElementById('unlock-note');
-  var form = document.getElementById('access-form');
+  var gate  = document.getElementById('paywall-gate');
+  var full  = document.getElementById('article-full');
+  var mask  = document.getElementById('preview-mask');
+  var note  = document.getElementById('unlock-note');
+  var form  = document.getElementById('access-form');
+
   function unlock() {
     if (gate) gate.style.display = 'none';
     if (full) full.classList.add('visible');
     if (mask) mask.classList.add('unlocked');
     if (note) note.classList.add('visible');
   }
+
   try { if (localStorage.getItem(STORE)) unlock(); } catch (_) {}
+
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -228,12 +308,26 @@ body {
       fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome: nome, email: email, guida: 'I Migliori AI Tools del Momento', ts: new Date().toISOString() })
+        body: JSON.stringify({ nome: nome, email: email, guida: 'Foto Strava con AI', ts: new Date().toISOString() })
       }).catch(function () {});
       unlock();
     });
   }
 })();
+
+function copyPrompt() {
+  var text = document.getElementById('prompt-text').innerText;
+  var btn  = document.getElementById('copy-btn');
+  var lbl  = document.getElementById('copy-label');
+  navigator.clipboard.writeText(text).then(function () {
+    btn.classList.add('copied');
+    lbl.textContent = 'Copiato ✓';
+    setTimeout(function () {
+      btn.classList.remove('copied');
+      lbl.textContent = 'Copia il prompt';
+    }, 2200);
+  });
+}
 </script>
 </body>
 </html>
