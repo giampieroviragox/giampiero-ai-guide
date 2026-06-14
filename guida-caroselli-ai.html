@@ -193,6 +193,11 @@ body {
       var nome  = form.querySelector('[name="nome"]').value.trim();
       if (!email || !email.includes('@')) { form.querySelector('[name="email"]').focus(); return; }
       try { localStorage.setItem(STORE, JSON.stringify({ nome: nome, email: email, ts: Date.now() })); } catch (_) {}
+      fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, guida: 'Creare Caroselli con l\'AI', ts: new Date().toISOString() })
+      }).catch(function () {});
       unlock();
     });
   }
