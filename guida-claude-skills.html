@@ -301,16 +301,16 @@ body {
 
 /* ---- cta callout ---- */
 .cta-callout {
-  border-top: 1px solid var(--border);
-  padding: 48px 0 56px;
-  margin-top: 8px;
+  background: var(--fg);
+  margin-top: 48px;
+  padding: 44px 40px;
 }
 .cta-callout .cta-eyebrow {
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: oklch(60% 0.008 70);
   margin-bottom: 14px;
 }
 .cta-callout h3 {
@@ -319,7 +319,7 @@ body {
   font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.25;
-  color: var(--fg);
+  color: var(--surface);
   max-width: 38ch;
   margin-bottom: 28px;
 }
@@ -340,13 +340,13 @@ body {
   display: inline-block;
 }
 .cta-btn-primary {
-  background: var(--fg);
-  color: var(--bg);
+  background: var(--surface);
+  color: var(--fg);
 }
 .cta-btn-secondary {
   background: transparent;
-  color: var(--fg);
-  border: 1px solid var(--border);
+  color: var(--surface);
+  border: 1px solid oklch(38% 0.012 70);
 }
 .cta-btn:hover { opacity: 0.75; }
 
@@ -472,16 +472,18 @@ body {
       <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
     </form>
   </div>
-
-  <div class="cta-callout">
-    <p class="cta-eyebrow">Formazione & Consulenza</p>
-    <h3>Vuoi portare l'AI in azienda o formarti sul serio?</h3>
-    <div class="cta-btns">
-      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
-      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
-    </div>
   </div>
 
+</div>
+
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+    <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+    <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+  </div>
 </div>
 
 <div class="wrap">
