@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Le Skills di Claude — @giampiero.ai</title>
+<link rel="icon" type="image/png" href="favicon.png">
 <style>
 :root {
   --bg:      oklch(98% 0.004 95);
@@ -63,6 +64,8 @@ body {
   transition: color 0.15s;
 }
 .nav-ig:hover { color: var(--fg); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 
 /* ---- breadcrumb ---- */
 .breadcrumb {
@@ -328,7 +331,10 @@ body {
 
 <header class="site-header" data-od-id="header">
   <div class="header-inner">
-    <a class="logo" href="index.html">@giampiero.ai</a>
+    <a class="logo-wrap" href="index.html">
+      <img class="avatar" src="avatar.png" alt="Giampiero">
+      <span class="logo">@giampiero.ai</span>
+    </a>
     <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
   </div>
 </header>

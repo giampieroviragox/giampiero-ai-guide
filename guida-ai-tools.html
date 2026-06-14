@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>I Migliori AI Tools del Momento — @giampiero.ai</title>
+<link rel="icon" type="image/png" href="favicon.png">
 <style>
 :root {
   --bg:      oklch(98% 0.004 95);
@@ -26,6 +27,8 @@ body {
 .site-header { padding: 20px 0; border-bottom: 1px solid var(--border); }
 .header-inner { max-width: 860px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
 .logo { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); text-decoration: none; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
 .nav-ig:hover { color: var(--fg); }
 .breadcrumb { padding: 20px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
@@ -81,7 +84,10 @@ body {
 
 <header class="site-header" data-od-id="header">
   <div class="header-inner">
-    <a class="logo" href="index.html">@giampiero.ai</a>
+    <a class="logo-wrap" href="index.html">
+      <img class="avatar" src="avatar.png" alt="Giampiero">
+      <span class="logo">@giampiero.ai</span>
+    </a>
     <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
   </div>
 </header>
