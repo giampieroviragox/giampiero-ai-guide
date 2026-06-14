@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd /tmp/gv_zip && wc -l *.html *.md *.json && echo \"===MANIFEST===\" && cat DESIGN-MANIFEST.json)"
+    ]
+  }
+}
