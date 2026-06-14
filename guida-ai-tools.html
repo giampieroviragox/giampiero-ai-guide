@@ -69,6 +69,14 @@ body {
 #article-full.visible { display: block; }
 .unlock-note { display: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 8px; }
 .unlock-note.visible { display: block; }
+.cta-callout { border-top: 1px solid var(--border); padding: 48px 0 56px; margin-top: 8px; }
+.cta-callout .cta-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.cta-callout h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25; color: var(--fg); max-width: 38ch; margin-bottom: 28px; }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta-btn { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.01em; padding: 11px 20px; text-decoration: none; border-radius: 0; transition: opacity 0.15s; display: inline-block; }
+.cta-btn-primary { background: var(--fg); color: var(--bg); }
+.cta-btn-secondary { background: transparent; color: var(--fg); border: 1px solid var(--border); }
+.cta-btn:hover { opacity: 0.75; }
 .site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 48px; }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; }
 .f-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; }
@@ -103,7 +111,7 @@ body {
   <header class="article-header" data-od-id="article-header">
     <span class="article-tag">Strumenti</span>
     <h1 class="article-title">I Migliori AI Tools del Momento</h1>
-    <p class="article-meta">Giampiero · Giugno 2025 · 5 min di lettura</p>
+    <p class="article-meta">Giampiero · Giugno 2026 · 5 min di lettura</p>
   </header>
 
   <div class="article-content" data-od-id="article-preview">
@@ -173,12 +181,21 @@ body {
     </form>
   </div>
 
+  <div class="cta-callout">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o formarti sul serio?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+
 </div>
 
 <div class="wrap">
   <footer class="site-footer" data-od-id="footer">
     <div class="footer-inner">
-      <span class="f-text">© 2025 @giampiero.ai</span>
+      <span class="f-text">© 2026 @giampiero.ai</span>
       <a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
     </div>
   </footer>
