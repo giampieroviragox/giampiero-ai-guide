@@ -46,6 +46,27 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-body); f
 .tool-shot img { display: block; width: 100%; height: auto; }
 .tool-shot figcaption { padding: 9px 12px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted); border-top: 1px solid var(--border); }
 .code-block { margin: 18px 0 22px; padding: 16px; background: oklch(17% 0.012 70); color: var(--surface); overflow-x: auto; font-family: var(--font-mono); font-size: 13px; line-height: 1.55; }
+.preview-wrap { position: relative; }
+.preview-mask { position: relative; overflow: hidden; }
+.preview-mask::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+.preview-mask.unlocked::after { display: none; }
+#article-full { display: none; }
+#article-full.visible { display: block; }
+.unlock-note { display: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 8px; }
+.unlock-note.visible { display: block; }
+#paywall-gate { padding: 48px 0 20px; border-top: 1px solid var(--border); margin-top: 8px; }
+.paywall-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.paywall-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; color: var(--fg); margin-bottom: 10px; }
+.paywall-sub { font-size: 15px; color: var(--muted); max-width: 44ch; line-height: 1.6; margin-bottom: 28px; }
+.access-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.form-row { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.form-input { font-family: var(--font-body); font-size: 15px; color: var(--fg); background: var(--surface); border: 1px solid var(--border); border-radius: 0; padding: 10px 12px; outline: none; width: 100%; transition: border-color 0.15s; -webkit-appearance: none; }
+.form-input:focus { border-color: var(--fg); }
+.form-input::placeholder { color: var(--muted); }
+.form-submit { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.02em; color: var(--surface); background: var(--accent); border: none; padding: 11px 20px; cursor: pointer; border-radius: 0; width: 100%; margin-top: 4px; transition: opacity 0.15s; -webkit-appearance: none; }
+.form-submit:hover { opacity: 0.88; }
+.form-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted); margin-top: 4px; }
 .quick-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 30px 0 0; }
 .quick-link { display: inline-block; font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.01em; color: var(--surface); background: var(--accent); padding: 10px 16px; text-decoration: none; }
 .quick-link.secondary { color: var(--fg); background: transparent; border: 1px solid var(--border); }
@@ -87,29 +108,34 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-body); f
     <p class="article-meta">Giampiero · Giugno 2026 · 3 min di lettura</p>
   </header>
 
-  <article class="article-content">
-    <figure class="tool-shot">
-      <img src="gsap-screenshot.png" alt="Screenshot della homepage GSAP">
-      <figcaption>Screenshot da gsap.com, salvato come riferimento visivo della puntata.</figcaption>
-    </figure>
+  <div class="article-content">
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <figure class="tool-shot">
+          <img src="gsap-screenshot.png" alt="Screenshot della homepage GSAP">
+          <figcaption>Screenshot da gsap.com, salvato come riferimento visivo della puntata.</figcaption>
+        </figure>
 
-    <p>GSAP è una libreria JavaScript per animare elementi su siti, web app e interfacce creative. In pratica: se JavaScript può selezionare un elemento, GSAP può muoverlo, scalarlo, ruotarlo, farlo apparire, sincronizzarlo con altri elementi o controllarlo dentro una timeline.</p>
+        <p>GSAP è una libreria JavaScript per animare elementi su siti, web app e interfacce creative. In pratica: se JavaScript può selezionare un elemento, GSAP può muoverlo, scalarlo, ruotarlo, farlo apparire, sincronizzarlo con altri elementi o controllarlo dentro una timeline.</p>
 
-    <p>La cosa interessante non è solo l'effetto wow. È il controllo. GSAP serve quando vuoi animazioni fluide e precise senza impazzire con mille classi CSS, timeout e stati intermedi.</p>
+        <p>La cosa interessante non è solo l'effetto wow. È il controllo. GSAP serve quando vuoi animazioni fluide e precise senza impazzire con mille classi CSS, timeout e stati intermedi.</p>
+      </div>
+    </div>
 
-    <h2>Quando usarlo</h2>
-    <ul>
-      <li>Hero section più dinamiche, senza rifare tutto il sito.</li>
-      <li>Scroll animation per landing page, portfolio e pagine prodotto.</li>
-      <li>Micro-interazioni su bottoni, card, menu e modali.</li>
-      <li>Sequenze animate dove più elementi devono partire nel momento giusto.</li>
-      <li>SVG, UI e interfacce creative che devono sembrare più premium.</li>
-    </ul>
+    <div id="article-full">
+      <h2>Quando usarlo</h2>
+      <ul>
+        <li>Hero section più dinamiche, senza rifare tutto il sito.</li>
+        <li>Scroll animation per landing page, portfolio e pagine prodotto.</li>
+        <li>Micro-interazioni su bottoni, card, menu e modali.</li>
+        <li>Sequenze animate dove più elementi devono partire nel momento giusto.</li>
+        <li>SVG, UI e interfacce creative che devono sembrare più premium.</li>
+      </ul>
 
-    <h2>Il primo snippet</h2>
-    <p>Il modo più semplice per capirlo è questo: selezioni un elemento e dici a GSAP dove deve arrivare.</p>
+      <h2>Il primo snippet</h2>
+      <p>Il modo più semplice per capirlo è questo: selezioni un elemento e dici a GSAP dove deve arrivare.</p>
 
-    <pre class="code-block"><code>&lt;script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"&gt;&lt;/script&gt;
+      <pre class="code-block"><code>&lt;script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"&gt;&lt;/script&gt;
 
 &lt;script&gt;
   gsap.to(".box", {
@@ -120,19 +146,42 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-body); f
   });
 &lt;/script&gt;</code></pre>
 
-    <p><code>gsap.to()</code> parte dallo stato attuale dell'elemento e lo anima verso i valori che gli dai. Per sequenze più lunghe puoi usare <code>gsap.timeline()</code>, che ti permette di orchestrare più animazioni come una mini regia.</p>
+      <p><code>gsap.to()</code> parte dallo stato attuale dell'elemento e lo anima verso i valori che gli dai. Per sequenze più lunghe puoi usare <code>gsap.timeline()</code>, che ti permette di orchestrare più animazioni come una mini regia.</p>
 
-    <h2>Perché lo segnerei tra gli AI tools</h2>
-    <p>Perché con Claude Code, Codex o Cursor puoi descrivere l'effetto che vuoi e farti scrivere direttamente la timeline GSAP. Tu ragioni in termini di risultato: "fai entrare il titolo, poi le card, poi il bottone". L'AI traduce quella regia in codice.</p>
+      <h2>Perché lo segnerei tra gli AI tools</h2>
+      <p>Perché con Claude Code, Codex o Cursor puoi descrivere l'effetto che vuoi e farti scrivere direttamente la timeline GSAP. Tu ragioni in termini di risultato: "fai entrare il titolo, poi le card, poi il bottone". L'AI traduce quella regia in codice.</p>
 
-    <p>Se costruisci siti con AI, GSAP è uno di quei tool che alza subito la percezione del progetto: stesso contenuto, ma con più ritmo, più controllo e più qualità visiva.</p>
+      <p>Se costruisci siti con AI, GSAP è uno di quei tool che alza subito la percezione del progetto: stesso contenuto, ma con più ritmo, più controllo e più qualità visiva.</p>
 
-    <div class="quick-links">
-      <a class="quick-link" href="https://gsap.com/" target="_blank" rel="noopener">Apri GSAP →</a>
-      <a class="quick-link secondary" href="https://gsap.com/resources/get-started/" target="_blank" rel="noopener">Getting started</a>
-      <a class="quick-link secondary" href="index.html?serie=ai-tools">Tutti gli AI Tools</a>
+      <div class="quick-links">
+        <a class="quick-link" href="https://gsap.com/" target="_blank" rel="noopener">Apri GSAP →</a>
+        <a class="quick-link secondary" href="https://gsap.com/resources/get-started/" target="_blank" rel="noopener">Getting started</a>
+        <a class="quick-link secondary" href="index.html?serie=ai-tools">Tutti gli AI Tools</a>
+      </div>
     </div>
-  </article>
+
+    <div class="unlock-note" id="unlock-note">
+      Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.
+    </div>
+  </div>
+
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row">
+        <label class="form-label" for="nome">Nome</label>
+        <input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name">
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required>
+      </div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
 
 </div>
 
@@ -145,5 +194,37 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-body); f
   </footer>
 </div>
 
+<script>
+(function () {
+  var STORE = 'giampiero_ai_subscriber';
+  var gate  = document.getElementById('paywall-gate');
+  var full  = document.getElementById('article-full');
+  var mask  = document.getElementById('preview-mask');
+  var note  = document.getElementById('unlock-note');
+  var form  = document.getElementById('access-form');
+  function unlock() {
+    if (gate) gate.style.display = 'none';
+    if (full) full.classList.add('visible');
+    if (mask) mask.classList.add('unlocked');
+    if (note) note.classList.add('visible');
+  }
+  try { if (localStorage.getItem(STORE)) unlock(); } catch (_) {}
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('[name="email"]').value.trim();
+      var nome  = form.querySelector('[name="nome"]').value.trim();
+      if (!email || !email.includes('@')) { form.querySelector('[name="email"]').focus(); return; }
+      try { localStorage.setItem(STORE, JSON.stringify({ nome: nome, email: email, ts: Date.now() })); } catch (_) {}
+      fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, guida: 'GSAP: animazioni JavaScript professionali in pochi minuti', ts: new Date().toISOString() })
+      }).catch(function () {});
+      unlock();
+    });
+  }
+})();
+</script>
 </body>
 </html>

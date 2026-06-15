@@ -39,6 +39,23 @@ assert(gsapGuide.includes('gsap.to('), 'GSAP guide should include a minimal gsap
 assert(gsapGuide.includes('gsap-screenshot.png'), 'GSAP guide should include the local screenshot asset');
 assert(fs.existsSync('gsap-screenshot.png'), 'GSAP screenshot asset should exist');
 
+const guideFiles = fs
+  .readdirSync('.')
+  .filter((file) => /^guida.*\.html$/.test(file));
+
+assert(guideFiles.length > 0, 'guide files should exist');
+
+const guidesWithoutGate = guideFiles.filter((file) => {
+  const guideHtml = fs.readFileSync(file, 'utf8');
+  return (
+    !guideHtml.includes('id="paywall-gate"') ||
+    !guideHtml.includes('id="access-form"') ||
+    !guideHtml.includes("giampiero_ai_subscriber")
+  );
+});
+
+assert.deepStrictEqual(guidesWithoutGate, [], 'every guide should include the email gate');
+
 assert(
   html.includes("URLSearchParams(window.location.search)") &&
     html.includes("params.get('serie')"),
