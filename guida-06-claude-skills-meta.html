@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>5 skill per Claude che migliorano tutto il resto — @giampiero.ai</title>
+<meta name="description" content="Non skill per workflow specifici, ma meta-skill che cambiano come Claude pensa, scrive e costruisce. Grill Me, Prompt Master, Fact Checker, Humanizer e MCP Builder.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root {
+  --bg:      oklch(98% 0.004 95);
+  --surface: oklch(100% 0.002 95);
+  --fg:      oklch(20% 0.018 70);
+  --muted:   oklch(48% 0.012 70);
+  --border:  oklch(90% 0.006 95);
+  --accent:  oklch(52% 0.10 28);
+  --font-display: 'Iowan Old Style','Charter',Georgia,serif;
+  --font-body:    -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --font-mono:    ui-monospace,'SF Mono',Menlo,monospace;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body);
+  font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+.article-wrap { max-width: 660px; margin: 0 auto; padding: 0 24px; }
+.site-header { padding: 20px 0; border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 860px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); text-decoration: none; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+.nav-ig:hover { color: var(--fg); }
+.breadcrumb { padding: 20px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--fg); }
+.breadcrumb span { margin: 0 6px; }
+.article-header { padding: 32px 0 40px; border-bottom: 1px solid var(--border); }
+.article-tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.article-title { font-family: var(--font-display); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 18px; max-width: 22ch; text-wrap: pretty; }
+.article-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.article-content { padding: 40px 0 0; }
+.article-content p { font-size: 17px; line-height: 1.7; color: var(--fg); max-width: 65ch; margin-bottom: 20px; }
+.article-content h2 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.3; color: var(--fg); margin: 36px 0 14px; }
+.article-content ul { margin: 0 0 20px 0; padding-left: 20px; }
+.article-content ul li { font-size: 17px; line-height: 1.65; color: var(--fg); max-width: 60ch; margin-bottom: 8px; }
+.article-content ul li strong { font-weight: 550; }
+.step { display: flex; gap: 16px; align-items: baseline; margin-bottom: 12px; max-width: 60ch; }
+.step-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.step-text { font-size: 17px; line-height: 1.65; color: var(--fg); }
+.prompt-box { position: relative; background: var(--fg); padding: 28px 28px 24px; margin: 28px 0 24px; max-width: 65ch; }
+.prompt-box .prompt-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.prompt-box pre { font-family: var(--font-mono); font-size: 13px; line-height: 1.7; color: oklch(92% 0.004 95); white-space: pre-wrap; word-break: break-word; margin: 0; }
+.copy-btn { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; background: transparent; border: 1px solid oklch(38% 0.012 70); color: oklch(75% 0.006 70); padding: 8px 14px; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
+.copy-btn:hover { border-color: oklch(65% 0.008 70); color: oklch(90% 0.004 95); }
+.copy-btn.copied { color: oklch(75% 0.12 145); border-color: oklch(55% 0.10 145); }
+.preview-wrap { position: relative; }
+.preview-mask { position: relative; overflow: hidden; }
+.preview-mask::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+.preview-mask.unlocked::after { display: none; }
+#paywall-gate { padding: 48px 0 60px; border-top: 1px solid var(--border); margin-top: 8px; }
+.paywall-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.paywall-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; color: var(--fg); margin-bottom: 10px; }
+.paywall-sub { font-size: 15px; color: var(--muted); max-width: 44ch; line-height: 1.6; margin-bottom: 28px; }
+.access-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.form-row { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.form-input { font-family: var(--font-body); font-size: 15px; color: var(--fg); background: var(--surface); border: 1px solid var(--border); border-radius: 0; padding: 10px 12px; outline: none; width: 100%; transition: border-color 0.15s; -webkit-appearance: none; }
+.form-input:focus { border-color: var(--fg); }
+.form-input::placeholder { color: var(--muted); }
+.form-submit { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.02em; color: var(--surface); background: var(--accent); border: none; padding: 11px 20px; cursor: pointer; border-radius: 0; width: 100%; margin-top: 4px; transition: opacity 0.15s; -webkit-appearance: none; }
+.form-submit:hover { opacity: 0.88; }
+.form-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted); margin-top: 4px; }
+#article-full { display: none; }
+#article-full.visible { display: block; }
+.unlock-note { display: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 8px; }
+.unlock-note.visible { display: block; }
+.cta-callout { background: var(--fg); padding: 44px 40px; }
+.cta-callout .cta-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.cta-callout h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25; color: var(--surface); max-width: 38ch; margin-bottom: 28px; }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta-btn { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.01em; padding: 11px 20px; text-decoration: none; border-radius: 0; transition: opacity 0.15s; display: inline-block; }
+.cta-btn-primary { background: var(--surface); color: var(--fg); }
+.cta-btn-secondary { background: transparent; color: var(--surface); border: 1px solid oklch(38% 0.012 70); }
+.cta-btn:hover { opacity: 0.75; }
+.site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 0; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; }
+.f-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; }
+.f-text:hover { color: var(--fg); }
+@media (max-width: 580px) {
+  .article-title { font-size: 28px; }
+  .paywall-title { font-size: 22px; }
+  .prompt-box { padding: 22px 18px 18px; }
+  .cta-callout { padding: 36px 24px; }
+  .site-footer .footer-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html">
+      <img class="avatar" src="avatar.png" alt="Giampiero">
+      <span class="logo">@giampiero.ai</span>
+    </a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <nav class="breadcrumb">
+    <a href="index.html">Guide</a>
+    <span>·</span>
+    <span>5 skill per Claude che migliorano tutto</span>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-tag">Claude</span>
+    <h1 class="article-title">5 skill per Claude che migliorano tutto il resto</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 5 min di lettura</p>
+  </header>
+
+  <div class="article-content">
+
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>La maggior parte delle skill per Claude risolvono un problema specifico: generare un post, analizzare un file, scrivere un'email. Utili, ma limitate. Esistono però cinque skill di un tipo diverso — non risolvono un compito, <em>cambiano come Claude ragiona</em>.</p>
+
+        <p>Sono meta-skill: strumenti che migliorano la qualità di tutto ciò che Claude produce, indipendentemente dal task. Installale una volta e lavorano in silenzio dietro ogni altra cosa che fai con Claude.</p>
+
+        <p>Il problema principale di Claude non è la conoscenza — è che tende ad agire troppo in fretta, prima di capire davvero cosa vuoi. La prima skill in questa lista risolve esattamente questo.</p>
+      </div>
+    </div>
+
+    <div id="article-full">
+
+      <h2>Come installare qualsiasi skill</h2>
+
+      <div class="step">
+        <span class="step-num">01</span>
+        <span class="step-text">Crea la cartella della skill: <code>mkdir -p ~/.claude/skills/[nome-skill]</code></span>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <span class="step-text">Copia il contenuto del file <code>SKILL.md</code> dal link del repository e incollalo in un file <code>SKILL.md</code> dentro quella cartella. Se la skill ha file di riferimento, aggiungili nella sottocartella <code>references/</code>.</span>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <span class="step-text">Apri Claude Code e prova la frase di attivazione. Claude carica automaticamente le nuove skill.</span>
+      </div>
+
+      <h2>Skill 1 — Grill Me: Claude che capisce prima di agire</h2>
+      <p>Il difetto più comune di Claude è saltare direttamente all'azione prima di aver capito cosa vuoi davvero. Grill Me risolve questo imponendo a Claude di farti 10-15 domande dettagliate prima di toccare qualsiasi cosa.</p>
+      <p>Alla fine dell'intervista hai un brief completo con comprensione condivisa e processo definito. Non è un rallentamento — è la differenza tra un risultato che devi rifare tre volte e uno che centra subito.</p>
+      <p><strong>Frasi che attivano la skill:</strong> "grill me su", "intervistami", "aiutami a pianificare", "definisci questo progetto".</p>
+      <p><strong>Include:</strong> file di riferimento per il template dell'output e del piano di lavoro.</p>
+      <p><strong>Repository:</strong> cerca "Grill Me skill Claude" — scarica il file SKILL.md e salvalo in <code>~/.claude/skills/grill-me/</code>.</p>
+
+      <h2>Skill 2 — Prompt Master: i tuoi prompt disorganizzati diventano precisi</h2>
+      <p>Prende il tuo prompt scritto di fretta e lo ristruttura seguendo le best practice <em>prima</em> che Claude esegua il task. Non devi imparare a scrivere prompt perfetti — Prompt Master lo fa per te ogni volta.</p>
+      <p>La skill riconosce automaticamente quale strumento AI stai usando e adatta l'ottimizzazione di conseguenza: funziona con Claude, ChatGPT, Cursor, Midjourney e altri 20+ strumenti.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Riga da aggiungere al tuo CLAUDE.md</p>
+        <pre id="prompt-text-1">Ogni volta che uso un prompt lungo e non strutturato, esegui automaticamente Prompt Master prima di elaborare.</pre>
+        <button class="copy-btn" id="copy-btn-1" onclick="copyPromptById('prompt-text-1','copy-btn-1','copy-label-1')">
+          <span id="copy-label-1">Copia</span>
+        </button>
+      </div>
+
+      <p><strong>File di riferimento inclusi:</strong> <code>templates.md</code> e <code>patterns.md</code>. Salvali in <code>~/.claude/skills/prompt-master/</code>.</p>
+
+      <h2>Skill 3 — Fact Checker: zero errori fattuali prima della pubblicazione</h2>
+      <p>Verifica ogni affermazione fattuale in qualsiasi testo generato da Claude prima che lo pubblichi. Incrocia le fonti sul web e assegna a ogni affermazione una valutazione: Vero, Prevalentemente Vero, Misto, Prevalentemente Falso, Falso o Non Verificabile.</p>
+      <p><strong>Tre casi d'uso concreti:</strong></p>
+      <ul>
+        <li>Verifica i contenuti AI prima di pubblicarli</li>
+        <li>Controlla le tue scalette e outline</li>
+        <li>Fact-check articoli di terzi</li>
+      </ul>
+      <p><strong>Frasi di attivazione:</strong> "fact check", "verifica", "è vero questo".</p>
+      <p>Salva la skill in <code>~/.claude/skills/fact-checker/</code>.</p>
+
+      <h2>Skill 4 — Humanizer: testi AI che sembrano scritti da una persona</h2>
+      <p>Esegui questa skill su qualsiasi testo che le persone leggeranno. Individua le parole spia dell'AI — "sbloccare", "sfruttare", "esplorare", "arazzo" — e le sostituisce con il modo in cui parla un essere umano reale.</p>
+      <p>La skill è basata sulla guida di Wikipedia sui segnali riconoscibili della scrittura AI. Puoi personalizzarla aggiungendo i pattern che non vuoi vedere nei tuoi testi specifici.</p>
+      <p><strong>Best practice:</strong> aggiungila come ultimo passaggio in qualsiasi skill di copywriting. Così ogni output passa automaticamente per l'Humanizer prima di arrivare a te.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Riga da aggiungere al tuo CLAUDE.md</p>
+        <pre id="prompt-text-2">Esegui sempre l'Humanizer come ultimo passaggio su qualsiasi task di scrittura prima dell'output finale.</pre>
+        <button class="copy-btn" id="copy-btn-2" onclick="copyPromptById('prompt-text-2','copy-btn-2','copy-label-2')">
+          <span id="copy-label-2">Copia</span>
+        </button>
+      </div>
+
+      <p>Open source su GitHub. Clona o copia il file SKILL.md in <code>~/.claude/skills/humanizer/</code>.</p>
+
+      <h2>Skill 5 — MCP Builder: Claude che costruisce i suoi stessi connector</h2>
+      <p>Questa skill è già integrata in Claude — la maggior parte delle persone non sa che esiste. Se un software non ha un MCP connector disponibile, Claude te lo costruisce direttamente dalla documentazione API.</p>
+      <p>Claude legge i docs, ti chiede quali funzionalità vuoi, e genera il server MCP completo con le istruzioni di installazione. Funziona con qualsiasi software che abbia un'API.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Come attivare MCP Builder</p>
+        <pre id="prompt-text-3">Usa la skill MCP Builder per costruirmi un MCP per [nome software].</pre>
+        <button class="copy-btn" id="copy-btn-3" onclick="copyPromptById('prompt-text-3','copy-btn-3','copy-label-3')">
+          <span id="copy-label-3">Copia il prompt</span>
+        </button>
+      </div>
+
+      <p><strong>Nessuna installazione necessaria.</strong> È una skill integrata — basta la frase di attivazione.</p>
+
+      <h2>Le 3 righe da aggiungere al tuo CLAUDE.md adesso</h2>
+      <p>Queste tre righe nel tuo file <code>CLAUDE.md</code> attivano le meta-skill automaticamente, senza doverle richiamare ogni volta:</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Configurazione automatica — CLAUDE.md</p>
+        <pre id="prompt-text-4">Ogni volta che uso un prompt lungo e non strutturato, esegui automaticamente Prompt Master prima di elaborare.
+Esegui sempre l'Humanizer come ultimo passaggio su qualsiasi task di scrittura.
+Prima di pubblicare qualsiasi contenuto, esegui il Fact Checker sulla bozza finale.</pre>
+        <button class="copy-btn" id="copy-btn-4" onclick="copyPromptById('prompt-text-4','copy-btn-4','copy-label-4')">
+          <span id="copy-label-4">Copia le 3 righe</span>
+        </button>
+      </div>
+
+      <p>Queste tre righe migliorano in modo significativo tutto ciò che Claude produce. Non è un'esagerazione — è la differenza tra usare Claude come un assistente generico e usarlo come uno strumento di produzione seria.</p>
+
+    </div>
+
+    <div class="unlock-note" id="unlock-note">
+      Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.
+    </div>
+
+  </div>
+
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row">
+        <label class="form-label" for="nome">Nome</label>
+        <input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name">
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required>
+      </div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+
+</div>
+
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="f-text">© 2026 @giampiero.ai</span>
+      <a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var STORE = 'giampiero_ai_subscriber';
+  var gate  = document.getElementById('paywall-gate');
+  var full  = document.getElementById('article-full');
+  var mask  = document.getElementById('preview-mask');
+  var note  = document.getElementById('unlock-note');
+  var form  = document.getElementById('access-form');
+  function unlock() {
+    if (gate) gate.style.display = 'none';
+    if (full) full.classList.add('visible');
+    if (mask) mask.classList.add('unlocked');
+    if (note) note.classList.add('visible');
+  }
+  try { if (localStorage.getItem(STORE)) unlock(); } catch (_) {}
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('[name="email"]').value.trim();
+      var nome  = form.querySelector('[name="nome"]').value.trim();
+      if (!email || !email.includes('@')) { form.querySelector('[name="email"]').focus(); return; }
+      try { localStorage.setItem(STORE, JSON.stringify({ nome: nome, email: email, ts: Date.now() })); } catch (_) {}
+      fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, guida: 'guida-06-claude-skills-meta', ts: new Date().toISOString() })
+      }).catch(function () {});
+      unlock();
+    });
+  }
+})();
+
+function copyPromptById(textId, btnId, labelId) {
+  var text = document.getElementById(textId).innerText;
+  var btn  = document.getElementById(btnId);
+  var lbl  = document.getElementById(labelId);
+  navigator.clipboard.writeText(text).then(function () {
+    btn.classList.add('copied');
+    lbl.textContent = 'Copiato ✓';
+    setTimeout(function () {
+      btn.classList.remove('copied');
+      lbl.textContent = 'Copia';
+    }, 2200);
+  });
+}
+</script>
+</body>
+</html>

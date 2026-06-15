@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ChatGPT Image 2: 6 casi d'uso con prompt pronti per campagne, mockup e headshot — @giampiero.ai</title>
+<meta name="description" content="Come usare ChatGPT Image 2 in modalità thinking per generare campagne pubblicitarie, foto prodotto, mockup packaging, headshot professionali e asset per lead magnet. Setup e 6 prompt pronti.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root {
+  --bg:      oklch(98% 0.004 95);
+  --surface: oklch(100% 0.002 95);
+  --fg:      oklch(20% 0.018 70);
+  --muted:   oklch(48% 0.012 70);
+  --border:  oklch(90% 0.006 95);
+  --accent:  oklch(52% 0.10 28);
+  --font-display: 'Iowan Old Style','Charter',Georgia,serif;
+  --font-body:    -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --font-mono:    ui-monospace,'SF Mono',Menlo,monospace;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body);
+  font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+.article-wrap { max-width: 660px; margin: 0 auto; padding: 0 24px; }
+.site-header { padding: 20px 0; border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 860px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); text-decoration: none; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+.nav-ig:hover { color: var(--fg); }
+.breadcrumb { padding: 20px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--fg); }
+.breadcrumb span { margin: 0 6px; }
+.article-header { padding: 32px 0 40px; border-bottom: 1px solid var(--border); }
+.article-tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.article-title { font-family: var(--font-display); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 18px; max-width: 22ch; text-wrap: pretty; }
+.article-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.article-content { padding: 40px 0 0; }
+.article-content p { font-size: 17px; line-height: 1.7; color: var(--fg); max-width: 65ch; margin-bottom: 20px; }
+.article-content h2 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.3; color: var(--fg); margin: 36px 0 14px; }
+.article-content ul { margin: 0 0 20px 0; padding-left: 20px; }
+.article-content ul li { font-size: 17px; line-height: 1.65; color: var(--fg); max-width: 60ch; margin-bottom: 8px; }
+.article-content ul li strong { font-weight: 550; }
+.step { display: flex; gap: 16px; align-items: baseline; margin-bottom: 12px; max-width: 60ch; }
+.step-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.step-text { font-size: 17px; line-height: 1.65; color: var(--fg); }
+.prompt-box { position: relative; background: var(--fg); padding: 28px 28px 24px; margin: 28px 0 24px; max-width: 65ch; }
+.prompt-box .prompt-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.prompt-box pre { font-family: var(--font-mono); font-size: 13px; line-height: 1.7; color: oklch(92% 0.004 95); white-space: pre-wrap; word-break: break-word; margin: 0; }
+.copy-btn { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; background: transparent; border: 1px solid oklch(38% 0.012 70); color: oklch(75% 0.006 70); padding: 8px 14px; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
+.copy-btn:hover { border-color: oklch(65% 0.008 70); color: oklch(90% 0.004 95); }
+.copy-btn.copied { color: oklch(75% 0.12 145); border-color: oklch(55% 0.10 145); }
+.preview-wrap { position: relative; }
+.preview-mask { position: relative; overflow: hidden; }
+.preview-mask::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+.preview-mask.unlocked::after { display: none; }
+#paywall-gate { padding: 48px 0 60px; border-top: 1px solid var(--border); margin-top: 8px; }
+.paywall-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.paywall-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; color: var(--fg); margin-bottom: 10px; }
+.paywall-sub { font-size: 15px; color: var(--muted); max-width: 44ch; line-height: 1.6; margin-bottom: 28px; }
+.access-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.form-row { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.form-input { font-family: var(--font-body); font-size: 15px; color: var(--fg); background: var(--surface); border: 1px solid var(--border); border-radius: 0; padding: 10px 12px; outline: none; width: 100%; transition: border-color 0.15s; -webkit-appearance: none; }
+.form-input:focus { border-color: var(--fg); }
+.form-input::placeholder { color: var(--muted); }
+.form-submit { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.02em; color: var(--surface); background: var(--accent); border: none; padding: 11px 20px; cursor: pointer; border-radius: 0; width: 100%; margin-top: 4px; transition: opacity 0.15s; -webkit-appearance: none; }
+.form-submit:hover { opacity: 0.88; }
+.form-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted); margin-top: 4px; }
+#article-full { display: none; }
+#article-full.visible { display: block; }
+.unlock-note { display: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 8px; }
+.unlock-note.visible { display: block; }
+.cta-callout { background: var(--fg); padding: 44px 40px; }
+.cta-callout .cta-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.cta-callout h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25; color: var(--surface); max-width: 38ch; margin-bottom: 28px; }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta-btn { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.01em; padding: 11px 20px; text-decoration: none; border-radius: 0; transition: opacity 0.15s; display: inline-block; }
+.cta-btn-primary { background: var(--surface); color: var(--fg); }
+.cta-btn-secondary { background: transparent; color: var(--surface); border: 1px solid oklch(38% 0.012 70); }
+.cta-btn:hover { opacity: 0.75; }
+.site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 0; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; }
+.f-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; }
+.f-text:hover { color: var(--fg); }
+@media (max-width: 580px) {
+  .article-title { font-size: 28px; }
+  .paywall-title { font-size: 22px; }
+  .prompt-box { padding: 22px 18px 18px; }
+  .cta-callout { padding: 36px 24px; }
+  .site-footer .footer-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html">
+      <img class="avatar" src="avatar.png" alt="Giampiero">
+      <span class="logo">@giampiero.ai</span>
+    </a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <nav class="breadcrumb">
+    <a href="index.html">Guide</a>
+    <span>·</span>
+    <span>ChatGPT Image 2 — libreria casi d'uso</span>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-tag">Immagini</span>
+    <h1 class="article-title">ChatGPT Image 2: 6 casi d'uso con prompt pronti per campagne, mockup e headshot</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 6 min di lettura</p>
+  </header>
+
+  <div class="article-content">
+
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>ChatGPT Image 2 è disponibile dentro ChatGPT Plus (20$/mese) e nei piani Team. Ma lo sblocco vero non è il modello in sé — è la modalità thinking, che la maggior parte delle persone non sa di dover attivare.</p>
+
+        <p>Senza quel toggle, ottieni i soliti output generici. Con il toggle attivo, il modello ragiona prima di generare — esattamente come farebbe un designer che si briffa da solo prima di aprire Photoshop. Il risultato è la differenza tra un'immagine stock qualsiasi e un output professionale al primo tentativo, anche con un prompt di mezza riga.</p>
+
+        <p>In questa guida trovi il setup in 3 passi e 6 prompt pronti da copiare per i casi d'uso che uso di più: campagne pubblicitarie complete, foto prodotto con modelli, mockup packaging, headshot professionali da selfie, asset per lead magnet e poster per eventi.</p>
+      </div>
+    </div>
+
+    <div id="article-full">
+
+      <h2>Setup: non saltare questo passaggio</h2>
+
+      <div class="step">
+        <span class="step-num">01</span>
+        <span class="step-text"><strong>Apri ChatGPT</strong> — vai su chatgpt.com da browser web. Image 2 richiede la web app per gli allegati e le foto di riferimento.</span>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <span class="step-text"><strong>Passa alla variante thinking</strong> — clicca il selettore del modello in cima alla chat e seleziona la variante thinking. Questo dice a ChatGPT di ragionare prima di renderizzare. Senza questo toggle, ottieni il vecchio comportamento di generazione immagini. Con il toggle attivo, ottieni output professionali al primo colpo anche da prompt brevi.</span>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <span class="step-text"><strong>Aggiungi immagini di riferimento</strong> — trascina qualsiasi immagine di riferimento (una foto prodotto, un selfie, un annuncio concorrente). Poi descrivi quello che vuoi in italiano semplice. Image 2 capisce il resto.</span>
+      </div>
+
+      <h2>I 6 casi d'uso con prompt pronti</h2>
+
+      <h2>Caso 1 — Campagna pubblicitaria completa da una foto prodotto</h2>
+      <p>Allega una foto pulita del prodotto. Ottieni una campagna completa con tre varianti che si abbinano allo stile del brand.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt — Campagna pubblicitaria</p>
+        <pre id="prompt-text">Prendi questo prodotto e crea una campagna pubblicitaria completa con tre varianti: uno hero shot per il paid social, uno lifestyle shot per l'organico e un annuncio problema/soluzione comparativo. Abbina lo stile del brand a [brand di riferimento o URL del sito]. Fai in modo che ognuno sembri provenire dalla stessa campagna.</pre>
+        <button class="copy-btn" id="copy-btn" onclick="copyPrompt()">
+          <span id="copy-label">Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Caso 2 — Foto lifestyle con modelli per e-commerce</h2>
+      <p>Allega il tuo prodotto. Ottieni foto lifestyle con modelli realistici che lo usano in situazioni concrete.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt — Foto modello e-commerce</p>
+        <pre id="prompt-ecom">Genera tre foto lifestyle di un modello che usa questo prodotto in scenari reali. Ognuna deve sembrare una vera foto fatta con iPhone, luce naturale, nessun effetto studio. Varia la fascia d'età del modello e il contesto (casa, all'aperto, palestra).</pre>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ecom').innerText)">
+          <span>Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Caso 3 — Mockup packaging fotorealistico</h2>
+      <p>Allega un render piatto o uno schizzo del prodotto. Ottieni un mockup packaging fotorealistico pronto per presentazioni o e-commerce.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt — Mockup packaging</p>
+        <pre id="prompt-pack">Trasforma questo render di prodotto in un mockup packaging fotorealistico. Mostralo su una superficie bianca pulita con luce naturale morbida, poi una seconda foto con la scatola aperta che mostra il contenuto, poi una terza foto lifestyle con il prodotto in uso. Abbina questa estetica di brand: [URL del sito o foto di riferimento].</pre>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-pack').innerText)">
+          <span>Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Caso 4 — Headshot professionali da selfie</h2>
+      <p>Carica 4-8 selfie. Ottieni headshot professionali che sembrano un servizio fotografico da 500€.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt — Headshot professionale</p>
+        <pre id="prompt-head">Ecco 8 foto di riferimento di me. Genera tre headshot professionali: 1) stile LinkedIn su sfondo neutro, 2) headshot lifestyle in un moderno coffee shop, 3) foto editoriale stile ospite podcast. Mantieni il mio viso identico in tutti e tre.</pre>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-head').innerText)">
+          <span>Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Caso 5 — Asset per lead magnet e design</h2>
+      <p>Genera immagini hero, anteprime OG, immagini in evidenza per blog e divisori di sezione nello stile del tuo brand.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt — Asset lead magnet</p>
+        <pre id="prompt-lead">Genera quattro asset grafici per un lead magnet su [argomento]: 1) un'immagine hero copertina con testo in evidenza, 2) un'illustrazione divisore di sezione, 3) un'immagine OG per la landing page (1200x630), 4) una thumbnail per la condivisione sui social. Abbina questo stile di brand: [URL del sito].</pre>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-lead').innerText)">
+          <span>Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Caso 6 — Poster eventi e stampa</h2>
+      <p>Genera poster, volantini, segnaletica e materiale stampabile in qualsiasi stile.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt — Poster evento</p>
+        <pre id="prompt-event">Progetta un poster per [nome evento] il [data]. Includi il titolo, la data, il luogo e un'immagine di forte impatto. Fallo sembrare uscito da una delle migliori agenzie di design. Stile: [minimalista / editoriale / tipografia bold / ecc.]. Output a qualità di stampa, formato 28x43 cm.</pre>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-event').innerText)">
+          <span>Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Consigli pratici e cose da sapere</h2>
+      <ul>
+        <li><strong>Attiva sempre la modalità thinking</strong> — il modello di default è il vecchio generatore di immagini</li>
+        <li><strong>Usa riferimenti ad alta risoluzione</strong> — input sgranati producono output sgranati</li>
+        <li><strong>Per output abbinati al brand, inserisci l'URL del tuo sito</strong> — Image 2 recupera colori e font in autonomia</li>
+        <li><strong>Se il testo nell'immagine risulta illeggibile</strong>, rigenera con "scrivi il testo esatto: [PAROLE]" nel prompt</li>
+        <li><strong>Genera 2-3 varianti per prompt</strong> e scegli la migliore — il modello è non deterministico</li>
+        <li><strong>Per headshot e foto lifestyle</strong>, chiedi "foto vera scattata con iPhone" per evitare l'effetto plasticoso delle stock photo</li>
+        <li><strong>Image 2 può navigare in internet durante il prompt</strong> — sfruttalo per infografiche e contenuti con dati aggiornati</li>
+      </ul>
+
+    </div>
+
+    <div class="unlock-note" id="unlock-note">
+      Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.
+    </div>
+
+  </div>
+
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row">
+        <label class="form-label" for="nome">Nome</label>
+        <input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name">
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required>
+      </div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+
+</div>
+
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="f-text">© 2026 @giampiero.ai</span>
+      <a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var STORE = 'giampiero_ai_subscriber';
+  var gate  = document.getElementById('paywall-gate');
+  var full  = document.getElementById('article-full');
+  var mask  = document.getElementById('preview-mask');
+  var note  = document.getElementById('unlock-note');
+  var form  = document.getElementById('access-form');
+  function unlock() {
+    if (gate) gate.style.display = 'none';
+    if (full) full.classList.add('visible');
+    if (mask) mask.classList.add('unlocked');
+    if (note) note.classList.add('visible');
+  }
+  try { if (localStorage.getItem(STORE)) unlock(); } catch (_) {}
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('[name="email"]').value.trim();
+      var nome  = form.querySelector('[name="nome"]').value.trim();
+      if (!email || !email.includes('@')) { form.querySelector('[name="email"]').focus(); return; }
+      try { localStorage.setItem(STORE, JSON.stringify({ nome: nome, email: email, ts: Date.now() })); } catch (_) {}
+      fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, guida: 'guida-19-chatgpt-image-2', ts: new Date().toISOString() })
+      }).catch(function () {});
+      unlock();
+    });
+  }
+})();
+
+function copyPrompt() {
+  var text = document.getElementById('prompt-text').innerText;
+  var btn  = document.getElementById('copy-btn');
+  var lbl  = document.getElementById('copy-label');
+  navigator.clipboard.writeText(text).then(function () {
+    btn.classList.add('copied');
+    lbl.textContent = 'Copiato ✓';
+    setTimeout(function () {
+      btn.classList.remove('copied');
+      lbl.textContent = 'Copia il prompt';
+    }, 2200);
+  });
+}
+</script>
+</body>
+</html>

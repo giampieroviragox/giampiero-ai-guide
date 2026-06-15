@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>5 MCP per creare contenuti con Claude: installazione e prompt pronti — @giampiero.ai</title>
+<meta name="description" content="NotebookLM, Remotion, SupaData, Stitch e Magic: i 5 MCP per content creation da installare in Claude, con link e prompt di partenza per ogni strumento.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root {
+  --bg:      oklch(98% 0.004 95);
+  --surface: oklch(100% 0.002 95);
+  --fg:      oklch(20% 0.018 70);
+  --muted:   oklch(48% 0.012 70);
+  --border:  oklch(90% 0.006 95);
+  --accent:  oklch(52% 0.10 28);
+  --font-display: 'Iowan Old Style','Charter',Georgia,serif;
+  --font-body:    -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --font-mono:    ui-monospace,'SF Mono',Menlo,monospace;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body);
+  font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+.article-wrap { max-width: 660px; margin: 0 auto; padding: 0 24px; }
+.site-header { padding: 20px 0; border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 860px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); text-decoration: none; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+.nav-ig:hover { color: var(--fg); }
+.breadcrumb { padding: 20px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--fg); }
+.breadcrumb span { margin: 0 6px; }
+.article-header { padding: 32px 0 40px; border-bottom: 1px solid var(--border); }
+.article-tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.article-title { font-family: var(--font-display); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 18px; max-width: 22ch; text-wrap: pretty; }
+.article-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.article-content { padding: 40px 0 0; }
+.article-content p { font-size: 17px; line-height: 1.7; color: var(--fg); max-width: 65ch; margin-bottom: 20px; }
+.article-content h2 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.3; color: var(--fg); margin: 36px 0 14px; }
+.article-content ul { margin: 0 0 20px 0; padding-left: 20px; }
+.article-content ul li { font-size: 17px; line-height: 1.65; color: var(--fg); max-width: 60ch; margin-bottom: 8px; }
+.article-content ul li strong { font-weight: 550; }
+.step { display: flex; gap: 16px; align-items: baseline; margin-bottom: 12px; max-width: 60ch; }
+.step-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.step-text { font-size: 17px; line-height: 1.65; color: var(--fg); }
+.prompt-box { position: relative; background: var(--fg); padding: 28px 28px 24px; margin: 28px 0 24px; max-width: 65ch; }
+.prompt-box .prompt-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.prompt-box pre { font-family: var(--font-mono); font-size: 13px; line-height: 1.7; color: oklch(92% 0.004 95); white-space: pre-wrap; word-break: break-word; margin: 0; }
+.copy-btn { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; background: transparent; border: 1px solid oklch(38% 0.012 70); color: oklch(75% 0.006 70); padding: 8px 14px; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
+.copy-btn:hover { border-color: oklch(65% 0.008 70); color: oklch(90% 0.004 95); }
+.copy-btn.copied { color: oklch(75% 0.12 145); border-color: oklch(55% 0.10 145); }
+.code-block { background: oklch(95% 0.004 95); border: 1px solid var(--border); padding: 16px 20px; margin: 16px 0 24px; max-width: 65ch; font-family: var(--font-mono); font-size: 13px; line-height: 1.6; color: var(--fg); white-space: pre-wrap; word-break: break-word; }
+.preview-wrap { position: relative; }
+.preview-mask { position: relative; overflow: hidden; }
+.preview-mask::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+.preview-mask.unlocked::after { display: none; }
+#paywall-gate { padding: 48px 0 60px; border-top: 1px solid var(--border); margin-top: 8px; }
+.paywall-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.paywall-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; color: var(--fg); margin-bottom: 10px; }
+.paywall-sub { font-size: 15px; color: var(--muted); max-width: 44ch; line-height: 1.6; margin-bottom: 28px; }
+.access-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.form-row { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.form-input { font-family: var(--font-body); font-size: 15px; color: var(--fg); background: var(--surface); border: 1px solid var(--border); border-radius: 0; padding: 10px 12px; outline: none; width: 100%; transition: border-color 0.15s; -webkit-appearance: none; }
+.form-input:focus { border-color: var(--fg); }
+.form-input::placeholder { color: var(--muted); }
+.form-submit { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.02em; color: var(--surface); background: var(--accent); border: none; padding: 11px 20px; cursor: pointer; border-radius: 0; width: 100%; margin-top: 4px; transition: opacity 0.15s; -webkit-appearance: none; }
+.form-submit:hover { opacity: 0.88; }
+.form-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted); margin-top: 4px; }
+#article-full { display: none; }
+#article-full.visible { display: block; }
+.unlock-note { display: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 8px; }
+.unlock-note.visible { display: block; }
+.cta-callout { background: var(--fg); padding: 44px 40px; }
+.cta-callout .cta-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.cta-callout h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25; color: var(--surface); max-width: 38ch; margin-bottom: 28px; }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta-btn { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.01em; padding: 11px 20px; text-decoration: none; border-radius: 0; transition: opacity 0.15s; display: inline-block; }
+.cta-btn-primary { background: var(--surface); color: var(--fg); }
+.cta-btn-secondary { background: transparent; color: var(--surface); border: 1px solid oklch(38% 0.012 70); }
+.cta-btn:hover { opacity: 0.75; }
+.site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 0; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; }
+.f-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; }
+.f-text:hover { color: var(--fg); }
+@media (max-width: 580px) {
+  .article-title { font-size: 28px; }
+  .paywall-title { font-size: 22px; }
+  .prompt-box { padding: 22px 18px 18px; }
+  .cta-callout { padding: 36px 24px; }
+  .site-footer .footer-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html">
+      <img class="avatar" src="avatar.png" alt="Giampiero">
+      <span class="logo">@giampiero.ai</span>
+    </a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <nav class="breadcrumb">
+    <a href="index.html">Guide</a>
+    <span>·</span>
+    <span>5 MCP per creare contenuti con Claude</span>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-tag">Strumenti</span>
+    <h1 class="article-title">5 MCP per creare contenuti con Claude: installazione e prompt pronti</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 6 min di lettura</p>
+  </header>
+
+  <div class="article-content">
+
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>Gli MCP (Model Context Protocol) sono plugin che danno a Claude accesso a strumenti e servizi esterni. Quando ne colleghi uno, Claude non si limita a parlarne — accede allo strumento e lo usa per te. È la differenza tra un assistente che ti spiega come fare e uno che lo fa al posto tuo.</p>
+
+        <p>Per la creazione di contenuti esistono cinque MCP che cambiano completamente il flusso di lavoro: puoi creare notebook di ricerca, video animati, estrarre trascritti da qualsiasi video social, progettare interfacce e generare componenti React — tutto senza uscire da Claude.</p>
+
+        <p>Questa guida include il blocco JSON di configurazione e un prompt di partenza per ognuno dei cinque. Copia, incolla, riavvia Claude.</p>
+      </div>
+    </div>
+
+    <div id="article-full">
+
+      <h2>MCP 1 — NotebookLM: notebook di ricerca generati da Claude</h2>
+      <p>Questo MCP permette a Claude di creare e gestire notebook su Google NotebookLM. Puoi aggiungere fonti, generare podcast, infografiche, mappe mentali, slide e guide di studio da qualsiasi contenuto — il tutto da una singola conversazione.</p>
+
+      <p><strong>Installazione:</strong></p>
+      <div class="code-block">npm install -g notebooklm-mcp
+
+# Aggiungi al blocco mcpServers in ~/.claude.json:
+"notebooklm-mcp": {
+  "command": "notebooklm-mcp"
+}</div>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt di partenza — NotebookLM</p>
+        <pre id="prompt-text-1">Crea un notebook NotebookLM da questi 5 URL di articoli del blog. Genera una panoramica audio e un'infografica che riassume i temi principali.</pre>
+        <button class="copy-btn" id="copy-btn-1" onclick="copyPromptById('prompt-text-1','copy-btn-1','copy-label-1')">
+          <span id="copy-label-1">Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>MCP 2 — Remotion: video animati programmatici da codice</h2>
+      <p>Remotion è il framework per creare video come se fossero componenti React. Questo MCP dà a Claude accesso a tutto il framework: motion graphics, testo animato, visualizzazioni dati — renderizzati come file video reali.</p>
+
+      <p><strong>Installazione:</strong></p>
+      <div class="code-block"># Aggiungi al blocco mcpServers in ~/.claude.json:
+"remotion-documentation": {
+  "command": "npx",
+  "args": ["-y", "@remotion/mcp@latest"]
+}</div>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt di partenza — Remotion</p>
+        <pre id="prompt-text-2">Crea un'animazione Remotion di 15 secondi con un titolo che appare in dissolvenza, tre punti elenco che compaiono uno alla volta e una CTA finale. Sfondo scuro, testo bianco, accento blu.</pre>
+        <button class="copy-btn" id="copy-btn-2" onclick="copyPromptById('prompt-text-2','copy-btn-2','copy-label-2')">
+          <span id="copy-label-2">Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>MCP 3 — SupaData: trascritti e dati da qualsiasi video social</h2>
+      <p>SupaData permette a Claude di estrarre trascritti da YouTube, TikTok, Instagram, X e Facebook. Ma non solo il testo — anche i metadati: numero di visualizzazioni, like, commenti. Sai non solo <em>cosa</em> dice un video, ma <em>quanto ha performato</em>.</p>
+      <p>Usalo per smontare i contenuti dei competitor, trovare hook che funzionano e capire cosa rende un video virale nel tuo settore.</p>
+
+      <p><strong>Installazione:</strong></p>
+      <div class="code-block"># Ottieni l'API key su supadata.ai
+# Salva in ~/.config/supadata/.env:
+SUPADATA_API_KEY=la_tua_chiave_qui
+
+# Usa tramite la skill /transcript in Claude Code</div>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt di partenza — SupaData</p>
+        <pre id="prompt-text-3">Estrai il trascritto da questo video [URL]. Analizza la struttura dell'hook, identifica i punti chiave e dimmi cosa ha reso questo video efficace.</pre>
+        <button class="copy-btn" id="copy-btn-3" onclick="copyPromptById('prompt-text-3','copy-btn-3','copy-label-3')">
+          <span id="copy-label-3">Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>MCP 4 — Stitch: schermate UI e design system da descrizioni testuali</h2>
+      <p>Stitch permette a Claude di generare schermate UI complete, design system e mockup visivi da una descrizione in linguaggio naturale. Descrivi una pagina e Stitch la costruisce con layout e gerarchia visiva corretti.</p>
+
+      <p><strong>Installazione:</strong></p>
+      <div class="code-block"># Aggiungi al blocco mcpServers in ~/.claude.json:
+"stitch": {
+  "command": "npx",
+  "args": ["@_davideast/stitch-mcp", "proxy"],
+  "env": { "STITCH_API_KEY": "la_tua_chiave" }
+}</div>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt di partenza — Stitch</p>
+        <pre id="prompt-text-4">Crea una schermata landing page per il download di un PDF gratuito. Includi titolo, 4 value proposition, form di raccolta email e anteprima del PDF. Tema dark moderno, accento blu.</pre>
+        <button class="copy-btn" id="copy-btn-4" onclick="copyPromptById('prompt-text-4','copy-btn-4','copy-label-4')">
+          <span id="copy-label-4">Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>MCP 5 — Magic (21st.dev): componenti React pronti per la produzione</h2>
+      <p>Magic permette a Claude di generare componenti React + Tailwind pronti all'uso da semplici descrizioni. Pulsanti, form, dashboard, barre di navigazione, tabelle prezzi, intere sezioni di pagina.</p>
+
+      <p><strong>Installazione:</strong></p>
+      <div class="code-block"># Aggiungi al blocco mcpServers in ~/.claude.json:
+"magic": {
+  "command": "npx",
+  "args": ["-y", "@21st-dev/magic@latest"],
+  "env": { "API_KEY": "la_tua_chiave_21st" }
+}</div>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt di partenza — Magic</p>
+        <pre id="prompt-text-5">Genera un componente pricing table con 3 livelli, checkmark per il confronto delle funzionalità e un badge "Più popolare" in evidenza. Stile moderno pulito, angoli arrotondati.</pre>
+        <button class="copy-btn" id="copy-btn-5" onclick="copyPromptById('prompt-text-5','copy-btn-5','copy-label-5')">
+          <span id="copy-label-5">Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Concatenare gli MCP: il vero vantaggio</h2>
+      <p>Il potere reale sta nell'usare più MCP insieme in un'unica conversazione Claude. Alcuni esempi concreti:</p>
+
+      <ul>
+        <li>Estrai un trascritto con <strong>SupaData</strong>, caricalo in <strong>NotebookLM</strong> per creare una base di conoscenza, poi genera un riassunto video con <strong>Remotion</strong></li>
+        <li>Usa <strong>Stitch</strong> per progettare il layout di una landing page, poi usa <strong>Magic</strong> per costruire i componenti React effettivi</li>
+        <li>Scarica i trascritti di 5 video dei competitor con <strong>SupaData</strong>, crea un notebook NotebookLM da tutti e cinque, genera un'infografica che confronta le loro strategie</li>
+      </ul>
+
+      <p>Ogni catena gira in un'unica conversazione Claude. Nessun cambio di strumento, nessun copia-incolla tra app.</p>
+
+    </div>
+
+    <div class="unlock-note" id="unlock-note">
+      Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.
+    </div>
+
+  </div>
+
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row">
+        <label class="form-label" for="nome">Nome</label>
+        <input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name">
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required>
+      </div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+
+</div>
+
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="f-text">© 2026 @giampiero.ai</span>
+      <a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var STORE = 'giampiero_ai_subscriber';
+  var gate  = document.getElementById('paywall-gate');
+  var full  = document.getElementById('article-full');
+  var mask  = document.getElementById('preview-mask');
+  var note  = document.getElementById('unlock-note');
+  var form  = document.getElementById('access-form');
+  function unlock() {
+    if (gate) gate.style.display = 'none';
+    if (full) full.classList.add('visible');
+    if (mask) mask.classList.add('unlocked');
+    if (note) note.classList.add('visible');
+  }
+  try { if (localStorage.getItem(STORE)) unlock(); } catch (_) {}
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('[name="email"]').value.trim();
+      var nome  = form.querySelector('[name="nome"]').value.trim();
+      if (!email || !email.includes('@')) { form.querySelector('[name="email"]').focus(); return; }
+      try { localStorage.setItem(STORE, JSON.stringify({ nome: nome, email: email, ts: Date.now() })); } catch (_) {}
+      fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, guida: 'guida-07-content-mcp', ts: new Date().toISOString() })
+      }).catch(function () {});
+      unlock();
+    });
+  }
+})();
+
+function copyPromptById(textId, btnId, labelId) {
+  var text = document.getElementById(textId).innerText;
+  var btn  = document.getElementById(btnId);
+  var lbl  = document.getElementById(labelId);
+  navigator.clipboard.writeText(text).then(function () {
+    btn.classList.add('copied');
+    lbl.textContent = 'Copiato ✓';
+    setTimeout(function () {
+      btn.classList.remove('copied');
+      lbl.textContent = 'Copia il prompt';
+    }, 2200);
+  });
+}
+</script>
+</body>
+</html>

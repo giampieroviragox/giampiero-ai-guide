@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>I 5 connector Claude che uso ogni giorno (e perché ho eliminato gli altri 100) — @giampiero.ai</title>
+<meta name="description" content="Lo stack esatto di connector Claude per content creation e produttività: kie.ai, Notion MCP, Vercel Agent Browser, last30days e Hyperframes.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root {
+  --bg:      oklch(98% 0.004 95);
+  --surface: oklch(100% 0.002 95);
+  --fg:      oklch(20% 0.018 70);
+  --muted:   oklch(48% 0.012 70);
+  --border:  oklch(90% 0.006 95);
+  --accent:  oklch(52% 0.10 28);
+  --font-display: 'Iowan Old Style','Charter',Georgia,serif;
+  --font-body:    -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --font-mono:    ui-monospace,'SF Mono',Menlo,monospace;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body);
+  font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+.article-wrap { max-width: 660px; margin: 0 auto; padding: 0 24px; }
+.site-header { padding: 20px 0; border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 860px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); text-decoration: none; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+.nav-ig:hover { color: var(--fg); }
+.breadcrumb { padding: 20px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--fg); }
+.breadcrumb span { margin: 0 6px; }
+.article-header { padding: 32px 0 40px; border-bottom: 1px solid var(--border); }
+.article-tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.article-title { font-family: var(--font-display); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 18px; max-width: 22ch; text-wrap: pretty; }
+.article-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.article-content { padding: 40px 0 0; }
+.article-content p { font-size: 17px; line-height: 1.7; color: var(--fg); max-width: 65ch; margin-bottom: 20px; }
+.article-content h2 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.3; color: var(--fg); margin: 36px 0 14px; }
+.article-content ul { margin: 0 0 20px 0; padding-left: 20px; }
+.article-content ul li { font-size: 17px; line-height: 1.65; color: var(--fg); max-width: 60ch; margin-bottom: 8px; }
+.article-content ul li strong { font-weight: 550; }
+.step { display: flex; gap: 16px; align-items: baseline; margin-bottom: 12px; max-width: 60ch; }
+.step-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.step-text { font-size: 17px; line-height: 1.65; color: var(--fg); }
+.prompt-box { position: relative; background: var(--fg); padding: 28px 28px 24px; margin: 28px 0 24px; max-width: 65ch; }
+.prompt-box .prompt-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.prompt-box pre { font-family: var(--font-mono); font-size: 13px; line-height: 1.7; color: oklch(92% 0.004 95); white-space: pre-wrap; word-break: break-word; margin: 0; }
+.copy-btn { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; background: transparent; border: 1px solid oklch(38% 0.012 70); color: oklch(75% 0.006 70); padding: 8px 14px; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
+.copy-btn:hover { border-color: oklch(65% 0.008 70); color: oklch(90% 0.004 95); }
+.copy-btn.copied { color: oklch(75% 0.12 145); border-color: oklch(55% 0.10 145); }
+.preview-wrap { position: relative; }
+.preview-mask { position: relative; overflow: hidden; }
+.preview-mask::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+.preview-mask.unlocked::after { display: none; }
+#paywall-gate { padding: 48px 0 60px; border-top: 1px solid var(--border); margin-top: 8px; }
+.paywall-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.paywall-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; color: var(--fg); margin-bottom: 10px; }
+.paywall-sub { font-size: 15px; color: var(--muted); max-width: 44ch; line-height: 1.6; margin-bottom: 28px; }
+.access-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.form-row { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.form-input { font-family: var(--font-body); font-size: 15px; color: var(--fg); background: var(--surface); border: 1px solid var(--border); border-radius: 0; padding: 10px 12px; outline: none; width: 100%; transition: border-color 0.15s; -webkit-appearance: none; }
+.form-input:focus { border-color: var(--fg); }
+.form-input::placeholder { color: var(--muted); }
+.form-submit { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.02em; color: var(--surface); background: var(--accent); border: none; padding: 11px 20px; cursor: pointer; border-radius: 0; width: 100%; margin-top: 4px; transition: opacity 0.15s; -webkit-appearance: none; }
+.form-submit:hover { opacity: 0.88; }
+.form-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted); margin-top: 4px; }
+#article-full { display: none; }
+#article-full.visible { display: block; }
+.unlock-note { display: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 8px; }
+.unlock-note.visible { display: block; }
+.cta-callout { background: var(--fg); padding: 44px 40px; }
+.cta-callout .cta-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.cta-callout h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25; color: var(--surface); max-width: 38ch; margin-bottom: 28px; }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta-btn { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.01em; padding: 11px 20px; text-decoration: none; border-radius: 0; transition: opacity 0.15s; display: inline-block; }
+.cta-btn-primary { background: var(--surface); color: var(--fg); }
+.cta-btn-secondary { background: transparent; color: var(--surface); border: 1px solid oklch(38% 0.012 70); }
+.cta-btn:hover { opacity: 0.75; }
+.site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 0; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; }
+.f-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; }
+.f-text:hover { color: var(--fg); }
+@media (max-width: 580px) {
+  .article-title { font-size: 28px; }
+  .paywall-title { font-size: 22px; }
+  .prompt-box { padding: 22px 18px 18px; }
+  .cta-callout { padding: 36px 24px; }
+  .site-footer .footer-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html">
+      <img class="avatar" src="avatar.png" alt="Giampiero">
+      <span class="logo">@giampiero.ai</span>
+    </a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <nav class="breadcrumb">
+    <a href="index.html">Guide</a>
+    <span>·</span>
+    <span>I 5 connector Claude che uso ogni giorno</span>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-tag">Strumenti</span>
+    <h1 class="article-title">I 5 connector Claude che uso ogni giorno (e perché ho eliminato gli altri 100)</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 6 min di lettura</p>
+  </header>
+
+  <div class="article-content">
+
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>Ho installato oltre 100 tra MCP e skill per Claude. Poi ho fatto un'analisi brutale: quanti di questi apro davvero ogni giorno? La risposta era 5. Il resto era rumore — strumenti eccitanti nei tutorial, poi mai più aperti.</p>
+
+        <p>Questa guida è lo stack che è sopravvissuto alla pulizia. Cinque connector che lavorano insieme per creare contenuti, gestire idee e automatizzare le parti più lente del flusso di lavoro. Non sono i più famosi, ma sono quelli che girano senza fermarsi.</p>
+
+        <p>Il quarto della lista è quello che definirei impossibile da togliere. Capirai perché quando ci arrivi.</p>
+      </div>
+    </div>
+
+    <div id="article-full">
+
+      <h2>1. kie.ai — immagini e video senza uscire da Claude</h2>
+      <p>kie.ai è un MCP server che connette Claude a GPT Image 2 di OpenAI e ai modelli video Seedance. Il risultato: puoi generare immagini fotorealistiche e video direttamente dalla chat, senza aprire altri strumenti.</p>
+      <p>Il costo è fisso: <strong>$0,06 per immagine</strong>. Nessuna sorpresa, nessun tier di qualità a pagamento separato. La stessa API sblocca anche 290+ modelli tra cui Flux, Veo e Suno.</p>
+      <p><strong>Quando usarlo:</strong> foto prodotto, creatività per ads, copertine, qualsiasi elemento con testo sovrapposto (kie.ai gestisce il testo on-image meglio delle alternative gratuite). Per bozze veloci e contenuti social usa invece un MCP gratuito come Nano Banana — poi passi a kie.ai per i finali.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt di partenza — kie.ai</p>
+        <pre id="prompt-text-1">Genera una foto prodotto di [prodotto] su sfondo bianco pulito con il testo "Edizione Limitata" nell'angolo — fotorealistico, alta risoluzione.</pre>
+        <button class="copy-btn" id="copy-btn-1" onclick="copyPromptById('prompt-text-1','copy-btn-1','copy-label-1')">
+          <span id="copy-label-1">Copia il prompt</span>
+        </button>
+      </div>
+
+      <p><strong>Come installare:</strong> crea un account su kie.ai, genera una API key, aggiungi il blocco MCP al tuo file di configurazione Claude (<code>claude_desktop_config.json</code>) e riavvia Claude.</p>
+
+      <h2>2. Notion MCP — Claude che controlla la tua workspace</h2>
+      <p>Notion MCP dà a Claude accesso completo alla tua workspace Notion: crea pagine, interroga database, aggiorna proprietà, aggiunge blocchi. Non è un'integrazione leggera — Claude opera direttamente sulle tue strutture dati.</p>
+      <p>In pratica sostituisce il copia-incolla manuale da Claude a Notion, gli aggiornamenti manuali delle proprietà e l'AI nativa di Notion (che è molto più limitata).</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt di partenza — Notion MCP</p>
+        <pre id="prompt-text-2">Trova tutti i task nel mio Notion Tasks DB con stato "In Progress". Raggruppali per progetto e scrivi un riassunto di stato che posso copiare nel mio brief mattutino.</pre>
+        <button class="copy-btn" id="copy-btn-2" onclick="copyPromptById('prompt-text-2','copy-btn-2','copy-label-2')">
+          <span id="copy-label-2">Copia il prompt</span>
+        </button>
+      </div>
+
+      <p><strong>Consiglio pratico:</strong> la prima volta che dai a Claude accesso agli ID dei tuoi database Notion, salvali in un file duraturo (ad esempio <code>~/.config/notion-content/config.json</code>). Da quel momento ogni prompt che tocca Notion gira senza dover ricordare gli ID.</p>
+      <p><strong>Come installare:</strong> segui la documentazione ufficiale su developers.notion.com/docs/mcp.</p>
+
+      <h2>3. Vercel Agent Browser — un browser costruito per gli agenti AI</h2>
+      <p>Il browser integrato di Claude è stato aggiunto come ripensamento. Vercel ha costruito un browser <em>pensato apposta</em> per gli agenti AI: gestisce meglio i login, i form complessi, i siti dinamici e i task web multi-step.</p>
+      <p>Sostituisce il <code>browser_tool</code> nativo di Claude, lo scraping manuale e le API a pagamento per il web scraping.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt di partenza — Vercel Agent Browser</p>
+        <pre id="prompt-text-3">Accedi a [nome account] e scarica gli ultimi 30 giorni di [tipo di dati] in un CSV. Se incontri un CAPTCHA, fermati e dimmi cosa mostra.</pre>
+        <button class="copy-btn" id="copy-btn-3" onclick="copyPromptById('prompt-text-3','copy-btn-3','copy-label-3')">
+          <span id="copy-label-3">Copia il prompt</span>
+        </button>
+      </div>
+
+      <p><strong>Quando usarlo:</strong> dashboard dietro login, form multi-step, scraping di dati competitivi da siti complessi.</p>
+      <p><strong>Come installare:</strong> cerca "Vercel Agent Browser MCP" nel tuo Claude desktop o nella configurazione MCP di VS Code.</p>
+
+      <h2>4. last30days — il connector che non riesco a togliere</h2>
+      <p>Questo è il quarto della lista e quello che definirei impossibile da togliere. last30days ricerca qualsiasi argomento su 8 piattaforme in un unico prompt: Reddit, X, YouTube, TikTok, Instagram, Hacker News, Polymarket e il web aperto.</p>
+      <p>Restituisce i risultati classificati per engagement. Smetti di scrivere contenuti su quello che <em>pensi</em> interessi al tuo pubblico e cominci a usare dati reali su cosa viene davvero condiviso in questo momento.</p>
+      <p><strong>Velocità:</strong> una ricerca completa su tutti e 8 le piattaforme richiede 2-5 minuti per un singolo argomento.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt di partenza — last30days</p>
+        <pre id="prompt-text-4">/last30days AI per il fitness — concentrati sugli hook virali, salva i top 10 nella mia inspiration library</pre>
+        <button class="copy-btn" id="copy-btn-4" onclick="copyPromptById('prompt-text-4','copy-btn-4','copy-label-4')">
+          <span id="copy-label-4">Copia il prompt</span>
+        </button>
+      </div>
+
+      <p><strong>Perché è la base di tutto:</strong> ogni altro connector dello stack produce output migliori se alimentato con dati freschi di tendenza. last30days è l'input. kie.ai, Hyperframes, persino l'organizzazione in Notion — tutti producono risultati più precisi quando vengono puntati sui dati di last30days.</p>
+      <p><strong>Come installare:</strong> github.com/mvanhorn/last30days-skill — clona il repo in <code>~/.claude/skills/</code> e riavvia Claude.</p>
+
+      <h2>5. Hyperframes — editing video da un prompt</h2>
+      <p>Hyperframes è il framework open-source di HeyGen per la composizione video. Claude scrive il video direttamente in HTML/CSS, poi lo renderizza in MP4. Didascalie, animazioni, transizioni, voiceover, effetti sincronizzati con la musica — tutto da un unico prompt.</p>
+      <p><strong>Cosa sostituisce:</strong> Adobe Premiere ($22,99/mese), CapCut Pro, editor video freelance ($300+/video).</p>
+      <p><strong>Curva di apprendimento:</strong> c'è, ed è reale. La prima composizione richiede ore. Alla terza sei a 20 minuti.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt di partenza — Hyperframes</p>
+        <pre id="prompt-text-5">Crea una composizione Hyperframes di 30 secondi con: voiceover da questo script, didascalie in stile karaoke, overlay frosted-glass al 60% di alpha, tagli sincronizzati al beat ogni 2 secondi. Renderizza in 1080p verticale.</pre>
+        <button class="copy-btn" id="copy-btn-5" onclick="copyPromptById('prompt-text-5','copy-btn-5','copy-label-5')">
+          <span id="copy-label-5">Copia il prompt</span>
+        </button>
+      </div>
+
+      <p><strong>Come installare:</strong> github.com/heygen-com/hyperframes — clona il repo, esegui <code>npm install</code> e segui il README. Poi clona il repo anche in <code>~/.claude/skills/</code>.</p>
+
+      <h2>Come installare tutti e 5 in un'unica configurazione</h2>
+
+      <p><strong>Skill (last30days, Hyperframes):</strong> si installano clonando il repo in <code>~/.claude/skills/</code>. Non serve configurazione MCP. Claude le carica automaticamente al riavvio.</p>
+      <p><strong>MCP server (kie.ai, Notion, Vercel Agent Browser):</strong> ogni MCP ha un blocco JSON sulla sua pagina di installazione. Aggiungilo al blocco <code>mcpServers</code> nel tuo <code>claude_desktop_config.json</code> e riavvia Claude.</p>
+
+      <div class="step">
+        <span class="step-num">01</span>
+        <span class="step-text">Clona i repo di last30days e Hyperframes direttamente in <code>~/.claude/skills/</code>. Riavvia Claude — si caricano automaticamente.</span>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <span class="step-text">Aggiungi i blocchi JSON di kie.ai, Notion MCP e Vercel Agent Browser al blocco <code>mcpServers</code> del tuo file di configurazione Claude. Riavvia.</span>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <span class="step-text">Verifica: scrivi <code>/last30days</code> per confermare che la skill sia caricata. Scrivi <code>list MCP tools</code> per vedere kie-image, notion e vercel-agent-browser tra gli strumenti disponibili.</span>
+      </div>
+
+      <h2>La regola dei 14 giorni</h2>
+      <p>Se non hai usato un connector negli ultimi 14 giorni, eliminalo. Lo stack che usi davvero è piccolo. Lo stack che hai installato è enorme. Chiudere questo divario rende Claude più veloce e le tue decisioni più chiare.</p>
+      <p>Cosa vale la pena eliminare per primo: MCP generici per la "produttività" che avvolgono API che non usi, browser MCP precedenti alla versione Vercel, tool di image generation tranne i 2 che apri davvero, qualsiasi cosa il cui README GitHub sia più lungo della funzionalità effettiva.</p>
+
+    </div>
+
+    <div class="unlock-note" id="unlock-note">
+      Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.
+    </div>
+
+  </div>
+
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row">
+        <label class="form-label" for="nome">Nome</label>
+        <input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name">
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required>
+      </div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+
+</div>
+
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="f-text">© 2026 @giampiero.ai</span>
+      <a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var STORE = 'giampiero_ai_subscriber';
+  var gate  = document.getElementById('paywall-gate');
+  var full  = document.getElementById('article-full');
+  var mask  = document.getElementById('preview-mask');
+  var note  = document.getElementById('unlock-note');
+  var form  = document.getElementById('access-form');
+  function unlock() {
+    if (gate) gate.style.display = 'none';
+    if (full) full.classList.add('visible');
+    if (mask) mask.classList.add('unlocked');
+    if (note) note.classList.add('visible');
+  }
+  try { if (localStorage.getItem(STORE)) unlock(); } catch (_) {}
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('[name="email"]').value.trim();
+      var nome  = form.querySelector('[name="nome"]').value.trim();
+      if (!email || !email.includes('@')) { form.querySelector('[name="email"]').focus(); return; }
+      try { localStorage.setItem(STORE, JSON.stringify({ nome: nome, email: email, ts: Date.now() })); } catch (_) {}
+      fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, guida: 'guida-05-claude-connectors', ts: new Date().toISOString() })
+      }).catch(function () {});
+      unlock();
+    });
+  }
+})();
+
+function copyPromptById(textId, btnId, labelId) {
+  var text = document.getElementById(textId).innerText;
+  var btn  = document.getElementById(btnId);
+  var lbl  = document.getElementById(labelId);
+  navigator.clipboard.writeText(text).then(function () {
+    btn.classList.add('copied');
+    lbl.textContent = 'Copiato ✓';
+    setTimeout(function () {
+      btn.classList.remove('copied');
+      lbl.textContent = 'Copia il prompt';
+    }, 2200);
+  });
+}
+</script>
+</body>
+</html>
