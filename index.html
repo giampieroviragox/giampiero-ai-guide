@@ -188,6 +188,67 @@ body {
   top: -1px;
 }
 
+/* ---- search + filter ---- */
+.search-wrap {
+  padding: 18px 0 0;
+}
+.search-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--fg);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.search-input::placeholder { color: var(--muted); }
+.search-input:focus { border-color: oklch(72% 0.006 95); }
+
+.filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px 0 6px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: color 0.13s, border-color 0.13s, background 0.13s;
+}
+.pill:hover { color: var(--fg); border-color: oklch(78% 0.006 95); }
+.pill.active {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: oklch(97% 0.008 28);
+}
+.pill .pill-count {
+  font-size: 9px;
+  opacity: 0.65;
+}
+
+.results-empty {
+  padding: 40px 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  display: none;
+}
+
 /* ---- footer ---- */
 .site-footer {
   display: flex;
@@ -244,12 +305,30 @@ body {
 </div>
 
 <div class="wrap">
-  <div class="list-meta" data-od-id="list-meta">34 guide disponibili</div>
+  <div class="search-wrap">
+    <input class="search-input" type="search" id="search" placeholder="Cerca tra le guide…" autocomplete="off" spellcheck="false">
+    <div class="filter-pills" id="filters">
+      <button class="pill active" data-filter="tutti">Tutti <span class="pill-count" id="count-tutti">34</span></button>
+      <button class="pill" data-filter="Prompt">Prompt <span class="pill-count" id="count-Prompt"></span></button>
+      <button class="pill" data-filter="Claude Code">Claude Code <span class="pill-count" id="count-Claude Code"></span></button>
+      <button class="pill" data-filter="Claude">Claude <span class="pill-count" id="count-Claude"></span></button>
+      <button class="pill" data-filter="Immagini">Immagini <span class="pill-count" id="count-Immagini"></span></button>
+      <button class="pill" data-filter="Video">Video <span class="pill-count" id="count-Video"></span></button>
+      <button class="pill" data-filter="Automazione">Automazione <span class="pill-count" id="count-Automazione"></span></button>
+      <button class="pill" data-filter="Business">Business <span class="pill-count" id="count-Business"></span></button>
+      <button class="pill" data-filter="Formazione">Formazione <span class="pill-count" id="count-Formazione"></span></button>
+      <button class="pill" data-filter="Strumenti">Strumenti <span class="pill-count" id="count-Strumenti"></span></button>
+      <button class="pill" data-filter="Contenuti">Contenuti <span class="pill-count" id="count-Contenuti"></span></button>
+    </div>
+  </div>
+
+  <div class="list-meta" data-od-id="list-meta"><span id="results-count">34</span> guide disponibili</div>
 
   <main data-od-id="guides">
+    <p class="results-empty" id="empty-msg">Nessuna guida trovata.</p>
 
-    <a class="guide-item" href="guida-01-briefing-prompts-ai.html">
-      <span class="g-tag">Prompt AI</span>
+    <a class="guide-item" href="guida-01-briefing-prompts-ai.html" data-tag="Prompt">
+      <span class="g-tag">Prompt</span>
       <div class="g-body">
         <div class="g-title">10 Prompt AI per non restare mai indietro</div>
         <div class="g-desc">I 10 prompt essenziali per stare al passo con l'intelligenza artificiale ogni settimana.</div>
@@ -257,8 +336,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-02-voice-tools-ai.html">
-      <span class="g-tag">Strumenti AI</span>
+    <a class="guide-item" href="guida-02-voice-tools-ai.html" data-tag="Strumenti">
+      <span class="g-tag">Strumenti</span>
       <div class="g-body">
         <div class="g-title">15 modi per sostituire la tastiera con l'AI vocale</div>
         <div class="g-desc">Come usare la voce al posto della tastiera grazie agli strumenti AI più potenti.</div>
@@ -266,7 +345,7 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-03-claude-code-skills.html">
+    <a class="guide-item" href="guida-03-claude-code-skills.html" data-tag="Claude Code">
       <span class="g-tag">Claude Code</span>
       <div class="g-body">
         <div class="g-title">3 skill di Claude Code che uso ogni giorno</div>
@@ -275,8 +354,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-04-claude-aggiornamenti.html">
-      <span class="g-tag">Claude AI</span>
+    <a class="guide-item" href="guida-04-claude-aggiornamenti.html" data-tag="Claude">
+      <span class="g-tag">Claude</span>
       <div class="g-body">
         <div class="g-title">3 aggiornamenti Claude che hanno cambiato tutto</div>
         <div class="g-desc">I tre update di Claude che hanno rivoluzionato il modo di lavorare con l'AI.</div>
@@ -284,8 +363,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-12-redesign-stanza-ai.html">
-      <span class="g-tag">AI Creativa</span>
+    <a class="guide-item" href="guida-12-redesign-stanza-ai.html" data-tag="Immagini">
+      <span class="g-tag">Immagini</span>
       <div class="g-body">
         <div class="g-title">Ridisegna qualsiasi stanza con AI in 30 secondi</div>
         <div class="g-desc">Come trasformare l'interior design di una stanza con l'intelligenza artificiale in meno di un minuto.</div>
@@ -293,8 +372,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-13-produzione-video-ai.html">
-      <span class="g-tag">Video AI</span>
+    <a class="guide-item" href="guida-13-produzione-video-ai.html" data-tag="Video">
+      <span class="g-tag">Video</span>
       <div class="g-body">
         <div class="g-title">Produci video professionali con AI in 5 minuti</div>
         <div class="g-desc">Il workflow completo per creare video di qualità professionale usando l'AI.</div>
@@ -302,8 +381,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-14-anima-foto-gmail.html">
-      <span class="g-tag">AI Creativa</span>
+    <a class="guide-item" href="guida-14-anima-foto-gmail.html" data-tag="Immagini">
+      <span class="g-tag">Immagini</span>
       <div class="g-body">
         <div class="g-title">Anima la tua foto profilo Gmail con AI in 60 secondi</div>
         <div class="g-desc">Come creare una foto profilo animata per Gmail usando gli strumenti AI gratuiti.</div>
@@ -311,8 +390,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-15-banana-claude-setup.html">
-      <span class="g-tag">Immagini AI</span>
+    <a class="guide-item" href="guida-15-banana-claude-setup.html" data-tag="Immagini">
+      <span class="g-tag">Immagini</span>
       <div class="g-body">
         <div class="g-title">Genera immagini 4K gratis con Banana Claude</div>
         <div class="g-desc">Setup completo per generare immagini in alta qualità gratuitamente con Banana e Claude.</div>
@@ -320,8 +399,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-16-proposte-clienti-claude.html">
-      <span class="g-tag">Business AI</span>
+    <a class="guide-item" href="guida-16-proposte-clienti-claude.html" data-tag="Claude Code">
+      <span class="g-tag">Claude Code</span>
       <div class="g-body">
         <div class="g-title">Proposte clienti interattive con Claude Code</div>
         <div class="g-desc">Come creare proposte commerciali interattive e professionali usando Claude Code.</div>
@@ -329,8 +408,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-23-claude-ads-setup.html">
-      <span class="g-tag">Marketing AI</span>
+    <a class="guide-item" href="guida-23-claude-ads-setup.html" data-tag="Business">
+      <span class="g-tag">Business</span>
       <div class="g-body">
         <div class="g-title">Claude Ads: Audit completo del tuo account pubblicitario in 5 minuti</div>
         <div class="g-desc">Come analizzare e ottimizzare le tue campagne pubblicitarie con Claude in 5 minuti.</div>
@@ -338,7 +417,7 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-24-claude-code-plan-mode.html">
+    <a class="guide-item" href="guida-24-claude-code-plan-mode.html" data-tag="Claude Code">
       <span class="g-tag">Claude Code</span>
       <div class="g-body">
         <div class="g-title">Claude Code Plan Mode: la guida completa per non sviluppatori</div>
@@ -347,7 +426,7 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-25-claude-code-vs-openclaw.html">
+    <a class="guide-item" href="guida-25-claude-code-vs-openclaw.html" data-tag="Claude Code">
       <span class="g-tag">Claude Code</span>
       <div class="g-body">
         <div class="g-title">Claude Code vs OpenClaw: la guida definitiva all'automazione con /loop</div>
@@ -356,8 +435,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-26-claude-computer-use.html">
-      <span class="g-tag">Claude AI</span>
+    <a class="guide-item" href="guida-26-claude-computer-use.html" data-tag="Automazione">
+      <span class="g-tag">Automazione</span>
       <div class="g-body">
         <div class="g-title">Claude Computer Use: fai prendere il controllo del computer a Claude</div>
         <div class="g-desc">Come configurare Claude Computer Use per automatizzare qualsiasi operazione sul tuo PC.</div>
@@ -365,8 +444,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-27-claude-council.html">
-      <span class="g-tag">Claude AI</span>
+    <a class="guide-item" href="guida-27-claude-council.html" data-tag="Claude">
+      <span class="g-tag">Claude</span>
       <div class="g-body">
         <div class="g-title">Claude Council: setup completo + prompt per decisioni difficili</div>
         <div class="g-desc">Come usare Claude Council per prendere decisioni difficili con il supporto dell'AI.</div>
@@ -374,8 +453,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-28-claude-cowork-presentazioni.html">
-      <span class="g-tag">Produttività AI</span>
+    <a class="guide-item" href="guida-28-claude-cowork-presentazioni.html" data-tag="Business">
+      <span class="g-tag">Business</span>
       <div class="g-body">
         <div class="g-title">Claude Cowork: crea presentazioni professionali in 90 secondi</div>
         <div class="g-desc">Il metodo per generare presentazioni di qualità professionale con Claude Cowork.</div>
@@ -383,8 +462,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-29-claude-design-prompts.html">
-      <span class="g-tag">Design AI</span>
+    <a class="guide-item" href="guida-29-claude-design-prompts.html" data-tag="Strumenti">
+      <span class="g-tag">Strumenti</span>
       <div class="g-body">
         <div class="g-title">Claude Design: walkthrough completo e i 10 migliori prompt</div>
         <div class="g-desc">Guida completa a Claude Design con i 10 prompt più efficaci per il design.</div>
@@ -392,8 +471,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-30-claude-google-sheets.html">
-      <span class="g-tag">Produttività AI</span>
+    <a class="guide-item" href="guida-30-claude-google-sheets.html" data-tag="Business">
+      <span class="g-tag">Business</span>
       <div class="g-body">
         <div class="g-title">Claude e Google Sheets: template finanziari professionali con l'AI</div>
         <div class="g-desc">Come usare Claude per creare template finanziari avanzati su Google Sheets.</div>
@@ -401,8 +480,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-34-claude-routines.html">
-      <span class="g-tag">Automazione AI</span>
+    <a class="guide-item" href="guida-34-claude-routines.html" data-tag="Automazione">
+      <span class="g-tag">Automazione</span>
       <div class="g-body">
         <div class="g-title">Claude Routines: 3 automazioni che fanno girare il tuo business</div>
         <div class="g-desc">Le 3 routine automatizzate con Claude che ottimizzano il tuo flusso di lavoro quotidiano.</div>
@@ -410,8 +489,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-35-claude-seo-audit.html">
-      <span class="g-tag">SEO AI</span>
+    <a class="guide-item" href="guida-35-claude-seo-audit.html" data-tag="Business">
+      <span class="g-tag">Business</span>
       <div class="g-body">
         <div class="g-title">Claude SEO Audit: controlla la visibilità del tuo sito per le AI in 60 secondi</div>
         <div class="g-desc">Come fare un audit SEO completo per l'era dell'AI in meno di un minuto con Claude.</div>
@@ -419,8 +498,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-36-claude-vs-cowork-code.html">
-      <span class="g-tag">Claude AI</span>
+    <a class="guide-item" href="guida-36-claude-vs-cowork-code.html" data-tag="Claude">
+      <span class="g-tag">Claude</span>
       <div class="g-body">
         <div class="g-title">Claude vs Cowork vs Claude Code: la guida completa</div>
         <div class="g-desc">Confronto definitivo tra Claude, Cowork e Claude Code per scegliere lo strumento giusto.</div>
@@ -428,8 +507,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-37-claude-website-control.html">
-      <span class="g-tag">Automazione AI</span>
+    <a class="guide-item" href="guida-37-claude-website-control.html" data-tag="Automazione">
+      <span class="g-tag">Automazione</span>
       <div class="g-body">
         <div class="g-title">Claude controlla qualsiasi sito web: installa Firecrawl e Playwright</div>
         <div class="g-desc">Come dare a Claude il controllo completo dei siti web con Firecrawl e Playwright.</div>
@@ -437,7 +516,7 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-45-genera-risorse-claude-code.html">
+    <a class="guide-item" href="guida-45-genera-risorse-claude-code.html" data-tag="Claude Code">
       <span class="g-tag">Claude Code</span>
       <div class="g-body">
         <div class="g-title">Genera qualsiasi risorsa con Claude Code</div>
@@ -446,8 +525,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-46-google-stitch-claude.html">
-      <span class="g-tag">Strumenti AI</span>
+    <a class="guide-item" href="guida-46-google-stitch-claude.html" data-tag="Claude Code">
+      <span class="g-tag">Claude Code</span>
       <div class="g-body">
         <div class="g-title">Google Stitch + Claude Code: trasforma le tue app in prodotti professionali</div>
         <div class="g-desc">Come combinare Google Stitch e Claude Code per creare app di livello professionale.</div>
@@ -455,8 +534,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-47-google-workspace-claude.html">
-      <span class="g-tag">Produttività AI</span>
+    <a class="guide-item" href="guida-47-google-workspace-claude.html" data-tag="Strumenti">
+      <span class="g-tag">Strumenti</span>
       <div class="g-body">
         <div class="g-title">Google Workspace CLI: dai all'AI accesso completo a Gmail, Drive, Docs e Calendar</div>
         <div class="g-desc">Setup completo per collegare Claude a tutti gli strumenti Google Workspace.</div>
@@ -464,8 +543,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-48-diventare-ai-agent-manager.html">
-      <span class="g-tag">AI Agent</span>
+    <a class="guide-item" href="guida-48-diventare-ai-agent-manager.html" data-tag="Formazione">
+      <span class="g-tag">Formazione</span>
       <div class="g-body">
         <div class="g-title">Come diventare AI Agent Manager: la guida in 5 passi</div>
         <div class="g-desc">Il percorso in 5 step per diventare un AI Agent Manager e lavorare con gli agenti AI.</div>
@@ -473,8 +552,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-56-prompt-playbook.html">
-      <span class="g-tag">Prompt AI</span>
+    <a class="guide-item" href="guida-56-prompt-playbook.html" data-tag="Prompt">
+      <span class="g-tag">Prompt</span>
       <div class="g-body">
         <div class="g-title">Il mio Playbook dei Prompt AI</div>
         <div class="g-desc">La raccolta completa dei prompt AI più efficaci organizzati per caso d'uso.</div>
@@ -482,8 +561,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-57-nano-banana-vs-chatgpt-image.html">
-      <span class="g-tag">Immagini AI</span>
+    <a class="guide-item" href="guida-57-nano-banana-vs-chatgpt-image.html" data-tag="Immagini">
+      <span class="g-tag">Immagini</span>
       <div class="g-body">
         <div class="g-title">Nano Banana vs ChatGPT Image 2: il confronto visivo completo</div>
         <div class="g-desc">Confronto approfondito tra Nano Banana e ChatGPT Image 2 per la generazione di immagini.</div>
@@ -491,8 +570,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-58-controllo-remoto-claude.html">
-      <span class="g-tag">Automazione AI</span>
+    <a class="guide-item" href="guida-58-controllo-remoto-claude.html" data-tag="Automazione">
+      <span class="g-tag">Automazione</span>
       <div class="g-body">
         <div class="g-title">Controllo remoto di Claude dal telefono</div>
         <div class="g-desc">Come controllare Claude da remoto usando solo il telefono per automazioni sempre attive.</div>
@@ -500,8 +579,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-59-figli-futuri-chatgpt.html">
-      <span class="g-tag">AI Creativa</span>
+    <a class="guide-item" href="guida-59-figli-futuri-chatgpt.html" data-tag="Immagini">
+      <span class="g-tag">Immagini</span>
       <div class="g-body">
         <div class="g-title">Come vedere i tuoi figli futuri con ChatGPT</div>
         <div class="g-desc">Il metodo per visualizzare come potrebbero essere i tuoi figli usando ChatGPT.</div>
@@ -509,8 +588,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-67-piano-ai-30-giorni.html">
-      <span class="g-tag">Formazione AI</span>
+    <a class="guide-item" href="guida-67-piano-ai-30-giorni.html" data-tag="Formazione">
+      <span class="g-tag">Formazione</span>
       <div class="g-body">
         <div class="g-title">Il Piano AI da 30 Giorni</div>
         <div class="g-desc">Il programma completo di 30 giorni per integrare l'AI nel tuo lavoro quotidiano.</div>
@@ -518,8 +597,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-68-sistema-contenuti-virali-ai.html">
-      <span class="g-tag">Contenuti AI</span>
+    <a class="guide-item" href="guida-68-sistema-contenuti-virali-ai.html" data-tag="Contenuti">
+      <span class="g-tag">Contenuti</span>
       <div class="g-body">
         <div class="g-title">Il Sistema AI per Contenuti Virali</div>
         <div class="g-desc">Il sistema completo per creare contenuti virali in modo sistematico grazie all'AI.</div>
@@ -527,7 +606,7 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-69-claude-code-desktop-setup.html">
+    <a class="guide-item" href="guida-69-claude-code-desktop-setup.html" data-tag="Claude Code">
       <span class="g-tag">Claude Code</span>
       <div class="g-body">
         <div class="g-title">Claude Code Desktop: il setup che sostituisce Cursor e VS Code</div>
@@ -536,8 +615,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-70-corsi-anthropic-completi.html">
-      <span class="g-tag">Formazione AI</span>
+    <a class="guide-item" href="guida-70-corsi-anthropic-completi.html" data-tag="Formazione">
+      <span class="g-tag">Formazione</span>
       <div class="g-body">
         <div class="g-title">La Libreria Completa dei Corsi Anthropic</div>
         <div class="g-desc">Tutti i corsi ufficiali Anthropic organizzati per livello e caso d'uso.</div>
@@ -545,8 +624,8 @@ body {
       <span class="g-arrow">→</span>
     </a>
 
-    <a class="guide-item" href="guida-strava-ai.html">
-      <span class="g-tag">Prompt AI</span>
+    <a class="guide-item" href="guida-strava-ai.html" data-tag="Prompt">
+      <span class="g-tag">Prompt</span>
       <div class="g-body">
         <div class="g-title">Crea la tua foto Strava incredibile con AI [Prompt]</div>
         <div class="g-desc">Il prompt pronto per trasformare la tua foto e il recap Strava in un visual da creator professionista. In 2 minuti, gratis.</div>
@@ -562,5 +641,49 @@ body {
   </footer>
 </div>
 
+<script>
+(function () {
+  var items = Array.from(document.querySelectorAll('.guide-item'));
+  var searchInput = document.getElementById('search');
+  var pills = Array.from(document.querySelectorAll('.pill'));
+  var countEl = document.getElementById('results-count');
+  var emptyMsg = document.getElementById('empty-msg');
+  var activeTag = 'tutti';
+
+  // compute per-tag counts once
+  var allTags = ['Prompt','Claude Code','Claude','Immagini','Video','Automazione','Business','Formazione','Strumenti','Contenuti'];
+  allTags.forEach(function(tag) {
+    var el = document.getElementById('count-' + tag);
+    if (el) el.textContent = items.filter(function(i){ return i.dataset.tag === tag; }).length;
+  });
+  document.getElementById('count-tutti').textContent = items.length;
+
+  function filter() {
+    var q = searchInput.value.trim().toLowerCase();
+    var visible = 0;
+    items.forEach(function(item) {
+      var tagMatch = activeTag === 'tutti' || item.dataset.tag === activeTag;
+      var text = item.textContent.toLowerCase();
+      var searchMatch = !q || text.indexOf(q) !== -1;
+      var show = tagMatch && searchMatch;
+      item.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    countEl.textContent = visible;
+    emptyMsg.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  pills.forEach(function(pill) {
+    pill.addEventListener('click', function() {
+      pills.forEach(function(p){ p.classList.remove('active'); });
+      pill.classList.add('active');
+      activeTag = pill.dataset.filter;
+      filter();
+    });
+  });
+
+  searchInput.addEventListener('input', filter);
+})();
+</script>
 </body>
 </html>
