@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Importa le Tue Memorie da ChatGPT a Claude in 60 Secondi — @giampiero.ai</title>
+<meta name="description" content="Come trasferire tutte le tue memorie e preferenze da ChatGPT a Claude in meno di un minuto, senza perdere anni di contesto personalizzato.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{--bg:oklch(98% 0.004 95);--surface:oklch(100% 0.002 95);--fg:oklch(20% 0.018 70);--muted:oklch(48% 0.012 70);--border:oklch(90% 0.006 95);--accent:oklch(52% 0.10 28);--font-display:'Iowan Old Style','Charter',Georgia,serif;--font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;--font-mono:ui-monospace,'SF Mono',Menlo,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+.article-wrap{max-width:660px;margin:0 auto;padding:0 24px}
+.site-header{padding:20px 0;border-bottom:1px solid var(--border)}
+.header-inner{max-width:860px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:0.02em;color:var(--fg);text-decoration:none}
+.avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;display:block;flex-shrink:0}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-ig{font-family:var(--font-mono);font-size:11px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.15s}
+.nav-ig:hover{color:var(--fg)}
+.breadcrumb{padding:20px 0 0;font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--fg)}.breadcrumb span{margin:0 6px}
+.article-header{padding:32px 0 40px;border-bottom:1px solid var(--border)}
+.article-tag{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.article-title{font-family:var(--font-display);font-size:clamp(30px,4vw,44px);font-weight:400;line-height:1.15;letter-spacing:-0.02em;color:var(--fg);margin-bottom:18px;max-width:22ch;text-wrap:pretty}
+.article-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.article-content{padding:40px 0 0}
+.article-content p{font-size:17px;line-height:1.7;color:var(--fg);max-width:65ch;margin-bottom:20px}
+.article-content h2{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;color:var(--fg);margin:36px 0 14px}
+.article-content ul{margin:0 0 20px 0;padding-left:20px}
+.article-content ul li{font-size:17px;line-height:1.65;color:var(--fg);max-width:60ch;margin-bottom:8px}
+.article-content ul li strong{font-weight:550}
+.step{display:flex;gap:16px;align-items:baseline;margin-bottom:12px;max-width:60ch}
+.step-num{font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--accent);flex-shrink:0;margin-top:2px}
+.step-text{font-size:17px;line-height:1.65;color:var(--fg)}
+.prompt-box{background:var(--fg);padding:28px 28px 24px;margin:28px 0 24px;max-width:65ch}
+.prompt-box .prompt-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.prompt-box pre{font-family:var(--font-mono);font-size:13px;line-height:1.7;color:oklch(92% 0.004 95);white-space:pre-wrap;word-break:break-word;margin:0}
+.copy-btn{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;background:transparent;border:1px solid oklch(38% 0.012 70);color:oklch(75% 0.006 70);padding:8px 14px;cursor:pointer;transition:border-color 0.15s,color 0.15s}
+.copy-btn:hover{border-color:oklch(65% 0.008 70);color:oklch(90% 0.004 95)}
+.copy-btn.copied{color:oklch(75% 0.12 145);border-color:oklch(55% 0.10 145)}
+.preview-wrap{position:relative}.preview-mask{position:relative;overflow:hidden}
+.preview-mask::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
+.preview-mask.unlocked::after{display:none}
+#paywall-gate{padding:48px 0 60px;border-top:1px solid var(--border);margin-top:8px}
+.paywall-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.paywall-title{font-family:var(--font-display);font-size:26px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;color:var(--fg);margin-bottom:10px}
+.paywall-sub{font-size:15px;color:var(--muted);max-width:44ch;line-height:1.6;margin-bottom:28px}
+.access-form{display:flex;flex-direction:column;gap:10px;max-width:360px}
+.form-row{display:flex;flex-direction:column;gap:5px}
+.form-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted)}
+.form-input{font-family:var(--font-body);font-size:15px;color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:0;padding:10px 12px;outline:none;width:100%;transition:border-color 0.15s;-webkit-appearance:none}
+.form-input:focus{border-color:var(--fg)}.form-input::placeholder{color:var(--muted)}
+.form-submit{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.02em;color:var(--surface);background:var(--accent);border:none;padding:11px 20px;cursor:pointer;border-radius:0;width:100%;margin-top:4px;transition:opacity 0.15s;-webkit-appearance:none}
+.form-submit:hover{opacity:0.88}
+.form-note{font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;color:var(--muted);margin-top:4px}
+#article-full{display:none}#article-full.visible{display:block}
+.unlock-note{display:none;font-family:var(--font-mono);font-size:11px;letter-spacing:0.05em;color:var(--muted);padding:20px 0 0;border-top:1px solid var(--border);margin-top:8px}
+.unlock-note.visible{display:block}
+.cta-callout{background:var(--fg);padding:44px 40px}
+.cta-callout .cta-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.cta-callout h3{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.25;color:var(--surface);max-width:38ch;margin-bottom:28px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.cta-btn{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.01em;padding:11px 20px;text-decoration:none;border-radius:0;transition:opacity 0.15s;display:inline-block}
+.cta-btn-primary{background:var(--surface);color:var(--fg)}.cta-btn-secondary{background:transparent;color:var(--surface);border:1px solid oklch(38% 0.012 70)}
+.cta-btn:hover{opacity:0.75}
+.site-footer{border-top:1px solid var(--border);padding:32px 0}
+.footer-inner{display:flex;align-items:center;justify-content:space-between}
+.f-text{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted);text-decoration:none}.f-text:hover{color:var(--fg)}
+@media(max-width:580px){.article-title{font-size:28px}.paywall-title{font-size:22px}.prompt-box{padding:22px 18px 18px}.cta-callout{padding:36px 24px}.site-footer .footer-inner{flex-direction:column;gap:8px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html"><img class="avatar" src="avatar.png" alt="Giampiero"><span class="logo">@giampiero.ai</span></a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+<div class="article-wrap">
+  <nav class="breadcrumb"><a href="index.html">Guide</a><span>·</span><span>Importa le Memorie da ChatGPT a Claude</span></nav>
+  <header class="article-header">
+    <span class="article-tag">Claude</span>
+    <h1 class="article-title">Passa a Claude in 60 Secondi: Porta le Tue Memorie da ChatGPT</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 4 min di lettura</p>
+  </header>
+  <div class="article-content">
+    <div class="preview-wrap"><div class="preview-mask" id="preview-mask">
+      <p>La ragione numero uno per cui le persone rimanevano su ChatGPT era la storia accumulata. Anni di conversazioni, preferenze apprese, risposte personalizzate — tutto chiuso dentro la piattaforma di OpenAI. Cambiare strumento significava ricominciare da zero: rispiegare chi sei, come lavori, che tono vuoi, quali progetti stai portando avanti. Un costo reale.</p>
+      <p>Claude ha risolto questo problema. Ora puoi importare tutte le tue memorie e preferenze da ChatGPT con un singolo copia-incolla. Il processo richiede letteralmente 60 secondi e funziona su tutti i piani a pagamento di Claude — Pro, Team ed Enterprise.</p>
+      <p>Non si tratta solo di una funzione comoda. È la fine del lock-in AI: le tue memorie, le tue preferenze, il tuo contesto ti appartengono e possono andare dove vai tu. Claude è il primo grande modello AI ad averlo reso possibile concretamente.</p>
+    </div></div>
+    <div id="article-full">
+      <h2>Cosa ti serve</h2>
+      <ul>
+        <li>Un account ChatGPT (funziona sia sul piano gratuito che a pagamento)</li>
+        <li>Un piano Claude a pagamento (Pro a 20$/mese, Team o Enterprise)</li>
+        <li>60 secondi — sul serio</li>
+      </ul>
+
+      <h2>Passo 1 — Ottieni il prompt di importazione da Claude</h2>
+
+      <div class="step"><span class="step-num">1a —</span><span class="step-text">Vai alla pagina di importazione: <strong>claude.com/import-memory</strong> oppure accedi tramite Impostazioni → Funzionalità → Memoria → Avvia importazione.</span></div>
+      <div class="step"><span class="step-num">1b —</span><span class="step-text">Claude ti mostra un prompt già pronto. Copialo negli appunti.</span></div>
+
+      <h2>Passo 2 — Estrai le tue memorie da ChatGPT</h2>
+
+      <div class="step"><span class="step-num">2a —</span><span class="step-text">Apri ChatGPT su chatgpt.com e inizia una nuova conversazione.</span></div>
+      <div class="step"><span class="step-num">2b —</span><span class="step-text">Incolla il prompt che hai copiato da Claude. ChatGPT risponderà con tutte le memorie che ha salvato su di te — nome, preferenze, progetti, stile di comunicazione, tutto.</span></div>
+      <div class="step"><span class="step-num">2c —</span><span class="step-text">Seleziona l'intera risposta di ChatGPT e copiala.</span></div>
+
+      <h2>Passo 3 — Importa in Claude</h2>
+
+      <div class="step"><span class="step-num">3a —</span><span class="step-text">Torna alla pagina di importazione di Claude: <strong>claude.com/import-memory</strong></span></div>
+      <div class="step"><span class="step-num">3b —</span><span class="step-text">Incolla l'output di ChatGPT nel campo di testo e clicca "Aggiungi alla memoria".</span></div>
+      <div class="step"><span class="step-num">3c —</span><span class="step-text">Claude elabora le tue memorie entro 24 ore. Inizierai a vedere risposte personalizzate quasi subito.</span></div>
+
+      <h2>Cosa si trasferisce (e cosa no)</h2>
+
+      <p><strong>Quello che arriva con te:</strong></p>
+      <ul>
+        <li>Memorie salvate e preferenze apprese (nome, lavoro, stile di scrittura, ecc.)</li>
+        <li>Contesto sui tuoi progetti, obiettivi e attività ricorrenti</li>
+        <li>Preferenze di comunicazione (tono, formato, livello di dettaglio)</li>
+        <li>Fatti chiave che Claude può usare nelle conversazioni future</li>
+      </ul>
+
+      <p><strong>Quello che rimane su ChatGPT:</strong></p>
+      <ul>
+        <li>La cronologia delle conversazioni individuali (i thread restano su OpenAI)</li>
+        <li>GPT personalizzati o plugin (Claude ha il suo ecosistema)</li>
+        <li>L'abbonamento ChatGPT Plus — servirà un piano Claude separato</li>
+        <li>Dati che avevi già eliminato da ChatGPT</li>
+      </ul>
+
+      <h2>Come gestire le tue memorie su Claude</h2>
+      <p>Dopo l'importazione hai il controllo completo:</p>
+      <ul>
+        <li>Visualizza tutte le memorie in Impostazioni → Funzionalità → Memoria</li>
+        <li>Modifica o elimina singole memorie in qualsiasi momento</li>
+        <li>Esporta le tue memorie Claude quando vuoi (Impostazioni → Esporta)</li>
+        <li>Attiva/disattiva la memoria per conversazione se vuoi ripartire da zero</li>
+      </ul>
+
+      <h2>Perché le persone stanno passando a Claude</h2>
+      <p>La ragione più frequente nei commenti all'annuncio di questa funzione: <em>"Era l'ultima cosa che mi teneva su ChatGPT."</em> Centinaia di persone che dicevano la stessa cosa.</p>
+
+      <p>Dopo l'importazione, Claude offre alcune differenze concrete:</p>
+      <ul>
+        <li><strong>Risposte più sfumate e ragionate</strong> — meno risposte piatte, più pensiero reale</li>
+        <li><strong>Migliore nel seguire istruzioni complesse</strong> e nel mantenere il contesto nel tempo</li>
+        <li><strong>Più onesto su ciò che non sa</strong> — meno allucinazioni</li>
+        <li><strong>Finestra di contesto più lunga</strong> — Claude gestisce documenti più grandi senza perdere il filo</li>
+        <li><strong>Claude Code per chi sviluppa</strong> — un agente AI completo per la programmazione nel terminale</li>
+      </ul>
+
+      <p>Non devi scegliere tra la tua storia AI e uno strumento migliore. Importa le memorie, prova Claude per una settimana, e vedi la differenza. I tuoi dati vanno dove vai tu — questa è la svolta vera.</p>
+    </div>
+    <div class="unlock-note" id="unlock-note">Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.</div>
+  </div>
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row"><label class="form-label" for="nome">Nome</label><input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name"></div>
+      <div class="form-row"><label class="form-label" for="email">Email</label><input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required></div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+</div>
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+<div class="wrap"><footer class="site-footer"><div class="footer-inner"><span class="f-text">© 2026 @giampiero.ai</span><a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a></div></footer></div>
+<script>
+(function(){
+  var STORE='giampiero_ai_subscriber';
+  var gate=document.getElementById('paywall-gate'),full=document.getElementById('article-full'),mask=document.getElementById('preview-mask'),note=document.getElementById('unlock-note'),form=document.getElementById('access-form');
+  function unlock(){if(gate)gate.style.display='none';if(full)full.classList.add('visible');if(mask)mask.classList.add('unlocked');if(note)note.classList.add('visible');}
+  try{if(localStorage.getItem(STORE))unlock();}catch(_){}
+  if(form){form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=form.querySelector('[name="email"]').value.trim(),nome=form.querySelector('[name="nome"]').value.trim();
+    if(!email||!email.includes('@')){form.querySelector('[name="email"]').focus();return;}
+    try{localStorage.setItem(STORE,JSON.stringify({nome:nome,email:email,ts:Date.now()}));}catch(_){}
+    fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,email:email,guida:'Importa le Memorie da ChatGPT a Claude in 60 Secondi',ts:new Date().toISOString()})}).catch(function(){});
+    unlock();
+  });}
+})();
+function copyPromptById(textId,btnId,labelId,resetLabel){var text=document.getElementById(textId).innerText,btn=document.getElementById(btnId),lbl=document.getElementById(labelId);navigator.clipboard.writeText(text).then(function(){btn.classList.add('copied');lbl.textContent='Copiato ✓';setTimeout(function(){btn.classList.remove('copied');lbl.textContent=resetLabel;},2200);});}
+</script>
+</body>
+</html>

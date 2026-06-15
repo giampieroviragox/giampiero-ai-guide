@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fatture Professionali con Claude in 30 Secondi — @giampiero.ai</title>
+<meta name="description" content="Un prompt unico per generare fatture HTML brandizzate con tema dark, colori personalizzati e coordinate bancarie internazionali. Gratis per sempre, zero abbonamenti.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{--bg:oklch(98% 0.004 95);--surface:oklch(100% 0.002 95);--fg:oklch(20% 0.018 70);--muted:oklch(48% 0.012 70);--border:oklch(90% 0.006 95);--accent:oklch(52% 0.10 28);--font-display:'Iowan Old Style','Charter',Georgia,serif;--font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;--font-mono:ui-monospace,'SF Mono',Menlo,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+.article-wrap{max-width:660px;margin:0 auto;padding:0 24px}
+.site-header{padding:20px 0;border-bottom:1px solid var(--border)}
+.header-inner{max-width:860px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:0.02em;color:var(--fg);text-decoration:none}
+.avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;display:block;flex-shrink:0}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-ig{font-family:var(--font-mono);font-size:11px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.15s}
+.nav-ig:hover{color:var(--fg)}
+.breadcrumb{padding:20px 0 0;font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--fg)}.breadcrumb span{margin:0 6px}
+.article-header{padding:32px 0 40px;border-bottom:1px solid var(--border)}
+.article-tag{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.article-title{font-family:var(--font-display);font-size:clamp(30px,4vw,44px);font-weight:400;line-height:1.15;letter-spacing:-0.02em;color:var(--fg);margin-bottom:18px;max-width:22ch;text-wrap:pretty}
+.article-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.article-content{padding:40px 0 0}
+.article-content p{font-size:17px;line-height:1.7;color:var(--fg);max-width:65ch;margin-bottom:20px}
+.article-content h2{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;color:var(--fg);margin:36px 0 14px}
+.article-content ul{margin:0 0 20px 0;padding-left:20px}
+.article-content ul li{font-size:17px;line-height:1.65;color:var(--fg);max-width:60ch;margin-bottom:8px}
+.article-content ul li strong{font-weight:550}
+.prompt-box{background:var(--fg);padding:28px 28px 24px;margin:28px 0 24px;max-width:65ch}
+.prompt-box .prompt-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.prompt-box pre{font-family:var(--font-mono);font-size:13px;line-height:1.7;color:oklch(92% 0.004 95);white-space:pre-wrap;word-break:break-word;margin:0}
+.copy-btn{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;background:transparent;border:1px solid oklch(38% 0.012 70);color:oklch(75% 0.006 70);padding:8px 14px;cursor:pointer;transition:border-color 0.15s,color 0.15s}
+.copy-btn:hover{border-color:oklch(65% 0.008 70);color:oklch(90% 0.004 95)}
+.copy-btn.copied{color:oklch(75% 0.12 145);border-color:oklch(55% 0.10 145)}
+.preview-wrap{position:relative}.preview-mask{position:relative;overflow:hidden}
+.preview-mask::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
+.preview-mask.unlocked::after{display:none}
+#paywall-gate{padding:48px 0 60px;border-top:1px solid var(--border);margin-top:8px}
+.paywall-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.paywall-title{font-family:var(--font-display);font-size:26px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;color:var(--fg);margin-bottom:10px}
+.paywall-sub{font-size:15px;color:var(--muted);max-width:44ch;line-height:1.6;margin-bottom:28px}
+.access-form{display:flex;flex-direction:column;gap:10px;max-width:360px}
+.form-row{display:flex;flex-direction:column;gap:5px}
+.form-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted)}
+.form-input{font-family:var(--font-body);font-size:15px;color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:0;padding:10px 12px;outline:none;width:100%;transition:border-color 0.15s;-webkit-appearance:none}
+.form-input:focus{border-color:var(--fg)}.form-input::placeholder{color:var(--muted)}
+.form-submit{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.02em;color:var(--surface);background:var(--accent);border:none;padding:11px 20px;cursor:pointer;border-radius:0;width:100%;margin-top:4px;transition:opacity 0.15s;-webkit-appearance:none}
+.form-submit:hover{opacity:0.88}
+.form-note{font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;color:var(--muted);margin-top:4px}
+#article-full{display:none}#article-full.visible{display:block}
+.unlock-note{display:none;font-family:var(--font-mono);font-size:11px;letter-spacing:0.05em;color:var(--muted);padding:20px 0 0;border-top:1px solid var(--border);margin-top:8px}
+.unlock-note.visible{display:block}
+.cta-callout{background:var(--fg);padding:44px 40px}
+.cta-callout .cta-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.cta-callout h3{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.25;color:var(--surface);max-width:38ch;margin-bottom:28px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.cta-btn{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.01em;padding:11px 20px;text-decoration:none;border-radius:0;transition:opacity 0.15s;display:inline-block}
+.cta-btn-primary{background:var(--surface);color:var(--fg)}.cta-btn-secondary{background:transparent;color:var(--surface);border:1px solid oklch(38% 0.012 70)}
+.cta-btn:hover{opacity:0.75}
+.site-footer{border-top:1px solid var(--border);padding:32px 0}
+.footer-inner{display:flex;align-items:center;justify-content:space-between}
+.f-text{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted);text-decoration:none}.f-text:hover{color:var(--fg)}
+@media(max-width:580px){.article-title{font-size:28px}.paywall-title{font-size:22px}.prompt-box{padding:22px 18px 18px}.cta-callout{padding:36px 24px}.site-footer .footer-inner{flex-direction:column;gap:8px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html"><img class="avatar" src="avatar.png" alt="Giampiero"><span class="logo">@giampiero.ai</span></a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+<div class="article-wrap">
+  <nav class="breadcrumb"><a href="index.html">Guide</a><span>·</span><span>Fatture con Claude in 30 Secondi</span></nav>
+  <header class="article-header">
+    <span class="article-tag">Business</span>
+    <h1 class="article-title">Fatture Professionali con Claude in 30 Secondi</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 4 min di lettura</p>
+  </header>
+  <div class="article-content">
+    <div class="preview-wrap"><div class="preview-mask" id="preview-mask">
+      <p>FreshBooks costa 30 dollari al mese per generare fatture che sembrano tutte uguali. QuickBooks idem. Questo prompt è gratis per sempre, e l'output sembra progettato da un'agenzia: colori del tuo brand, font personalizzati, coordinate bancarie internazionali integrate, tema dark o chiaro a scelta.</p>
+      <p>Il funzionamento è semplice: incolli un prompt in Claude, che ti fa due round di domande. Il primo round raccoglie il tuo branding — nome, business, colori, stile del logo, dati bancari. Lo fai una volta sola. Il secondo round riguarda la fattura specifica: cliente, voci, date, condizioni. Poi Claude genera un file HTML completo che apri nel browser e stampi come PDF.</p>
+      <p>Puoi anche trasformarlo in una skill riutilizzabile: digiti <code>/invoice</code> e Claude ricorda già il tuo brand. Ogni fattura futura richiede solo i dati del cliente.</p>
+    </div></div>
+    <div id="article-full">
+
+      <h2>Come funziona il sistema a due round</h2>
+      <p>Il prompt è lungo di proposito — tutti i dettagli di design sono integrati, così non devi pensare alla formattazione. Claude gestisce tutto: tipografia, layout, colori, sezioni.</p>
+      <ul>
+        <li><strong>Round 1 — Il tuo branding:</strong> nome completo, business, email, indirizzo, colore accent come hex, tema chiaro o scuro, stile logo (terminale monospaziato, wordmark pulito, o badge con iniziali), formato numero fattura, dati bancari.</li>
+        <li><strong>Round 2 — La fattura specifica:</strong> cliente, date, progetto, valuta, voci con quantità e tariffe, acconti, condizioni di pagamento, descrizione del lavoro consegnato.</li>
+      </ul>
+      <p>Rispondi al Round 1 una volta sola — Claude lo ricorda per tutte le fatture successive nella stessa conversazione.</p>
+
+      <h2>Il prompt completo da incollare</h2>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt da copiare</p>
+        <pre id="prompt-text">Voglio che tu generi una fattura HTML professionale che posso aprire nel browser e stampare come PDF. Prima di generarla, chiedimi le seguenti informazioni in due round. Aspetta le mie risposte prima di procedere.
+
+ROUND 1 - Il mio branding (verrà riutilizzato per ogni fattura):
+1. Il mio nome completo
+2. Nome del mio business/brand
+3. La mia email aziendale
+4. Il mio indirizzo postale completo
+5. Un tagline o ruolo breve (opzionale, mostrato sotto il nome brand)
+6. Colore accent del brand come codice hex (es. #e8875b per arancione, #00c48c per verde, #6366f1 per indaco)
+7. Preferenza tema: "dark" (sfondo quasi nero, testo chiaro) o "light" (sfondo bianco, testo scuro)
+8. Stile logo preferito: "monospace-terminal" (es. > NomeBrand con cursore lampeggiante), "clean-wordmark" (nome brand in grassetto sans-serif), o "initials-badge" (iniziali in un quadrato arrotondato)
+9. Formato numero fattura (es. "BRAND-YYYY-NNN") e numero di partenza
+10. I miei dati bancari per il pagamento
+
+ROUND 2 - Questa fattura specifica:
+1. Nome cliente, azienda, indirizzo, email
+2. Data fattura e data scadenza
+3. Nome progetto / descrizione
+4. Valuta (USD, EUR, CAD, ecc.)
+5. Voci: per ciascuna descrizione, sotto-descrizione opzionale, quantità e tariffa
+6. Acconto pagato (se presente) e piano di pagamento
+7. Condizioni di pagamento (es. 30 giorni, more, chi paga le commissioni)
+8. Descrizione del lavoro — elenco puntato di cosa viene consegnato
+
+REQUISITI DI DESIGN:
+- Usa Google Fonts: JetBrains Mono per intestazioni e valori, Inter per il corpo
+- Colore accent usato SOLO per: titolo FATTURA, importo dovuto, etichette sezione, logo, frecce liste, gradiente divisore
+- Layout in quest'ordine: intestazione con logo + numero + badge stato; riga meta con tre colonne (Da / A / Dettagli); linea divisore sfumata; tabella voci; riepilogo totali; card pagamento; termini; piè di pagina
+- Card con bordo sottile, angoli arrotondati 8px, sfondo leggermente più scuro del container
+- CSS di stampa incluso per PDF pulito con Cmd+P
+- File HTML unico, auto-contenuto, ottimizzato per 800px max-width
+
+Inizia con il Round 1. Fai tutte le domande insieme, aspetta la mia risposta, poi passa al Round 2.</pre>
+        <button class="copy-btn" id="copy-btn" onclick="copyPrompt()">
+          <span id="copy-label">Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Cosa contiene ogni fattura generata</h2>
+      <ul>
+        <li><strong>Intestazione brandizzata:</strong> stile logo scelto, numero fattura, badge stato, bordo colorato con il tuo accent.</li>
+        <li><strong>Riga meta a tre colonne:</strong> Da / A / Dettagli — tutte le info a colpo d'occhio.</li>
+        <li><strong>Tabella voci:</strong> descrizione con sotto-descrizione, quantità, tariffa, importo. Calcoli automatici.</li>
+        <li><strong>Box totali:</strong> subtotale, acconto (negativo), saldo rimanente, "Importo da pagare" in evidenza con il tuo colore accent.</li>
+        <li><strong>Coordinate bancarie:</strong> struttura a 3 step per bonifici internazionali (banca corrispondente → banca beneficiaria → destinatario) o lista semplice per pagamenti domestici.</li>
+        <li><strong>Termini e descrizione lavoro:</strong> elenco puntato con frecce nel colore accent.</li>
+      </ul>
+
+      <h2>Trasformalo in una skill riutilizzabile</h2>
+      <p>Dopo aver ottenuto una fattura che ti piace, chiedi a Claude di trasformare il branding in una skill permanente:</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt per creare la skill</p>
+        <pre id="skill-text">Trasforma questa fattura in una skill /invoice salvata in ~/.claude/skills/invoice che ricorda il mio branding e chiede solo i dati del nuovo cliente ogni volta.</pre>
+        <button class="copy-btn" id="copy-btn-2" onclick="copySkill()">
+          <span id="copy-label-2">Copia il prompt</span>
+        </button>
+      </div>
+
+      <p>Da quel momento in poi, ogni fattura richiede solo <code>/invoice [nome cliente]</code>. Claude gestisce tutto il resto — branding, colori, font, coordinate bancarie già salvate.</p>
+
+      <h2>Il confronto economico</h2>
+      <p>FreshBooks: 30 €/mese = 360 €/anno. QuickBooks: 30 €/mese = 360 €/anno. Questo prompt: gratis per sempre. Un incolla. Ogni fattura da qui in poi sembra progettata da un'agenzia.</p>
+
+    </div>
+    <div class="unlock-note" id="unlock-note">Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.</div>
+  </div>
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row"><label class="form-label" for="nome">Nome</label><input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name"></div>
+      <div class="form-row"><label class="form-label" for="email">Email</label><input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required></div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+</div>
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+<div class="wrap"><footer class="site-footer"><div class="footer-inner"><span class="f-text">© 2026 @giampiero.ai</span><a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a></div></footer></div>
+<script>
+(function(){
+  var STORE='giampiero_ai_subscriber';
+  var gate=document.getElementById('paywall-gate'),full=document.getElementById('article-full'),mask=document.getElementById('preview-mask'),note=document.getElementById('unlock-note'),form=document.getElementById('access-form');
+  function unlock(){if(gate)gate.style.display='none';if(full)full.classList.add('visible');if(mask)mask.classList.add('unlocked');if(note)note.classList.add('visible');}
+  try{if(localStorage.getItem(STORE))unlock();}catch(_){}
+  if(form){form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=form.querySelector('[name="email"]').value.trim(),nome=form.querySelector('[name="nome"]').value.trim();
+    if(!email||!email.includes('@')){form.querySelector('[name="email"]').focus();return;}
+    try{localStorage.setItem(STORE,JSON.stringify({nome:nome,email:email,ts:Date.now()}));}catch(_){}
+    fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,email:email,guida:'Fatture Professionali con Claude in 30 Secondi',ts:new Date().toISOString()})}).catch(function(){});
+    unlock();
+  });}
+})();
+function copyPrompt(){var text=document.getElementById('prompt-text').innerText,btn=document.getElementById('copy-btn'),lbl=document.getElementById('copy-label');navigator.clipboard.writeText(text).then(function(){btn.classList.add('copied');lbl.textContent='Copiato ✓';setTimeout(function(){btn.classList.remove('copied');lbl.textContent='Copia il prompt';},2200);});}
+function copySkill(){var text=document.getElementById('skill-text').innerText,btn=document.getElementById('copy-btn-2'),lbl=document.getElementById('copy-label-2');navigator.clipboard.writeText(text).then(function(){btn.classList.add('copied');lbl.textContent='Copiato ✓';setTimeout(function(){btn.classList.remove('copied');lbl.textContent='Copia il prompt';},2200);});}
+</script>
+</body>
+</html>

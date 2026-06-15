@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lo skill gratuito che ha sostituito il mio blog writer (e costa $0) — @giampiero.ai</title>
+<meta name="description" content="Claude Blog è uno skill gratuito per Claude Code che installa 12 strumenti professionali per la scrittura di blog post in 4 minuti. Ricerca, statistiche reali, immagini, grafici SVG e punteggio qualità inclusi.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{--bg:oklch(98% 0.004 95);--surface:oklch(100% 0.002 95);--fg:oklch(20% 0.018 70);--muted:oklch(48% 0.012 70);--border:oklch(90% 0.006 95);--accent:oklch(52% 0.10 28);--font-display:'Iowan Old Style','Charter',Georgia,serif;--font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;--font-mono:ui-monospace,'SF Mono',Menlo,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+.article-wrap{max-width:660px;margin:0 auto;padding:0 24px}
+.site-header{padding:20px 0;border-bottom:1px solid var(--border)}
+.header-inner{max-width:860px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:0.02em;color:var(--fg);text-decoration:none}
+.avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;display:block;flex-shrink:0}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-ig{font-family:var(--font-mono);font-size:11px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.15s}
+.nav-ig:hover{color:var(--fg)}
+.breadcrumb{padding:20px 0 0;font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--fg)}.breadcrumb span{margin:0 6px}
+.article-header{padding:32px 0 40px;border-bottom:1px solid var(--border)}
+.article-tag{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.article-title{font-family:var(--font-display);font-size:clamp(30px,4vw,44px);font-weight:400;line-height:1.15;letter-spacing:-0.02em;color:var(--fg);margin-bottom:18px;max-width:22ch;text-wrap:pretty}
+.article-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.article-content{padding:40px 0 0}
+.article-content p{font-size:17px;line-height:1.7;color:var(--fg);max-width:65ch;margin-bottom:20px}
+.article-content h2{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;color:var(--fg);margin:36px 0 14px}
+.article-content ul{margin:0 0 20px 0;padding-left:20px}
+.article-content ul li{font-size:17px;line-height:1.65;color:var(--fg);max-width:60ch;margin-bottom:8px}
+.article-content ul li strong{font-weight:550}
+.step{display:flex;gap:16px;align-items:baseline;margin-bottom:12px;max-width:60ch}
+.step-num{font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--accent);flex-shrink:0;margin-top:2px}
+.step-text{font-size:17px;line-height:1.65;color:var(--fg)}
+.prompt-box{background:var(--fg);padding:28px 28px 24px;margin:28px 0 24px;max-width:65ch}
+.prompt-box .prompt-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.prompt-box pre{font-family:var(--font-mono);font-size:13px;line-height:1.7;color:oklch(92% 0.004 95);white-space:pre-wrap;word-break:break-word;margin:0}
+.copy-btn{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;background:transparent;border:1px solid oklch(38% 0.012 70);color:oklch(75% 0.006 70);padding:8px 14px;cursor:pointer;transition:border-color 0.15s,color 0.15s}
+.copy-btn:hover{border-color:oklch(65% 0.008 70);color:oklch(90% 0.004 95)}
+.copy-btn.copied{color:oklch(75% 0.12 145);border-color:oklch(55% 0.10 145)}
+.preview-wrap{position:relative}.preview-mask{position:relative;overflow:hidden}
+.preview-mask::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
+.preview-mask.unlocked::after{display:none}
+#paywall-gate{padding:48px 0 60px;border-top:1px solid var(--border);margin-top:8px}
+.paywall-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.paywall-title{font-family:var(--font-display);font-size:26px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;color:var(--fg);margin-bottom:10px}
+.paywall-sub{font-size:15px;color:var(--muted);max-width:44ch;line-height:1.6;margin-bottom:28px}
+.access-form{display:flex;flex-direction:column;gap:10px;max-width:360px}
+.form-row{display:flex;flex-direction:column;gap:5px}
+.form-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted)}
+.form-input{font-family:var(--font-body);font-size:15px;color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:0;padding:10px 12px;outline:none;width:100%;transition:border-color 0.15s;-webkit-appearance:none}
+.form-input:focus{border-color:var(--fg)}.form-input::placeholder{color:var(--muted)}
+.form-submit{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.02em;color:var(--surface);background:var(--accent);border:none;padding:11px 20px;cursor:pointer;border-radius:0;width:100%;margin-top:4px;transition:opacity 0.15s;-webkit-appearance:none}
+.form-submit:hover{opacity:0.88}
+.form-note{font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;color:var(--muted);margin-top:4px}
+#article-full{display:none}#article-full.visible{display:block}
+.unlock-note{display:none;font-family:var(--font-mono);font-size:11px;letter-spacing:0.05em;color:var(--muted);padding:20px 0 0;border-top:1px solid var(--border);margin-top:8px}
+.unlock-note.visible{display:block}
+.cta-callout{background:var(--fg);padding:44px 40px}
+.cta-callout .cta-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.cta-callout h3{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.25;color:var(--surface);max-width:38ch;margin-bottom:28px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.cta-btn{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.01em;padding:11px 20px;text-decoration:none;border-radius:0;transition:opacity 0.15s;display:inline-block}
+.cta-btn-primary{background:var(--surface);color:var(--fg)}.cta-btn-secondary{background:transparent;color:var(--surface);border:1px solid oklch(38% 0.012 70)}
+.cta-btn:hover{opacity:0.75}
+.site-footer{border-top:1px solid var(--border);padding:32px 0}
+.footer-inner{display:flex;align-items:center;justify-content:space-between}
+.f-text{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted);text-decoration:none}.f-text:hover{color:var(--fg)}
+@media(max-width:580px){.article-title{font-size:28px}.paywall-title{font-size:22px}.prompt-box{padding:22px 18px 18px}.cta-callout{padding:36px 24px}.site-footer .footer-inner{flex-direction:column;gap:8px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html"><img class="avatar" src="avatar.png" alt="Giampiero"><span class="logo">@giampiero.ai</span></a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+<div class="article-wrap">
+  <nav class="breadcrumb"><a href="index.html">Guide</a><span>·</span><span>Lo skill gratuito che sostituisce il blog writer</span></nav>
+  <header class="article-header">
+    <span class="article-tag">Contenuti</span>
+    <h1 class="article-title">Lo skill gratuito che ha sostituito il mio blog writer (e costa $0)</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 5 min di lettura</p>
+  </header>
+  <div class="article-content">
+    <div class="preview-wrap"><div class="preview-mask" id="preview-mask">
+      <p>Il 52% dei contenuti online oggi è generato da AI — generico, senza fonti, originale quanto un modello PowerPoint del 2009. Se stai usando ChatGPT per scrivere blog post e poi li pubblichi così com'escono, stai contribuendo attivamente al problema. E Google lo sa.</p>
+      <p>Claude Blog è diverso. È uno skill gratuito per Claude Code che installa 12 strumenti professionali per la creazione di contenuti: non si limita a scrivere, ma fa ricerche sull'argomento, trova statistiche reali da fonti verificabili, recupera immagini royalty-free, genera grafici SVG con dati reali, e assegna un punteggio qualità su 100 punti al tuo contenuto. Un solo comando installa tutto. Un solo comando crea un blog post completo in 4 minuti.</p>
+      <p>La cosa più interessante non è la velocità. È che ogni post viene ottimizzato sia per Google che per la ricerca AI — ChatGPT, Perplexity, Google AI Overviews. La formattazione answer-first aumenta le citazioni AI fino al 340%. Un canale di traffico che la maggior parte dei blog sta ignorando completamente.</p>
+    </div></div>
+    <div id="article-full">
+
+      <h2>I 12 strumenti inclusi nello skill</h2>
+      <ul>
+        <li><strong>Blog Write</strong> — crea nuovi post completi</li>
+        <li><strong>Blog Rewrite</strong> — ottimizza contenuti esistenti</li>
+        <li><strong>Blog Analyze</strong> — punteggio qualità su 100 punti</li>
+        <li><strong>Blog Brief</strong> — content brief strutturati</li>
+        <li><strong>Blog Calendar</strong> — pianificazione editoriale</li>
+        <li><strong>Blog Strategy</strong> — ideazione degli argomenti</li>
+        <li><strong>Blog Outline</strong> — struttura informata dai dati SERP</li>
+        <li><strong>Blog SEO-Check</strong> — controllo post-pubblicazione</li>
+        <li><strong>Blog Schema</strong> — markup JSON-LD strutturato</li>
+        <li><strong>Blog Repurpose</strong> — adatta il post per social, email e YouTube</li>
+        <li><strong>Blog GEO</strong> — audit per citazioni AI</li>
+        <li><strong>Blog Audit</strong> — salute completa del sito</li>
+      </ul>
+
+      <h2>Come installarlo in meno di 2 minuti</h2>
+      <div class="step"><span class="step-num">01 —</span><span class="step-text">Vai al repository GitHub (<strong>github.com/AgriciDaniel/claude-blog</strong>) e copia il comando di installazione con una riga per il tuo sistema (Mac, Windows o Linux).</span></div>
+      <div class="step"><span class="step-num">02 —</span><span class="step-text">Incollalo nel tuo terminale o nel terminale di VS Code. Tutto si installa automaticamente — 12 skill, template e il sistema di punteggio.</span></div>
+      <div class="step"><span class="step-num">03 —</span><span class="step-text">Apri Claude Code e digita <code>/blog</code> seguito da qualsiasi comando. Fatto — stai già creando contenuti professionali.</span></div>
+
+      <h2>Come funziona la scrittura di un post</h2>
+      <p>Digita <code>/blog write</code> seguito dal tuo argomento. Ecco cosa succede automaticamente:</p>
+      <p>Claude ti fa 3-4 domande rapide: pubblico, formato del contenuto e angolo. Poi costruisce un piano d'azione. Quattro agenti AI partono in parallelo: uno ricerca il tuo argomento sul web, uno trova statistiche aggiornate da fonti affidabili, uno cerca immagini royalty-free su Pexels e Pixabay, uno prepara dati per la generazione di grafici.</p>
+      <p>In circa 4 minuti ottieni un blog post completo: immagine di copertina, tag del titolo, statistiche con fonte, immagini incorporate con testo alternativo, grafici SVG con dati reali, sezione FAQ con markup schema, e suggerimenti per i link interni.</p>
+
+      <h2>Il sistema di punteggio qualità</h2>
+      <p>Ogni post riceve un punteggio su 100 punti distribuiti in 5 categorie:</p>
+      <ul>
+        <li><strong>Qualità del contenuto</strong> — 30 punti</li>
+        <li><strong>Ottimizzazione SEO</strong> — 25 punti</li>
+        <li><strong>Segnali E-E-A-T</strong> — 15 punti</li>
+        <li><strong>Elementi tecnici</strong> — 15 punti</li>
+        <li><strong>Prontezza per citazioni AI</strong> — 15 punti</li>
+      </ul>
+      <p>Il sistema di punteggio controlla anche 17 frasi tipiche dell'AI, misura la diversità del vocabolario, e segnala i contenuti che suonano generati. Non per nascondere che usi l'AI, ma per garantire che il risultato sia effettivamente utile.</p>
+
+      <h2>Perché questo non è "AI slop"</h2>
+      <p>Quattro caratteristiche lo distinguono dalla massa di contenuti AI generici che riempiono il web:</p>
+      <ul>
+        <li><strong>Statistiche reali da fonti reali:</strong> ogni dato include un link alla fonte che puoi verificare. Nessun numero inventato.</li>
+        <li><strong>Rilevamento dei contenuti AI integrato:</strong> il sistema di punteggio controlla pattern noti, misura la diversità del vocabolario, e segnala il testo che suona come AI slop.</li>
+        <li><strong>Grafici SVG generati da dati reali:</strong> non immagini stock, non screenshot. Visualizzazioni di dati reali costruite nell'HTML.</li>
+        <li><strong>Doppia ottimizzazione:</strong> ogni post è strutturato sia per i ranking Google (E-E-A-T, schema, link interni) che per le piattaforme di citazione AI.</li>
+      </ul>
+
+      <h2>La ricerca AI: il canale di traffico che stai ignorando</h2>
+      <p>I post ottimizzati per le citazioni AI appaiono quando le persone fanno domande su ChatGPT o Perplexity sul tuo argomento. Claude Blog struttura ogni post con citabilità a livello di paragrafo, schema FAQ ed entity clarity, in modo che gli strumenti AI referenzino i TUOI contenuti nelle loro risposte.</p>
+      <p>La formattazione answer-first — risposta diretta prima, dettagli dopo — aumenta le citazioni AI fino al 340% rispetto ai post tradizionali che seppelliscono la risposta in mezzo al testo. È un canale che la maggior parte dei blog esistenti non ha mai considerato.</p>
+
+      <h2>Compatibilità e requisiti</h2>
+      <ul>
+        <li>Completamente gratuito e open source</li>
+        <li>Richiede Claude Code (il piano gratuito funziona)</li>
+        <li>Funziona con qualsiasi piattaforma blog: Next.js, Astro, Hugo, WordPress, Jekyll, Ghost e altro</li>
+        <li>Si aggiorna automaticamente — nuovi strumenti e miglioramenti vengono inviati regolarmente al repository</li>
+        <li>Disponibile per Mac, Windows e Linux</li>
+      </ul>
+
+    </div>
+    <div class="unlock-note" id="unlock-note">Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.</div>
+  </div>
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row"><label class="form-label" for="nome">Nome</label><input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name"></div>
+      <div class="form-row"><label class="form-label" for="email">Email</label><input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required></div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+</div>
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+<div class="wrap"><footer class="site-footer"><div class="footer-inner"><span class="f-text">© 2026 @giampiero.ai</span><a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a></div></footer></div>
+<script>
+(function(){
+  var STORE='giampiero_ai_subscriber';
+  var gate=document.getElementById('paywall-gate'),full=document.getElementById('article-full'),mask=document.getElementById('preview-mask'),note=document.getElementById('unlock-note'),form=document.getElementById('access-form');
+  function unlock(){if(gate)gate.style.display='none';if(full)full.classList.add('visible');if(mask)mask.classList.add('unlocked');if(note)note.classList.add('visible');}
+  try{if(localStorage.getItem(STORE))unlock();}catch(_){}
+  if(form){form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=form.querySelector('[name="email"]').value.trim(),nome=form.querySelector('[name="nome"]').value.trim();
+    if(!email||!email.includes('@')){form.querySelector('[name="email"]').focus();return;}
+    try{localStorage.setItem(STORE,JSON.stringify({nome:nome,email:email,ts:Date.now()}));}catch(_){}
+    fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,email:email,guida:'Lo skill gratuito che ha sostituito il mio blog writer',ts:new Date().toISOString()})}).catch(function(){});
+    unlock();
+  });}
+})();
+function copyPrompt(){var text=document.getElementById('prompt-text').innerText,btn=document.getElementById('copy-btn'),lbl=document.getElementById('copy-label');navigator.clipboard.writeText(text).then(function(){btn.classList.add('copied');lbl.textContent='Copiato ✓';setTimeout(function(){btn.classList.remove('copied');lbl.textContent='Copia il prompt';},2200);});}
+</script>
+</body>
+</html>

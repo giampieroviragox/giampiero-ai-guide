@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vibe Coding: Costruisci Qualsiasi App con Claude Code senza Saper Programmare — @giampiero.ai</title>
+<meta name="description" content="Il processo Plan > Build > Test in 3 passi per costruire app reali con Claude Code. Con i prompt esatti, lo stack di strumenti e l'esempio concreto di un'app lanciata.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{--bg:oklch(98% 0.004 95);--surface:oklch(100% 0.002 95);--fg:oklch(20% 0.018 70);--muted:oklch(48% 0.012 70);--border:oklch(90% 0.006 95);--accent:oklch(52% 0.10 28);--font-display:'Iowan Old Style','Charter',Georgia,serif;--font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;--font-mono:ui-monospace,'SF Mono',Menlo,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+.article-wrap{max-width:660px;margin:0 auto;padding:0 24px}
+.site-header{padding:20px 0;border-bottom:1px solid var(--border)}
+.header-inner{max-width:860px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:0.02em;color:var(--fg);text-decoration:none}
+.avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;display:block;flex-shrink:0}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-ig{font-family:var(--font-mono);font-size:11px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.15s}
+.nav-ig:hover{color:var(--fg)}
+.breadcrumb{padding:20px 0 0;font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--fg)}.breadcrumb span{margin:0 6px}
+.article-header{padding:32px 0 40px;border-bottom:1px solid var(--border)}
+.article-tag{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.article-title{font-family:var(--font-display);font-size:clamp(30px,4vw,44px);font-weight:400;line-height:1.15;letter-spacing:-0.02em;color:var(--fg);margin-bottom:18px;max-width:22ch;text-wrap:pretty}
+.article-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.article-content{padding:40px 0 0}
+.article-content p{font-size:17px;line-height:1.7;color:var(--fg);max-width:65ch;margin-bottom:20px}
+.article-content h2{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;color:var(--fg);margin:36px 0 14px}
+.article-content ul{margin:0 0 20px 0;padding-left:20px}
+.article-content ul li{font-size:17px;line-height:1.65;color:var(--fg);max-width:60ch;margin-bottom:8px}
+.article-content ul li strong{font-weight:550}
+.step{display:flex;gap:16px;align-items:baseline;margin-bottom:12px;max-width:60ch}
+.step-num{font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--accent);flex-shrink:0;margin-top:2px}
+.step-text{font-size:17px;line-height:1.65;color:var(--fg)}
+.prompt-box{background:var(--fg);padding:28px 28px 24px;margin:28px 0 24px;max-width:65ch}
+.prompt-box .prompt-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.prompt-box pre{font-family:var(--font-mono);font-size:13px;line-height:1.7;color:oklch(92% 0.004 95);white-space:pre-wrap;word-break:break-word;margin:0}
+.copy-btn{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;background:transparent;border:1px solid oklch(38% 0.012 70);color:oklch(75% 0.006 70);padding:8px 14px;cursor:pointer;transition:border-color 0.15s,color 0.15s}
+.copy-btn:hover{border-color:oklch(65% 0.008 70);color:oklch(90% 0.004 95)}
+.copy-btn.copied{color:oklch(75% 0.12 145);border-color:oklch(55% 0.10 145)}
+.preview-wrap{position:relative}.preview-mask{position:relative;overflow:hidden}
+.preview-mask::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
+.preview-mask.unlocked::after{display:none}
+#paywall-gate{padding:48px 0 60px;border-top:1px solid var(--border);margin-top:8px}
+.paywall-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.paywall-title{font-family:var(--font-display);font-size:26px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;color:var(--fg);margin-bottom:10px}
+.paywall-sub{font-size:15px;color:var(--muted);max-width:44ch;line-height:1.6;margin-bottom:28px}
+.access-form{display:flex;flex-direction:column;gap:10px;max-width:360px}
+.form-row{display:flex;flex-direction:column;gap:5px}
+.form-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted)}
+.form-input{font-family:var(--font-body);font-size:15px;color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:0;padding:10px 12px;outline:none;width:100%;transition:border-color 0.15s;-webkit-appearance:none}
+.form-input:focus{border-color:var(--fg)}.form-input::placeholder{color:var(--muted)}
+.form-submit{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.02em;color:var(--surface);background:var(--accent);border:none;padding:11px 20px;cursor:pointer;border-radius:0;width:100%;margin-top:4px;transition:opacity 0.15s;-webkit-appearance:none}
+.form-submit:hover{opacity:0.88}
+.form-note{font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;color:var(--muted);margin-top:4px}
+#article-full{display:none}#article-full.visible{display:block}
+.unlock-note{display:none;font-family:var(--font-mono);font-size:11px;letter-spacing:0.05em;color:var(--muted);padding:20px 0 0;border-top:1px solid var(--border);margin-top:8px}
+.unlock-note.visible{display:block}
+.cta-callout{background:var(--fg);padding:44px 40px}
+.cta-callout .cta-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.cta-callout h3{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.25;color:var(--surface);max-width:38ch;margin-bottom:28px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.cta-btn{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.01em;padding:11px 20px;text-decoration:none;border-radius:0;transition:opacity 0.15s;display:inline-block}
+.cta-btn-primary{background:var(--surface);color:var(--fg)}.cta-btn-secondary{background:transparent;color:var(--surface);border:1px solid oklch(38% 0.012 70)}
+.cta-btn:hover{opacity:0.75}
+.site-footer{border-top:1px solid var(--border);padding:32px 0}
+.footer-inner{display:flex;align-items:center;justify-content:space-between}
+.f-text{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted);text-decoration:none}.f-text:hover{color:var(--fg)}
+@media(max-width:580px){.article-title{font-size:28px}.paywall-title{font-size:22px}.prompt-box{padding:22px 18px 18px}.cta-callout{padding:36px 24px}.site-footer .footer-inner{flex-direction:column;gap:8px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html"><img class="avatar" src="avatar.png" alt="Giampiero"><span class="logo">@giampiero.ai</span></a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+<div class="article-wrap">
+  <nav class="breadcrumb"><a href="index.html">Guide</a><span>·</span><span>Vibe Coding Starter Guide</span></nav>
+  <header class="article-header">
+    <span class="article-tag">Claude Code</span>
+    <h1 class="article-title">Vibe coding: costruisci qualsiasi app con Claude Code senza scrivere una riga di codice</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 8 min di lettura</p>
+  </header>
+  <div class="article-content">
+    <div class="preview-wrap"><div class="preview-mask" id="preview-mask">
+      <p>La maggior parte delle persone che prova il vibe coding finisce intrappolata in un loop infinito di bug. Prompano, ottengono errori, incollano gli errori, ottengono altri errori, e passano ore girando in tondo. Non è un problema di Claude — è un problema di metodo. Saltano la pianificazione e si buttano direttamente nei prompt.</p>
+      <p>Il framework che funziona davvero è semplice: <strong>Plan, Build, Test</strong>. Prima pianifichi l'idea, poi la costruisci passo dopo passo, poi testi ogni fase prima di passare alla successiva. L'AI è un moltiplicatore di forza, non un pilota automatico. La struttura batte l'improvvisazione ogni volta.</p>
+      <p>In questa guida trovi il processo completo — con i prompt esatti per ogni fase, lo stack di strumenti da usare e un esempio reale di un'app costruita con questo metodo dall'inizio alla fine.</p>
+    </div></div>
+    <div id="article-full">
+
+      <h2>Il death loop del vibe coding (e come evitarlo)</h2>
+      <p>Ecco cosa succede quando salti la pianificazione: prompti, ottieni errori, incolli gli errori, ottieni altri errori, e passi ore girando in cerchio. Ogni cosa in questa guida esiste per aiutarti a evitare quel loop. La causa principale è sempre la stessa — cominciare a costruire senza un piano.</p>
+
+      <h2>Lo stack di strumenti</h2>
+      <p>Non ti servono tutti questi strumenti, ma questo è lo stack completo che funziona:</p>
+      <ul>
+        <li><strong>Claude (claude.ai)</strong> — per pianificare, definire lo scope dell'idea e costruire il PRD. Qui fai tutto il pensiero prima di iniziare a programmare.</li>
+        <li><strong>Claude Code</strong> — il tuo costruttore AI di codice. Qui avviene la costruzione vera e propria. Installazione: <code>npm install -g @anthropic-ai/claude-code</code></li>
+        <li><strong>Stitch (Google)</strong> — strumento AI di design per interfacce professionali. Fa sembrare la tua app fatta da una vera agenzia invece che dall'AI di default.</li>
+        <li><strong>GitHub</strong> — version control gratuito. Claude Code gestisce git per te, ma hai bisogno di un account per salvare il codice e fare deploy.</li>
+        <li><strong>Vercel o Netlify</strong> — hosting gratuito. Connetti il tuo repo GitHub e fa il deploy automatico ad ogni push.</li>
+        <li><strong>Supabase</strong> — database e autenticazione gratuiti se la tua app ha bisogno di account utente o storage dati. Claude Code configura tutto per te.</li>
+      </ul>
+      <p>Scegli un solo strumento per il codice — Claude Code, Cursor, Replit, Lovable, Base44. Funzionano tutti. Ma scegli UNO e rimani su quello per tutto il progetto. Cambiare strumento a metà costruzione crea più problemi di quanti ne risolva.</p>
+
+      <h2>Step 1 — Pianifica la tua idea (costruisci un PRD)</h2>
+      <p>Prima di toccare Claude Code, apri il Claude normale e definisci la tua idea. Di' a Claude di pensare come un senior engineer e di intervistarti per capire il prodotto che vuoi costruire. Lascia che Claude ti faccia domande su cosa stai cercando di creare, per chi è e quali funzionalità servono.</p>
+      <p>Dopo aver definito il progetto, chiedi a Claude di creare un <strong>Product Requirements Document (PRD)</strong>. Questo è il tuo piano principale — mappa ogni funzionalità, lo stack tecnologico, le integrazioni e come tutto si connette. È il passo più importante e quello che separa le app che funzionano dalle app che si rompono.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt — Scoping iniziale</p>
+        <pre id="prompt-text-1">Sei un esperto builder di prodotti e SaaS, e un senior engineer. Il tuo ruolo è aiutarmi a definire un nuovo prodotto. Per favore intervistami e fai tutte le domande necessarie per capire a fondo cosa voglio costruire. Poi aiutami a creare un documento completo di requisiti di prodotto. Ho bisogno anche che tu suggerisca il miglior stack tecnologico, le integrazioni e le funzionalità che dovremmo costruire.</pre>
+        <button class="copy-btn" id="copy-btn-1" onclick="copyPrompt('prompt-text-1','copy-btn-1','copy-label-1')">
+          <span id="copy-label-1">Copia il prompt</span>
+        </button>
+      </div>
+
+      <p>Lavora con Claude per raffinare il PRD finché copre tutto. Poi chiedi di suddividerlo in versioni — così non cerchi di costruire tutto in una volta:</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt — Roadmap di sviluppo</p>
+        <pre id="prompt-text-2">Puoi prendere il PRD che abbiamo appena creato e suddividerlo in una roadmap di sviluppo chiara con scope definiti per una V1, V2, ecc.? Per favore fai tutte le domande di cui hai bisogno per confermare le mie preferenze.</pre>
+        <button class="copy-btn" id="copy-btn-2" onclick="copyPrompt('prompt-text-2','copy-btn-2','copy-label-2')">
+          <span id="copy-label-2">Copia il prompt</span>
+        </button>
+      </div>
+
+      <p>Infine, trasforma il piano V1 in una lista di task strutturata da passare a Claude Code:</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt — Task list strutturata</p>
+        <pre id="prompt-text-3">Puoi prendere il piano V1 e suddividerlo in una lista di task strutturata che posso passare al mio builder AI di codice per ottenere il miglior output possibile?</pre>
+        <button class="copy-btn" id="copy-btn-3" onclick="copyPrompt('prompt-text-3','copy-btn-3','copy-label-3')">
+          <span id="copy-label-3">Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Step 2 — Costruisci in Claude Code (modalità Plan)</h2>
+      <p>Porta il tuo PRD e la task list in Claude Code. Prima di iniziare a costruire, prepara il terreno con questo prompt. È fondamentale — dice a Claude come comportarsi e gli impedisce di prendere scorciatoie che romperanno tutto in seguito:</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt — Stage setting (usa sempre questo per primo)</p>
+        <pre id="prompt-text-4">Quando costruiamo, per favore agisci come un developer senior che scrive solo codice robusto, sicuro ed efficiente seguendo le best practice. Assicurati che i task che suggerisci seguano queste istruzioni per ridurre il debito tecnico, e risolvi solo la causa radice se emergono bug.</pre>
+        <button class="copy-btn" id="copy-btn-4" onclick="copyPrompt('prompt-text-4','copy-btn-4','copy-label-4')">
+          <span id="copy-label-4">Copia il prompt</span>
+        </button>
+      </div>
+
+      <p>Poi dai a Claude Code il tuo PRD ed entra in plan mode. Claude costruisce il piano di implementazione per te. Regole non negoziabili:</p>
+      <ul>
+        <li>Chiedi un piano di costruzione step-by-step con testing e valutazione a ogni fase</li>
+        <li>Segui la task list una fase alla volta — non saltare avanti</li>
+        <li>Testa ogni fase prima di passare alla successiva</li>
+        <li>Leggi quello che Claude suggerisce prima di approvarlo — se non capisci, chiedi spiegazioni</li>
+        <li>Se qualcosa non ha senso, torna al PRD e chiedi a Claude se il suggerimento è allineato</li>
+      </ul>
+
+      <h2>Step 3 — Testa e rifinisci</h2>
+      <p>Lavora con Claude per costruire l'app. Lancia ogni fase, correggi i bug man mano, e quando sei pronto usa Stitch per progettare l'interfaccia utente così che non sembri uguale a ogni altra app costruita con l'AI.</p>
+      <ul>
+        <li><strong>Testa ogni funzionalità</strong> dopo ogni fase di costruzione — mai accumulare testing alla fine</li>
+        <li><strong>Copia i messaggi di errore</strong> e incollali a Claude per correggere i bug</li>
+        <li><strong>Se qualcosa fallisce 3 volte</strong> con lo stesso approccio, chiedi a Claude di provare una soluzione completamente diversa</li>
+        <li><strong>Quando il core funziona</strong>, usa Stitch per progettare un'interfaccia raffinata</li>
+        <li><strong>Chiedi a Claude</strong> di aiutarti a fare deploy su Vercel o Netlify</li>
+      </ul>
+
+      <h2>Gli errori più comuni da evitare</h2>
+      <ul>
+        <li><strong>Saltare il PRD</strong> — è la causa numero 1 del death loop. Pianifica sempre prima.</li>
+        <li><strong>Cercare di costruire tutto in una volta</strong> — rimani nello scope V1. Le funzionalità possono aspettare la V2.</li>
+        <li><strong>Non testare tra le fasi</strong> — se la Fase 1 è rotta, la Fase 2 sarà peggio. Correggi prima di andare avanti.</li>
+        <li><strong>Cambiare strumenti a metà progetto</strong> — scegli Claude Code e restaci per tutta la build.</li>
+        <li><strong>Non impostare il terreno</strong> — senza il prompt di stage setting, Claude prende scorciatoie e crea debito tecnico.</li>
+        <li><strong>Approvare senza leggere</strong> — leggi i suggerimenti. Se non capisci, chiedi a Claude di spiegare prima di approvare.</li>
+        <li><strong>Prompt troppo vaghi</strong> — "costruiscimi un'app" non funziona. Più il tuo PRD è specifico, meglio è l'output.</li>
+      </ul>
+
+      <h2>Idee per iniziare</h2>
+      <p>Non sai cosa costruire? Tre modi per trovare idee:</p>
+      <ul>
+        <li><strong>Analizza la tua giornata</strong> — qualsiasi cosa tu faccia al computer più di due volte a settimana è un candidato (un organizzatore di ricevute fiscali, un tracker di fatture clienti)</li>
+        <li><strong>Risolvi un problema per qualcuno che conosci</strong> — costruisci uno strumento per un amico, partner o collega (una lista della spesa, un generatore di proposte clienti, un agenda appuntamenti)</li>
+        <li><strong>Trova valore nel tuo settore</strong> — gli strumenti che fanno risparmiare tempo o denaro sono i più facili da validare (un calcolatore di preventivi, un contatore di inventario, un modulo di acquisizione lead)</li>
+      </ul>
+      <p>La tua prima app non deve cambiare il mondo. Costruisci qualcosa di semplice che risolve un problema. Un calcolatore, un form, una dashboard. Prima impara il processo, poi affronta progetti più grandi. Il framework è lo stesso indipendentemente dalla complessità.</p>
+
+      <h2>Esempio reale: come ho costruito Stock Whisper</h2>
+      <p>Stock Whisper è un'app di conteggio inventario a comando vocale che ho costruito per bar, ristoranti e negozi retail. Gli utenti parlano nel telefono per contare l'inventario e l'AI estrae automaticamente nomi prodotto, quantità e varianti. Ecco esattamente come l'ho costruita con questo framework.</p>
+
+      <div class="step"><span class="step-num">01</span><span class="step-text"><strong>PRD in Claude:</strong> ho detto a Claude che volevo costruire uno strumento di conteggio inventario a voce. Claude mi ha intervistato sugli utenti target (manager di bar, proprietari di negozi), le funzionalità core (registrazione vocale, parsing AI, vista a foglio) e lo stack. Abbiamo scelto Next.js, Supabase per il database, OpenAI Whisper per il riconoscimento vocale e Claude API per l'estrazione dell'inventario dai trascritti.</span></div>
+      <div class="step"><span class="step-num">02</span><span class="step-text"><strong>Scope V1:</strong> Claude ha suddiviso il PRD in V1 (flusso di conteggio core — registra voce, analizza items, mostra risultati) e V2 (account team, storico sessioni, gestione zone). Ci siamo concentrati solo sulla V1.</span></div>
+      <div class="step"><span class="step-num">03</span><span class="step-text"><strong>Task list in Claude Code:</strong> ho portato la lista strutturata in Claude Code, impostato il terreno con il prompt da senior developer e attivato la plan mode. Claude ha costruito il piano di implementazione con 6 fasi: setup database, autenticazione, registrazione vocale, parsing AI, visualizzazione risultati e deploy.</span></div>
+      <div class="step"><span class="step-num">04</span><span class="step-text"><strong>Build fase per fase:</strong> ho seguito ogni fase testando dopo ciascuna. La fase di registrazione vocale aveva un problema complicato di compatibilità audio mobile. Ho copiato l'errore, l'ho incollato a Claude, e lo ha risolto cambiando il codec audio. Tempo totale di build: circa 3 giorni di sessioni concentrate.</span></div>
+      <div class="step"><span class="step-num">05</span><span class="step-text"><strong>Rifinitura UI con Stitch:</strong> una volta che il core funzionava, ho usato Stitch per progettare l'interfaccia. Schema colori personalizzato (verdi e creme), tipografia pulita, layout professionale. L'app è passata dall'apparire come un progetto scolastico a sembrare un prodotto reale.</span></div>
+
+      <h2>Troubleshooting: quando le cose vanno storte</h2>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Claude è bloccato in un loop</p>
+        <pre id="prompt-text-5">Questo approccio non funziona. Per favore suggerisci una soluzione completamente diversa a questo problema.</pre>
+        <button class="copy-btn" id="copy-btn-5" onclick="copyPrompt('prompt-text-5','copy-btn-5','copy-label-5')">
+          <span id="copy-label-5">Copia il prompt</span>
+        </button>
+      </div>
+
+      <div class="prompt-box">
+        <p class="prompt-label">L'ultima modifica ha rotto qualcos'altro</p>
+        <pre id="prompt-text-6">L'ultima modifica ha rotto [descrivi cosa è rotto]. Puoi ripristinare quella modifica e provare un approccio diverso che non influenzi [la cosa che si è rotta]?</pre>
+        <button class="copy-btn" id="copy-btn-6" onclick="copyPrompt('prompt-text-6','copy-btn-6','copy-label-6')">
+          <span id="copy-label-6">Copia il prompt</span>
+        </button>
+      </div>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Non capisci cosa suggerisce Claude</p>
+        <pre id="prompt-text-7">Basandoti sul mio PRD, questo suggerimento ha senso? Spiegamelo come se non fossi tecnico.</pre>
+        <button class="copy-btn" id="copy-btn-7" onclick="copyPrompt('prompt-text-7','copy-btn-7','copy-label-7')">
+          <span id="copy-label-7">Copia il prompt</span>
+        </button>
+      </div>
+
+    </div>
+    <div class="unlock-note" id="unlock-note">Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.</div>
+  </div>
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row"><label class="form-label" for="nome">Nome</label><input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name"></div>
+      <div class="form-row"><label class="form-label" for="email">Email</label><input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required></div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+</div>
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+<div class="wrap"><footer class="site-footer"><div class="footer-inner"><span class="f-text">© 2026 @giampiero.ai</span><a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a></div></footer></div>
+<script>
+(function(){
+  var STORE='giampiero_ai_subscriber';
+  var gate=document.getElementById('paywall-gate'),full=document.getElementById('article-full'),mask=document.getElementById('preview-mask'),note=document.getElementById('unlock-note'),form=document.getElementById('access-form');
+  function unlock(){if(gate)gate.style.display='none';if(full)full.classList.add('visible');if(mask)mask.classList.add('unlocked');if(note)note.classList.add('visible');}
+  try{if(localStorage.getItem(STORE))unlock();}catch(_){}
+  if(form){form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=form.querySelector('[name="email"]').value.trim(),nome=form.querySelector('[name="nome"]').value.trim();
+    if(!email||!email.includes('@')){form.querySelector('[name="email"]').focus();return;}
+    try{localStorage.setItem(STORE,JSON.stringify({nome:nome,email:email,ts:Date.now()}));}catch(_){}
+    fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,email:email,guida:'Vibe Coding: Costruisci App con Claude Code senza Programmare',ts:new Date().toISOString()})}).catch(function(){});
+    unlock();
+  });}
+})();
+function copyPrompt(textId,btnId,labelId){var text=document.getElementById(textId).innerText,btn=document.getElementById(btnId),lbl=document.getElementById(labelId);navigator.clipboard.writeText(text).then(function(){btn.classList.add('copied');lbl.textContent='Copiato ✓';setTimeout(function(){btn.classList.remove('copied');lbl.textContent='Copia il prompt';},2200);});}
+</script>
+</body>
+</html>

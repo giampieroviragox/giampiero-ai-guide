@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>20 inserzioni Meta in 90 secondi con un solo prompt — @giampiero.ai</title>
+<meta name="description" content="Il sistema in 3 strumenti e 1 prompt che genera 20 annunci Meta brand-compliant, copy completo e campagna pronta in Ads Manager in meno di due minuti. $1,20 di costi di generazione.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{--bg:oklch(98% 0.004 95);--surface:oklch(100% 0.002 95);--fg:oklch(20% 0.018 70);--muted:oklch(48% 0.012 70);--border:oklch(90% 0.006 95);--accent:oklch(52% 0.10 28);--font-display:'Iowan Old Style','Charter',Georgia,serif;--font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;--font-mono:ui-monospace,'SF Mono',Menlo,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+.article-wrap{max-width:660px;margin:0 auto;padding:0 24px}
+.site-header{padding:20px 0;border-bottom:1px solid var(--border)}
+.header-inner{max-width:860px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:0.02em;color:var(--fg);text-decoration:none}
+.avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;display:block;flex-shrink:0}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-ig{font-family:var(--font-mono);font-size:11px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.15s}
+.nav-ig:hover{color:var(--fg)}
+.breadcrumb{padding:20px 0 0;font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--fg)}.breadcrumb span{margin:0 6px}
+.article-header{padding:32px 0 40px;border-bottom:1px solid var(--border)}
+.article-tag{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.article-title{font-family:var(--font-display);font-size:clamp(30px,4vw,44px);font-weight:400;line-height:1.15;letter-spacing:-0.02em;color:var(--fg);margin-bottom:18px;max-width:22ch;text-wrap:pretty}
+.article-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.article-content{padding:40px 0 0}
+.article-content p{font-size:17px;line-height:1.7;color:var(--fg);max-width:65ch;margin-bottom:20px}
+.article-content h2{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;color:var(--fg);margin:36px 0 14px}
+.article-content ul{margin:0 0 20px 0;padding-left:20px}
+.article-content ul li{font-size:17px;line-height:1.65;color:var(--fg);max-width:60ch;margin-bottom:8px}
+.article-content ul li strong{font-weight:550}
+.step{display:flex;gap:16px;align-items:baseline;margin-bottom:12px;max-width:60ch}
+.step-num{font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--accent);flex-shrink:0;margin-top:2px}
+.step-text{font-size:17px;line-height:1.65;color:var(--fg)}
+.prompt-box{background:var(--fg);padding:28px 28px 24px;margin:28px 0 24px;max-width:65ch}
+.prompt-box .prompt-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.prompt-box pre{font-family:var(--font-mono);font-size:13px;line-height:1.7;color:oklch(92% 0.004 95);white-space:pre-wrap;word-break:break-word;margin:0}
+.copy-btn{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;background:transparent;border:1px solid oklch(38% 0.012 70);color:oklch(75% 0.006 70);padding:8px 14px;cursor:pointer;transition:border-color 0.15s,color 0.15s}
+.copy-btn:hover{border-color:oklch(65% 0.008 70);color:oklch(90% 0.004 95)}
+.copy-btn.copied{color:oklch(75% 0.12 145);border-color:oklch(55% 0.10 145)}
+.preview-wrap{position:relative}.preview-mask{position:relative;overflow:hidden}
+.preview-mask::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
+.preview-mask.unlocked::after{display:none}
+#paywall-gate{padding:48px 0 60px;border-top:1px solid var(--border);margin-top:8px}
+.paywall-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.paywall-title{font-family:var(--font-display);font-size:26px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;color:var(--fg);margin-bottom:10px}
+.paywall-sub{font-size:15px;color:var(--muted);max-width:44ch;line-height:1.6;margin-bottom:28px}
+.access-form{display:flex;flex-direction:column;gap:10px;max-width:360px}
+.form-row{display:flex;flex-direction:column;gap:5px}
+.form-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted)}
+.form-input{font-family:var(--font-body);font-size:15px;color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:0;padding:10px 12px;outline:none;width:100%;transition:border-color 0.15s;-webkit-appearance:none}
+.form-input:focus{border-color:var(--fg)}.form-input::placeholder{color:var(--muted)}
+.form-submit{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.02em;color:var(--surface);background:var(--accent);border:none;padding:11px 20px;cursor:pointer;border-radius:0;width:100%;margin-top:4px;transition:opacity 0.15s;-webkit-appearance:none}
+.form-submit:hover{opacity:0.88}
+.form-note{font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;color:var(--muted);margin-top:4px}
+#article-full{display:none}#article-full.visible{display:block}
+.unlock-note{display:none;font-family:var(--font-mono);font-size:11px;letter-spacing:0.05em;color:var(--muted);padding:20px 0 0;border-top:1px solid var(--border);margin-top:8px}
+.unlock-note.visible{display:block}
+.cta-callout{background:var(--fg);padding:44px 40px}
+.cta-callout .cta-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.cta-callout h3{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.25;color:var(--surface);max-width:38ch;margin-bottom:28px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.cta-btn{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.01em;padding:11px 20px;text-decoration:none;border-radius:0;transition:opacity 0.15s;display:inline-block}
+.cta-btn-primary{background:var(--surface);color:var(--fg)}.cta-btn-secondary{background:transparent;color:var(--surface);border:1px solid oklch(38% 0.012 70)}
+.cta-btn:hover{opacity:0.75}
+.site-footer{border-top:1px solid var(--border);padding:32px 0}
+.footer-inner{display:flex;align-items:center;justify-content:space-between}
+.f-text{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted);text-decoration:none}.f-text:hover{color:var(--fg)}
+@media(max-width:580px){.article-title{font-size:28px}.paywall-title{font-size:22px}.prompt-box{padding:22px 18px 18px}.cta-callout{padding:36px 24px}.site-footer .footer-inner{flex-direction:column;gap:8px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html"><img class="avatar" src="avatar.png" alt="Giampiero"><span class="logo">@giampiero.ai</span></a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+<div class="article-wrap">
+  <nav class="breadcrumb"><a href="index.html">Guide</a><span>·</span><span>20 inserzioni Meta in 90 secondi</span></nav>
+  <header class="article-header">
+    <span class="article-tag">Business</span>
+    <h1 class="article-title">20 inserzioni Meta in 90 secondi con un solo prompt</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 5 min di lettura</p>
+  </header>
+  <div class="article-content">
+    <div class="preview-wrap"><div class="preview-mask" id="preview-mask">
+      <p>Un'agenzia pubblicitaria ti chiede tra i 2.600 e i 5.000 euro al mese per produrre creatività per Meta Ads. Ti consegna 5-10 varianti in due settimane, dopo brief, revisioni e round di approvazione. Questo sistema fa la stessa cosa in 90 secondi e $1,20 di crediti per la generazione immagini.</p>
+      <p>Non è un'esagerazione. Tre strumenti, tre ruoli, una chat. Il risultato: una campagna Meta in pausa nel tuo Ads Manager con 5 ad set organizzati per angolo, 4 inserzioni statiche brand-compliant per ad set, headline e testo principale su ogni annuncio. Pronti per la tua revisione. Il tutto partendo da una sola foto del prodotto e dall'URL della pagina.</p>
+      <p>Il sistema usa Claude con lo skill <em>claude-ads</em>, l'API di generazione immagini kie.ai (con image-to-image per mantenere la coerenza del brand), e il Meta Ads MCP per pubblicare direttamente in Ads Manager. Nessun tool di design. Nessun copywriter. Nessun export manuale.</p>
+    </div></div>
+    <div id="article-full">
+
+      <h2>I 3 strumenti del sistema</h2>
+      <p>Il sistema si compone di tre ruoli distinti, ognuno gestito da uno strumento specifico:</p>
+      <ul>
+        <li><strong>Il cervello — skill /ads competitor:</strong> Già installato dalla configurazione SF #105. Scrape il Meta Ad Library per la tua nicchia e restituisce una matrice di temi di messaggi: i 5 angoli vincenti dei competitor, gli hook più performanti, il mix di formati, le stime di spesa. Questo è il brief creativo che guida tutto il resto.</li>
+        <li><strong>Le mani — kie.ai GPT-Image-2 MCP:</strong> API di generazione immagini a tariffa fissa, $0,06 per immagine, senza sovraprezzi. Il motivo per cui è lo strumento giusto è l'image-to-image: ogni generazione parte dalla tua foto reale del prodotto, quindi tutte le varianti restano brand-compliant. 20 generazioni costano $1,20 in totale.</li>
+        <li><strong>L'editore — Meta Ads MCP:</strong> Già connesso dalla configurazione SF #105. Crea la campagna nel tuo Ads Manager, costruisce gli ad set nominati per angolo, inserisce tutti i 20 annunci con il copy, e lascia tutto in pausa. Ogni scrittura richiede la tua autorizzazione tramite chat.</li>
+      </ul>
+
+      <h2>Il prompt unico che fa tutto</h2>
+      <p>Copia questo prompt, incollalo in una nuova chat Claude, allega UNA foto canonica del prodotto e sostituisci i testi tra parentesi con il nome del tuo brand e l'URL della pagina prodotto. Il workflow scrape l'URL automaticamente ed estrae tutto il resto: ulteriori immagini del prodotto, palette del brand, font, voce del brand dal copy della pagina.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Il Prompt</div>
+        <pre id="prompt-text">Brand: [nome del tuo brand]. Product page URL: [URL della tua pagina prodotto]. Canonical product photo: attached. Step 1: Run /ads competitor to scrape my brand site (for palette, type, voice, and additional product images) AND the Meta Ad Library to surface the top 5 angles competitors are winning with right now. Step 2: Use kie.ai gpt-image-2 (image-to-image) to generate 20 static ads, 5 angles times 4 format variants each (lifestyle, studio, testimonial-style, before-after). Use the canonical photo as primary seed and the scraped page images as secondary seeds. Apply the extracted brand palette and type system. Apply Dynamic Product Ad principles: same product, brand-compliant, varied by angle. Step 3: Run /ads creative to write a 40-character headline and 125-character primary text paired to each static. Match the brand voice extracted from the site. Step 4: Create a paused Meta campaign via the Meta Ads MCP with 5 ad sets grouped by angle, all 20 ads added, ready for my review.</pre>
+        <button class="copy-btn" id="copy-btn" onclick="copyPrompt()">
+          <span id="copy-label">Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Cosa succede in ogni fase</h2>
+      <div class="step"><span class="step-num">01 —</span><span class="step-text"><strong>~30 secondi:</strong> /ads competitor scrape il tuo sito brand + il Meta Ad Library, restituisce 5 angoli vincenti + hook + mix di formati.</span></div>
+      <div class="step"><span class="step-num">02 —</span><span class="step-text"><strong>~30 secondi:</strong> kie.ai genera 20 statiche brand-compliant usando la tua foto canonica + le immagini della pagina come seed.</span></div>
+      <div class="step"><span class="step-num">03 —</span><span class="step-text"><strong>~10 secondi:</strong> /ads creative scrive headline e testo principale conformi alle specifiche della piattaforma, nella voce del tuo brand.</span></div>
+      <div class="step"><span class="step-num">04 —</span><span class="step-text"><strong>~20 secondi:</strong> Il Meta MCP costruisce la campagna in pausa nel tuo Ads Manager.</span></div>
+
+      <h2>Cosa invii tu vs cosa estrae il sistema</h2>
+      <ul>
+        <li><strong>Tu invii:</strong> 1 foto canonica del prodotto + URL della pagina prodotto + contesto dell'account Meta Ads.</li>
+        <li><strong>Il workflow estrae dal tuo sito:</strong> ogni altra immagine del prodotto sulla pagina (angoli, scatti con modello, lifestyle), palette colori brand, stack tipografico, voce del brand dal copy del prodotto.</li>
+        <li><strong>/ads competitor recupera:</strong> i 5 angoli vincenti + pattern di hook + mix di formati dal Meta Ad Library.</li>
+        <li><strong>kie.ai genera:</strong> 20 varianti statiche brand-compliant con seed sulla tua foto + le immagini della pagina.</li>
+        <li><strong>/ads creative scrive:</strong> 20 headline + testo principale abbinati, nella voce del brand estratta.</li>
+        <li><strong>Il Meta MCP costruisce:</strong> la campagna in pausa con 5 ad set nominati per angolo.</li>
+      </ul>
+
+      <h2>Il framework Dynamic Product Ads</h2>
+      <p>Il motivo per cui 20 statiche funzionano come un sistema creativo (invece di 20 idee casuali) è il framework Dynamic Product Ads, lo stesso usato da Marpipe e altri team DPA-first per scalare la creatività catalog-driven. Quattro principi:</p>
+      <ul>
+        <li><strong>Un prodotto, molte varianti:</strong> Non iterare su un singolo annuncio perfetto. Costruisci un sistema che produce varianti brand-compliant dalla stessa fonte.</li>
+        <li><strong>Varianti per angolo, non per esecuzione:</strong> Testa l'asse del messaggio. Format e visual restano coerenti all'interno di un angolo. Attraverso gli angoli, il messaggio cambia ma il brand rimane compliant.</li>
+        <li><strong>Brand compliance garantita dal template:</strong> Stessa palette, stesso sistema tipografico, stesso stile fotografico su tutti i 20. L'image-to-image con la tua foto reale come seed garantisce questo automaticamente.</li>
+        <li><strong>Feed-driven, non asset-driven:</strong> I tuoi input sono strutturati (foto prodotto, colori brand, lista angoli). I tuoi output sono sistematici (5 angoli x 4 varianti = 20 unità testabili).</li>
+      </ul>
+
+      <h2>Il confronto economico</h2>
+      <p>Flusso di lavoro agenzia: 2 settimane di execution. Da 2.600 a 5.000 euro in commissioni. 5-10 varianti creative consegnate. Revisione manuale della brand compliance.</p>
+      <p>Flusso di lavoro con questo prompt: 90 secondi di execution. $1,20 in crediti di generazione immagini. 20 varianti brand-compliant consegnate in pausa. Coerenza garantita dal template.</p>
+
+      <h2>Prerequisiti</h2>
+      <p>Prima di usare questo sistema hai bisogno della configurazione SF #105: il Meta Ads MCP connesso come connettore personalizzato in Claude, e lo skill claude-ads installato tramite <code>/plugin install claude-ads@agricidaniel-claude-ads</code>. Se non li hai ancora, parti dalla guida SF #105.</p>
+      <p>Per kie.ai: installa il kie-image MCP nella configurazione Claude (configurazione una tantum), autenticati con la tua API key kie.ai, imposta aspect ratio e defaults del modello tramite gli strumenti MCP.</p>
+
+      <h2>Risoluzione dei problemi più comuni</h2>
+      <ul>
+        <li><strong>kie.ai non genera:</strong> Verifica che il kie-image MCP sia connesso e che tu abbia un saldo crediti non zero.</li>
+        <li><strong>/ads competitor non restituisce dati:</strong> Assicurati che lo skill claude-ads sia installato (esegui /plugin list per verificare) e che tu abbia passato nome brand + nicchia.</li>
+        <li><strong>Il Meta MCP non costruisce la campagna:</strong> Verifica di aver completato l'OAuth sull'account ads corretto e di aver autorizzato l'azione di creazione campagna tramite chat.</li>
+        <li><strong>Le statiche non sono on-brand:</strong> Controlla di aver allegato la tua foto prodotto alla chat E di aver specificato colori brand e stile tipografico nel prompt.</li>
+      </ul>
+
+    </div>
+    <div class="unlock-note" id="unlock-note">Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.</div>
+  </div>
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row"><label class="form-label" for="nome">Nome</label><input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name"></div>
+      <div class="form-row"><label class="form-label" for="email">Email</label><input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required></div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+</div>
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+<div class="wrap"><footer class="site-footer"><div class="footer-inner"><span class="f-text">© 2026 @giampiero.ai</span><a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a></div></footer></div>
+<script>
+(function(){
+  var STORE='giampiero_ai_subscriber';
+  var gate=document.getElementById('paywall-gate'),full=document.getElementById('article-full'),mask=document.getElementById('preview-mask'),note=document.getElementById('unlock-note'),form=document.getElementById('access-form');
+  function unlock(){if(gate)gate.style.display='none';if(full)full.classList.add('visible');if(mask)mask.classList.add('unlocked');if(note)note.classList.add('visible');}
+  try{if(localStorage.getItem(STORE))unlock();}catch(_){}
+  if(form){form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=form.querySelector('[name="email"]').value.trim(),nome=form.querySelector('[name="nome"]').value.trim();
+    if(!email||!email.includes('@')){form.querySelector('[name="email"]').focus();return;}
+    try{localStorage.setItem(STORE,JSON.stringify({nome:nome,email:email,ts:Date.now()}));}catch(_){}
+    fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,email:email,guida:'20 inserzioni Meta in 90 secondi con un solo prompt',ts:new Date().toISOString()})}).catch(function(){});
+    unlock();
+  });}
+})();
+function copyPrompt(){var text=document.getElementById('prompt-text').innerText,btn=document.getElementById('copy-btn'),lbl=document.getElementById('copy-label');navigator.clipboard.writeText(text).then(function(){btn.classList.add('copied');lbl.textContent='Copiato ✓';setTimeout(function(){btn.classList.remove('copied');lbl.textContent='Copia il prompt';},2200);});}
+</script>
+</body>
+</html>
