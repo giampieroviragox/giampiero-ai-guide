@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GSAP: animazioni JavaScript professionali in pochi minuti — @giampiero.ai</title>
+<meta name="description" content="GSAP è una libreria JavaScript per aggiungere animazioni fluide a siti e progetti. Ecco cosa fa, quando usarla e il primo snippet da copiare.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root {
+  --bg:      oklch(98% 0.004 95);
+  --surface: oklch(100% 0.002 95);
+  --fg:      oklch(20% 0.018 70);
+  --muted:   oklch(48% 0.012 70);
+  --border:  oklch(90% 0.006 95);
+  --accent:  oklch(52% 0.10 28);
+  --font-display: 'Iowan Old Style','Charter',Georgia,serif;
+  --font-body:    -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --font-mono:    ui-monospace,'SF Mono',Menlo,monospace;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+.article-wrap { max-width: 660px; margin: 0 auto; padding: 0 24px; }
+.site-header { padding: 20px 0; border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 860px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); text-decoration: none; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+.nav-ig:hover { color: var(--fg); }
+.breadcrumb { padding: 20px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--fg); }
+.breadcrumb span { margin: 0 6px; }
+.article-header { padding: 32px 0 34px; border-bottom: 1px solid var(--border); }
+.article-tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.article-title { font-family: var(--font-display); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 18px; max-width: 23ch; text-wrap: pretty; }
+.article-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.article-content { padding: 36px 0 0; }
+.article-content p { font-size: 17px; line-height: 1.7; color: var(--fg); max-width: 65ch; margin-bottom: 20px; }
+.article-content h2 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.3; color: var(--fg); margin: 36px 0 14px; }
+.article-content ul { margin: 0 0 20px 0; padding-left: 20px; }
+.article-content ul li { font-size: 17px; line-height: 1.65; color: var(--fg); max-width: 60ch; margin-bottom: 8px; }
+.tool-shot { margin: 0 0 28px; border: 1px solid var(--border); background: var(--surface); }
+.tool-shot img { display: block; width: 100%; height: auto; }
+.tool-shot figcaption { padding: 9px 12px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted); border-top: 1px solid var(--border); }
+.code-block { margin: 18px 0 22px; padding: 16px; background: oklch(17% 0.012 70); color: var(--surface); overflow-x: auto; font-family: var(--font-mono); font-size: 13px; line-height: 1.55; }
+.quick-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 30px 0 0; }
+.quick-link { display: inline-block; font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.01em; color: var(--surface); background: var(--accent); padding: 10px 16px; text-decoration: none; }
+.quick-link.secondary { color: var(--fg); background: transparent; border: 1px solid var(--border); }
+.site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 54px; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; }
+.f-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; }
+.f-text:hover { color: var(--fg); }
+@media (max-width: 580px) {
+  .article-title { font-size: 28px; }
+  .site-footer .footer-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html">
+      <img class="avatar" src="avatar.png" alt="Giampiero">
+      <span class="logo">@giampiero.ai</span>
+    </a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <nav class="breadcrumb">
+    <a href="index.html">Guide</a>
+    <span>·</span>
+    <a href="index.html?serie=ai-tools">AI Tools</a>
+    <span>·</span>
+    <span>GSAP</span>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-tag">AI Tools</span>
+    <h1 class="article-title">GSAP: animazioni JavaScript professionali in pochi minuti</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 3 min di lettura</p>
+  </header>
+
+  <article class="article-content">
+    <figure class="tool-shot">
+      <img src="gsap-screenshot.png" alt="Screenshot della homepage GSAP">
+      <figcaption>Screenshot da gsap.com, salvato come riferimento visivo della puntata.</figcaption>
+    </figure>
+
+    <p>GSAP è una libreria JavaScript per animare elementi su siti, web app e interfacce creative. In pratica: se JavaScript può selezionare un elemento, GSAP può muoverlo, scalarlo, ruotarlo, farlo apparire, sincronizzarlo con altri elementi o controllarlo dentro una timeline.</p>
+
+    <p>La cosa interessante non è solo l'effetto wow. È il controllo. GSAP serve quando vuoi animazioni fluide e precise senza impazzire con mille classi CSS, timeout e stati intermedi.</p>
+
+    <h2>Quando usarlo</h2>
+    <ul>
+      <li>Hero section più dinamiche, senza rifare tutto il sito.</li>
+      <li>Scroll animation per landing page, portfolio e pagine prodotto.</li>
+      <li>Micro-interazioni su bottoni, card, menu e modali.</li>
+      <li>Sequenze animate dove più elementi devono partire nel momento giusto.</li>
+      <li>SVG, UI e interfacce creative che devono sembrare più premium.</li>
+    </ul>
+
+    <h2>Il primo snippet</h2>
+    <p>Il modo più semplice per capirlo è questo: selezioni un elemento e dici a GSAP dove deve arrivare.</p>
+
+    <pre class="code-block"><code>&lt;script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  gsap.to(".box", {
+    x: 200,
+    rotation: 12,
+    duration: 0.8,
+    ease: "power3.out"
+  });
+&lt;/script&gt;</code></pre>
+
+    <p><code>gsap.to()</code> parte dallo stato attuale dell'elemento e lo anima verso i valori che gli dai. Per sequenze più lunghe puoi usare <code>gsap.timeline()</code>, che ti permette di orchestrare più animazioni come una mini regia.</p>
+
+    <h2>Perché lo segnerei tra gli AI tools</h2>
+    <p>Perché con Claude Code, Codex o Cursor puoi descrivere l'effetto che vuoi e farti scrivere direttamente la timeline GSAP. Tu ragioni in termini di risultato: "fai entrare il titolo, poi le card, poi il bottone". L'AI traduce quella regia in codice.</p>
+
+    <p>Se costruisci siti con AI, GSAP è uno di quei tool che alza subito la percezione del progetto: stesso contenuto, ma con più ritmo, più controllo e più qualità visiva.</p>
+
+    <div class="quick-links">
+      <a class="quick-link" href="https://gsap.com/" target="_blank" rel="noopener">Apri GSAP →</a>
+      <a class="quick-link secondary" href="https://gsap.com/resources/get-started/" target="_blank" rel="noopener">Getting started</a>
+      <a class="quick-link secondary" href="index.html?serie=ai-tools">Tutti gli AI Tools</a>
+    </div>
+  </article>
+
+</div>
+
+<div class="wrap">
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="f-text">© 2026 @giampiero.ai</span>
+      <a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>

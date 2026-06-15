@@ -15,13 +15,29 @@ assert(
 
 assert(
   html.includes('data-series="ai-tools"'),
-  'at least one guide should belong to the AI Tools series'
+  'the GSAP guide should belong to the AI Tools series'
 );
 
 assert(
-  html.includes('data-series="diario-vibe-coder"'),
-  'at least one guide should belong to Diario di un vibe coder'
+  !html.includes('data-series="diario-vibe-coder"'),
+  'Diario di un vibe coder should stay empty until dedicated editions are added'
 );
+
+const aiToolsMatches = html.match(/data-series="ai-tools"/g) || [];
+assert.strictEqual(aiToolsMatches.length, 1, 'AI Tools should only contain the GSAP guide for now');
+
+assert(
+  html.includes('href="guida-78-gsap.html"') &&
+    html.includes('data-tag="Strumenti" data-series="ai-tools"'),
+  'home should list the GSAP guide as an AI Tools article'
+);
+
+const gsapGuide = fs.readFileSync('guida-78-gsap.html', 'utf8');
+assert(gsapGuide.includes('GSAP'), 'GSAP guide should mention GSAP');
+assert(gsapGuide.includes('https://gsap.com/'), 'GSAP guide should link to the official site');
+assert(gsapGuide.includes('gsap.to('), 'GSAP guide should include a minimal gsap.to example');
+assert(gsapGuide.includes('gsap-screenshot.png'), 'GSAP guide should include the local screenshot asset');
+assert(fs.existsSync('gsap-screenshot.png'), 'GSAP screenshot asset should exist');
 
 assert(
   html.includes("URLSearchParams(window.location.search)") &&

@@ -7,6 +7,7 @@ Make the home page behave more like a blog index: newest articles first, with ed
 - Keep existing `data-tag` categories for broad article taxonomy.
 - Add a separate `data-series` concept for editorial series.
 - Support two initial series: `ai-tools` and `diario-vibe-coder`.
+- Do not infer series from tags automatically. A guide belongs to a series only when `data-series` is assigned deliberately.
 - Treat articles without a specific series as general catalog content.
 - Show the two series near the top of the home page.
 - Clicking a series filters the existing guide list without requiring backend routing.
@@ -20,9 +21,11 @@ The existing JavaScript filter is extended with an independent `activeSeries` st
 
 The guide list order in `index.html` is the source of truth for recency. Newer guide pages are placed first in descending guide number order.
 
+The first `AI Tools` entry is a short public guide for GSAP. `Diario di un vibe coder` remains empty until dedicated editions are added.
+
 ## Verification
 Use a Node-based static test that parses `index.html` as text and checks:
 - series controls exist,
-- guide items include both required series,
+- only deliberately assigned guide items appear in a series,
 - series query string handling exists,
 - the top numbered guide is the newest numeric guide.

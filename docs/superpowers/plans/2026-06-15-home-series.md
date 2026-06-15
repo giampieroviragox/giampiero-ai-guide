@@ -28,7 +28,8 @@
 
 - [ ] Add compact series controls above the tag filters.
 - [ ] Add CSS matching the existing quiet editorial style.
-- [ ] Add `data-series="ai-tools"` and `data-series="diario-vibe-coder"` to selected guide items.
+- [ ] Add `data-series="ai-tools"` only to deliberate AI Tools guide entries.
+- [ ] Leave `diario-vibe-coder` empty until dedicated editions are added.
 - [ ] Reorder guide items newest-first by numeric guide number.
 
 ### Task 3: Client-Side Filtering
