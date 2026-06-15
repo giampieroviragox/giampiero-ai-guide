@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claude Opus 4.7: tutte le 12 novità spiegate — @giampiero.ai</title>
+<meta name="description" content="Auto Mode, /ultrareview, visione 3x migliorata, memoria tra sessioni e molto altro: tutto quello che devi sapere su Claude Opus 4.7 senza gergo da benchmark.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{--bg:oklch(98% 0.004 95);--surface:oklch(100% 0.002 95);--fg:oklch(20% 0.018 70);--muted:oklch(48% 0.012 70);--border:oklch(90% 0.006 95);--accent:oklch(52% 0.10 28);--font-display:'Iowan Old Style','Charter',Georgia,serif;--font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;--font-mono:ui-monospace,'SF Mono',Menlo,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+.article-wrap{max-width:660px;margin:0 auto;padding:0 24px}
+.site-header{padding:20px 0;border-bottom:1px solid var(--border)}
+.header-inner{max-width:860px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:0.02em;color:var(--fg);text-decoration:none}
+.avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;display:block;flex-shrink:0}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-ig{font-family:var(--font-mono);font-size:11px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.15s}
+.nav-ig:hover{color:var(--fg)}
+.breadcrumb{padding:20px 0 0;font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--fg)}
+.breadcrumb span{margin:0 6px}
+.article-header{padding:32px 0 40px;border-bottom:1px solid var(--border)}
+.article-tag{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.article-title{font-family:var(--font-display);font-size:clamp(30px,4vw,44px);font-weight:400;line-height:1.15;letter-spacing:-0.02em;color:var(--fg);margin-bottom:18px;max-width:22ch;text-wrap:pretty}
+.article-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.article-content{padding:40px 0 0}
+.article-content p{font-size:17px;line-height:1.7;color:var(--fg);max-width:65ch;margin-bottom:20px}
+.article-content h2{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;color:var(--fg);margin:36px 0 14px}
+.article-content ul{margin:0 0 20px 0;padding-left:20px}
+.article-content ul li{font-size:17px;line-height:1.65;color:var(--fg);max-width:60ch;margin-bottom:8px}
+.article-content ul li strong{font-weight:550}
+.step{display:flex;gap:16px;align-items:baseline;margin-bottom:12px;max-width:60ch}
+.step-num{font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--accent);flex-shrink:0;margin-top:2px}
+.step-text{font-size:17px;line-height:1.65;color:var(--fg)}
+.prompt-box{position:relative;background:var(--fg);padding:28px 28px 24px;margin:28px 0 24px;max-width:65ch}
+.prompt-box .prompt-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.prompt-box pre{font-family:var(--font-mono);font-size:13px;line-height:1.7;color:oklch(92% 0.004 95);white-space:pre-wrap;word-break:break-word;margin:0}
+.copy-btn{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;background:transparent;border:1px solid oklch(38% 0.012 70);color:oklch(75% 0.006 70);padding:8px 14px;cursor:pointer;transition:border-color 0.15s,color 0.15s}
+.copy-btn:hover{border-color:oklch(65% 0.008 70);color:oklch(90% 0.004 95)}
+.copy-btn.copied{color:oklch(75% 0.12 145);border-color:oklch(55% 0.10 145)}
+.preview-wrap{position:relative}
+.preview-mask{position:relative;overflow:hidden}
+.preview-mask::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
+.preview-mask.unlocked::after{display:none}
+#paywall-gate{padding:48px 0 60px;border-top:1px solid var(--border);margin-top:8px}
+.paywall-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.paywall-title{font-family:var(--font-display);font-size:26px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;color:var(--fg);margin-bottom:10px}
+.paywall-sub{font-size:15px;color:var(--muted);max-width:44ch;line-height:1.6;margin-bottom:28px}
+.access-form{display:flex;flex-direction:column;gap:10px;max-width:360px}
+.form-row{display:flex;flex-direction:column;gap:5px}
+.form-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted)}
+.form-input{font-family:var(--font-body);font-size:15px;color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:0;padding:10px 12px;outline:none;width:100%;transition:border-color 0.15s;-webkit-appearance:none}
+.form-input:focus{border-color:var(--fg)}
+.form-input::placeholder{color:var(--muted)}
+.form-submit{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.02em;color:var(--surface);background:var(--accent);border:none;padding:11px 20px;cursor:pointer;border-radius:0;width:100%;margin-top:4px;transition:opacity 0.15s;-webkit-appearance:none}
+.form-submit:hover{opacity:0.88}
+.form-note{font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;color:var(--muted);margin-top:4px}
+#article-full{display:none}
+#article-full.visible{display:block}
+.unlock-note{display:none;font-family:var(--font-mono);font-size:11px;letter-spacing:0.05em;color:var(--muted);padding:20px 0 0;border-top:1px solid var(--border);margin-top:8px}
+.unlock-note.visible{display:block}
+.cta-callout{background:var(--fg);padding:44px 40px}
+.cta-callout .cta-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.cta-callout h3{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.25;color:var(--surface);max-width:38ch;margin-bottom:28px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.cta-btn{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.01em;padding:11px 20px;text-decoration:none;border-radius:0;transition:opacity 0.15s;display:inline-block}
+.cta-btn-primary{background:var(--surface);color:var(--fg)}
+.cta-btn-secondary{background:transparent;color:var(--surface);border:1px solid oklch(38% 0.012 70)}
+.cta-btn:hover{opacity:0.75}
+.site-footer{border-top:1px solid var(--border);padding:32px 0}
+.footer-inner{display:flex;align-items:center;justify-content:space-between}
+.f-text{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted);text-decoration:none}
+.f-text:hover{color:var(--fg)}
+@media(max-width:580px){.article-title{font-size:28px}.paywall-title{font-size:22px}.prompt-box{padding:22px 18px 18px}.cta-callout{padding:36px 24px}.site-footer .footer-inner{flex-direction:column;gap:8px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html"><img class="avatar" src="avatar.png" alt="Giampiero"><span class="logo">@giampiero.ai</span></a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+<div class="article-wrap">
+  <nav class="breadcrumb"><a href="index.html">Guide</a><span>·</span><span>Claude Opus 4.7: tutte le 12 novità</span></nav>
+  <header class="article-header">
+    <span class="article-tag">Claude</span>
+    <h1 class="article-title">Claude Opus 4.7: tutte le 12 novità spiegate senza tecnicismi</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 6 min di lettura</p>
+  </header>
+  <div class="article-content">
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>Claude Opus 4.7 non è un semplice aggiornamento di routine. È la versione che cambia davvero il modo in cui lavori con l'AI: meno interruzioni, output più raffinati, e la capacità di portare a termine compiti lunghi senza che tu debba stare a supervisionare ogni singolo passaggio. Anthropic ha introdotto 12 novità, alcune già visibili nell'interfaccia, altre che cambiano tutto sotto il cofano.</p>
+        <p>In questa guida le trovi tutte e 12 spiegate in modo diretto — niente benchmark, niente paragoni tecnici con versioni precedenti. Solo quello che cambia per te nel lavoro di tutti i giorni, e come sfruttare al massimo ogni funzione. Cominciamo dalle più impattanti.</p>
+        <p>La prima novità che noterai subito è l'<strong>Auto Mode</strong>: Claude ora decide autonomamente quali azioni sono sicure durante task lunghi e le esegue senza chiederti conferma ogni volta. Prima dovevi approvare ogni singola azione. Adesso dai un compito, ti allontani, e torni al lavoro finito.</p>
+      </div>
+    </div>
+    <div id="article-full">
+
+      <h2>01 — Auto Mode: lavora mentre sei via</h2>
+      <p>Claude ora capisce quali azioni sono sicure durante i task lunghi e le esegue in autonomia, senza fermarsi a chiederti il permesso ogni volta. Un classificatore di sicurezza analizza ogni azione prima che venga eseguita e blocca tutto ciò che è rischioso. Disponibile sui piani Max, Team ed Enterprise.</p>
+
+      <h2>02 — /ultrareview: 4 esperti in un colpo solo</h2>
+      <p>Digita <code>/ultrareview</code> e Claude invia il tuo codice a 4 agenti AI contemporaneamente. Uno controlla la sicurezza, uno la logica, uno le performance, uno lo stile. Ricevi un solo report unificato. Gli utenti Pro e Max hanno 3 ultrareview gratuiti per provarlo.</p>
+
+      <h2>03 — /fewer-permission-prompts: stop alle interruzioni continue</h2>
+      <p>Digita questo comando e Claude analizza la tua cronologia per trovare tutti i permessi che ti ha chiesto ripetutamente. Costruisce una lista di quelli che approvi sempre e li aggiunge a una lista di autorizzazione automatica. Setup una tantum: dopo, le azioni che approvi sempre avvengono in automatico.</p>
+
+      <h2>04 — Recap: riprendi esattamente da dove eri</h2>
+      <p>Avvia un task lungo, fai altro, torna — e Claude ti dà un breve riassunto di cosa ha fatto e cosa sta per fare. Molto più efficiente in termini di token rispetto a scorrere tutta la conversazione. Puoi anche digitare <code>/recap</code> in qualsiasi momento. Configurabile in <code>/config</code> o con la variabile d'ambiente <code>CLAUDE_CODE_ENABLE_AWAY_SUMMARY</code>.</p>
+
+      <h2>05 — /focus e /effort: controllo totale sull'output</h2>
+      <p><code>/focus</code> dice a Claude di nascondere tutto il lavoro intermedio (chiamate agli strumenti, letture di file, passaggi intermedi) e mostrarti solo il risultato finale. Output pulito.</p>
+      <p><code>/effort</code> ti permette di controllare quanto Claude "ragiona". Usa <code>xhigh</code> per task complessi che richiedono ragionamento profondo; usa impostazioni più basse per risposte veloci e per risparmiare token. Il default è stato alzato a <code>xhigh</code> su tutti i piani Claude Code.</p>
+
+      <h2>06 — Visione 3x migliorata: vede quello che prima sfuggiva</h2>
+      <p>La risoluzione massima delle immagini è passata da 1568 pixel a 2576 pixel — oltre 3 volte il dettaglio precedente. Screenshot, design, diagrammi, documenti: Claude ora vede i dettagli fini che prima erano sfocati. Il computer use e la lettura dello schermo funzionano finalmente come si deve. Le coordinate sono ora 1:1 con i pixel reali, quindi Claude sa esattamente dove si trovano le cose sullo schermo.</p>
+
+      <h2>07 — Output di design da professionista</h2>
+      <p>Interfacce, slide, presentazioni, documenti. Opus 4.7 produce output che sembra progettato da un professionista invece del solito stile AI generico. Lovable ha dichiarato che è "il miglior modello al mondo per costruire dashboard e interfacce ricche di dati" e che il gusto estetico è genuinamente sorprendente. Se stai costruendo landing page, dashboard o slide deck con Claude, questo è un upgrade che si nota.</p>
+
+      <h2>08 — Memoria tra sessioni: meno ri-spiegazioni</h2>
+      <p>Opus 4.7 è migliore nello scrivere e leggere le proprie note tra sessioni diverse. Se Claude mantiene un file di memoria o uno scratchpad, usa davvero quelle informazioni per riprendere da dove aveva lasciato. Meno ri-spiegazioni all'inizio di ogni sessione, meno contesto da fornire manualmente. Funziona particolarmente bene con i file <code>CLAUDE.md</code> e il sistema di memoria integrato.</p>
+
+      <h2>09 — Task Budget: dai un limite di token al lavoro</h2>
+      <p>Nuova funzione per gli sviluppatori che usano l'API. Puoi ora assegnare a Claude un budget di token per un intero task. Claude vede un conto alla rovescia e lo usa per dare priorità al lavoro e finire in modo ordinato man mano che il budget si esaurisce — invece di interrompersi a metà. È come dare a un collaboratore un limite di tempo: adatta il lavoro per rientrare, invece di sforare.</p>
+
+      <h2>10 — Auto-verifica: corregge gli errori prima di mandarti il risultato</h2>
+      <p>Opus 4.7 controlla il proprio lavoro prima di inviartelo. Rivede quello che ha costruito, cerca errori e li corregge prima di risponderti. Vercel ha dichiarato che "fa persino prove formali sul codice di sistema prima di iniziare il lavoro — un comportamento nuovo che non avevamo mai visto nei modelli Claude precedenti." Questa è la funzione che rende sicuro affidare a Claude i task più difficili e allontanarsi.</p>
+
+      <h2>11 — Segue le istruzioni alla lettera</h2>
+      <p>Opus 4.7 prende le tue istruzioni in modo letterale. I modelli precedenti le interpretavano liberamente o saltavano parti. Ora segue esattamente quello che dici. Attenzione: i prompt scritti per i modelli più vecchi potrebbero richiedere un aggiornamento, perché Claude non colma più le lacune o indovina quello che intendevi. Sii specifico e otterrai esattamente quello che hai chiesto.</p>
+
+      <h2>12 — Cyber Verification Program: sicurezza integrata</h2>
+      <p>Opus 4.7 ha protezioni integrate che rilevano e bloccano le richieste ad alto rischio in ambito cybersecurity. Se sei un professionista della sicurezza che ha bisogno di usare Claude per penetration testing, ricerca sulle vulnerabilità o red-teaming legittimi, puoi richiedere l'accesso al nuovo Cyber Verification Program su <code>claude.com/form/cyber-use-case</code>. È il primo modello Anthropic con protezioni cyber attive.</p>
+
+    </div>
+    <div class="unlock-note" id="unlock-note">Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.</div>
+  </div>
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row"><label class="form-label" for="nome">Nome</label><input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name"></div>
+      <div class="form-row"><label class="form-label" for="email">Email</label><input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required></div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+</div>
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+  <footer class="site-footer"><div class="footer-inner"><span class="f-text">© 2026 @giampiero.ai</span><a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a></div></footer>
+</div>
+<script>
+(function(){
+  var STORE='giampiero_ai_subscriber';
+  var gate=document.getElementById('paywall-gate');
+  var full=document.getElementById('article-full');
+  var mask=document.getElementById('preview-mask');
+  var note=document.getElementById('unlock-note');
+  var form=document.getElementById('access-form');
+  function unlock(){if(gate)gate.style.display='none';if(full)full.classList.add('visible');if(mask)mask.classList.add('unlocked');if(note)note.classList.add('visible');}
+  try{if(localStorage.getItem(STORE))unlock();}catch(_){}
+  if(form){form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=form.querySelector('[name="email"]').value.trim();
+    var nome=form.querySelector('[name="nome"]').value.trim();
+    if(!email||!email.includes('@')){form.querySelector('[name="email"]').focus();return;}
+    try{localStorage.setItem(STORE,JSON.stringify({nome:nome,email:email,ts:Date.now()}));}catch(_){}
+    fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,email:email,guida:'Claude Opus 4.7: tutte le 12 novità spiegate',ts:new Date().toISOString()})}).catch(function(){});
+    unlock();
+  });}
+})();
+</script>
+</body>
+</html>

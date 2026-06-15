@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Genera qualsiasi immagine dentro Claude Code con NanoBanana — @giampiero.ai</title>
+<meta name="description" content="NanoBanana 2 trasforma Claude Code in uno studio creativo completo. Thumbnail, infografiche, annunci, icone e diagrammi — tutto da un prompt, senza cambiare app.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{--bg:oklch(98% 0.004 95);--surface:oklch(100% 0.002 95);--fg:oklch(20% 0.018 70);--muted:oklch(48% 0.012 70);--border:oklch(90% 0.006 95);--accent:oklch(52% 0.10 28);--font-display:'Iowan Old Style','Charter',Georgia,serif;--font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;--font-mono:ui-monospace,'SF Mono',Menlo,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+.article-wrap{max-width:660px;margin:0 auto;padding:0 24px}
+.site-header{padding:20px 0;border-bottom:1px solid var(--border)}
+.header-inner{max-width:860px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:0.02em;color:var(--fg);text-decoration:none}
+.avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;display:block;flex-shrink:0}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-ig{font-family:var(--font-mono);font-size:11px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.15s}
+.nav-ig:hover{color:var(--fg)}
+.breadcrumb{padding:20px 0 0;font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--fg)}
+.breadcrumb span{margin:0 6px}
+.article-header{padding:32px 0 40px;border-bottom:1px solid var(--border)}
+.article-tag{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.article-title{font-family:var(--font-display);font-size:clamp(30px,4vw,44px);font-weight:400;line-height:1.15;letter-spacing:-0.02em;color:var(--fg);margin-bottom:18px;max-width:22ch;text-wrap:pretty}
+.article-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.article-content{padding:40px 0 0}
+.article-content p{font-size:17px;line-height:1.7;color:var(--fg);max-width:65ch;margin-bottom:20px}
+.article-content h2{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;color:var(--fg);margin:36px 0 14px}
+.article-content ul{margin:0 0 20px 0;padding-left:20px}
+.article-content ul li{font-size:17px;line-height:1.65;color:var(--fg);max-width:60ch;margin-bottom:8px}
+.article-content ul li strong{font-weight:550}
+.step{display:flex;gap:16px;align-items:baseline;margin-bottom:12px;max-width:60ch}
+.step-num{font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--accent);flex-shrink:0;margin-top:2px}
+.step-text{font-size:17px;line-height:1.65;color:var(--fg)}
+.prompt-box{position:relative;background:var(--fg);padding:28px 28px 24px;margin:28px 0 24px;max-width:65ch}
+.prompt-box .prompt-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.prompt-box pre{font-family:var(--font-mono);font-size:13px;line-height:1.7;color:oklch(92% 0.004 95);white-space:pre-wrap;word-break:break-word;margin:0}
+.copy-btn{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;background:transparent;border:1px solid oklch(38% 0.012 70);color:oklch(75% 0.006 70);padding:8px 14px;cursor:pointer;transition:border-color 0.15s,color 0.15s}
+.copy-btn:hover{border-color:oklch(65% 0.008 70);color:oklch(90% 0.004 95)}
+.copy-btn.copied{color:oklch(75% 0.12 145);border-color:oklch(55% 0.10 145)}
+.preview-wrap{position:relative}
+.preview-mask{position:relative;overflow:hidden}
+.preview-mask::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
+.preview-mask.unlocked::after{display:none}
+#paywall-gate{padding:48px 0 60px;border-top:1px solid var(--border);margin-top:8px}
+.paywall-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.paywall-title{font-family:var(--font-display);font-size:26px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;color:var(--fg);margin-bottom:10px}
+.paywall-sub{font-size:15px;color:var(--muted);max-width:44ch;line-height:1.6;margin-bottom:28px}
+.access-form{display:flex;flex-direction:column;gap:10px;max-width:360px}
+.form-row{display:flex;flex-direction:column;gap:5px}
+.form-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted)}
+.form-input{font-family:var(--font-body);font-size:15px;color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:0;padding:10px 12px;outline:none;width:100%;transition:border-color 0.15s;-webkit-appearance:none}
+.form-input:focus{border-color:var(--fg)}
+.form-input::placeholder{color:var(--muted)}
+.form-submit{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.02em;color:var(--surface);background:var(--accent);border:none;padding:11px 20px;cursor:pointer;border-radius:0;width:100%;margin-top:4px;transition:opacity 0.15s;-webkit-appearance:none}
+.form-submit:hover{opacity:0.88}
+.form-note{font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;color:var(--muted);margin-top:4px}
+#article-full{display:none}
+#article-full.visible{display:block}
+.unlock-note{display:none;font-family:var(--font-mono);font-size:11px;letter-spacing:0.05em;color:var(--muted);padding:20px 0 0;border-top:1px solid var(--border);margin-top:8px}
+.unlock-note.visible{display:block}
+.cta-callout{background:var(--fg);padding:44px 40px}
+.cta-callout .cta-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.cta-callout h3{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.25;color:var(--surface);max-width:38ch;margin-bottom:28px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.cta-btn{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.01em;padding:11px 20px;text-decoration:none;border-radius:0;transition:opacity 0.15s;display:inline-block}
+.cta-btn-primary{background:var(--surface);color:var(--fg)}
+.cta-btn-secondary{background:transparent;color:var(--surface);border:1px solid oklch(38% 0.012 70)}
+.cta-btn:hover{opacity:0.75}
+.site-footer{border-top:1px solid var(--border);padding:32px 0}
+.footer-inner{display:flex;align-items:center;justify-content:space-between}
+.f-text{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted);text-decoration:none}
+.f-text:hover{color:var(--fg)}
+@media(max-width:580px){.article-title{font-size:28px}.paywall-title{font-size:22px}.prompt-box{padding:22px 18px 18px}.cta-callout{padding:36px 24px}.site-footer .footer-inner{flex-direction:column;gap:8px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html"><img class="avatar" src="avatar.png" alt="Giampiero"><span class="logo">@giampiero.ai</span></a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+<div class="article-wrap">
+  <nav class="breadcrumb"><a href="index.html">Guide</a><span>·</span><span>Genera immagini in Claude Code con NanoBanana</span></nav>
+  <header class="article-header">
+    <span class="article-tag">Immagini</span>
+    <h1 class="article-title">Genera qualsiasi immagine dentro Claude Code con NanoBanana</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 7 min di lettura</p>
+  </header>
+  <div class="article-content">
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>Ogni progetto ha bisogno di immagini. I post del blog vogliono una featured image. Le landing page vogliono una hero graphic. Le campagne pubblicitarie vogliono varianti creative. Le presentazioni vogliono diagrammi. E ogni volta che ne hai bisogno, esci dal workflow — apri Canva, aspetti Midjourney, o scrivi a un designer e aspetti giorni.</p>
+        <p>NanoBanana 2 elimina tutto questo. Connette i modelli di generazione immagini di Google Gemini direttamente a Claude Code come server MCP. Una volta installato, Claude ha sette strumenti per le immagini integrati. Descrivi quello che vuoi, Claude lo genera, e l'immagine finisce nella directory del progetto. Nessun cambio di app. Nessuna attesa. Nessun abbonamento separato.</p>
+        <p>La qualità dell'output è seria: risoluzione 4K, rendering accurato del testo, dieci formati diversi, e modifica multi-turno dove descrivi i cambiamenti e Claude aggiorna l'immagine istantaneamente.</p>
+      </div>
+    </div>
+    <div id="article-full">
+
+      <h2>Setup in 3 comandi</h2>
+
+      <p><strong>Passo 1 — Installa il server MCP</strong></p>
+      <div class="prompt-box">
+        <p class="prompt-label">Terminale</p>
+        <pre id="prompt-text-1">npm install -g nanobanana-mcp-server</pre>
+        <button class="copy-btn" onclick="copyById('prompt-text-1','btn1','lbl1')" id="btn1"><span id="lbl1">Copia</span></button>
+      </div>
+
+      <p><strong>Passo 2 — Registra con Claude Code</strong></p>
+      <div class="prompt-box">
+        <p class="prompt-label">Terminale</p>
+        <pre id="prompt-text-2">claude mcp add nanobanana -- node ~/.gemini/extensions/nanobanana/mcp-server/dist/index.js</pre>
+        <button class="copy-btn" onclick="copyById('prompt-text-2','btn2','lbl2')" id="btn2"><span id="lbl2">Copia</span></button>
+      </div>
+
+      <p><strong>Passo 3 — Imposta la chiave API</strong></p>
+      <p>NanoBanana usa l'API Gemini di Google per la generazione delle immagini. Se hai già una chiave Gemini configurata, sei a posto. Altrimenti prendila gratuitamente da Google AI Studio e impostala come variabile d'ambiente:</p>
+      <div class="prompt-box">
+        <p class="prompt-label">Terminale</p>
+        <pre id="prompt-text-3">export GEMINI_API_KEY=la_tua_chiave_qui</pre>
+        <button class="copy-btn" onclick="copyById('prompt-text-3','btn3','lbl3')" id="btn3"><span id="lbl3">Copia</span></button>
+      </div>
+
+      <p>Per verificare la connessione, apri Claude Code e chiedigli di generare un'immagine di test semplice. Se compare un'immagine nella directory del progetto, sei connesso.</p>
+
+      <h2>Upgrade al modello Pro</h2>
+      <p>Per default, NanoBanana usa Gemini Flash — veloce e buona qualità. Per output in 4K e rendering del testo migliore, imposta <code>NANOBANANA_MODEL=gemini-3-pro-image-preview</code> nel tuo ambiente. Qualità superiore, leggermente più lento.</p>
+
+      <h2>I 7 strumenti immagine</h2>
+      <p>Una volta connesso, Claude Code ha sette strumenti distinti. Ognuno gestisce un tipo diverso di asset visivo.</p>
+
+      <ul>
+        <li><strong>Genera immagini</strong> — generazione testo-immagine con controllo dello stile. 10 stili (fotorealistico, acquerello, pittura a olio, schizzo, pixel art, anime, vintage, moderno, astratto, minimalista) e 10 formati (16:9, 1:1, 4:3, 9:16 e altri). Fino a 8 variazioni contemporaneamente con illuminazione, angoli, palette o mood diversi.</li>
+        <li><strong>Modifica immagini</strong> — modifica qualsiasi immagine esistente con linguaggio naturale. Dì "rendi lo sfondo più scuro" o "rimuovi il testo e aggiungi un tramonto." Modifica multi-turno — continua a raffinare fino a che non è giusta.</li>
+        <li><strong>Restaura immagini</strong> — ripara e migliora foto vecchie o danneggiate. Correggi graffi, migliora la risoluzione, correggi i colori, rimuovi il rumore.</li>
+        <li><strong>Genera icone</strong> — crea icone app, favicon ed elementi UI in più dimensioni (da 16px a 1024px). Stili piatto, skeumorfici, minimali o moderni. Sfondi trasparenti o colorati.</li>
+        <li><strong>Genera pattern</strong> — pattern e texture seamless per sfondi, tessuti e materiali. Stili geometrici, organici, astratti, floreali o tech. Controllo della densità e della palette colori.</li>
+        <li><strong>Genera diagrammi</strong> — diagrammi tecnici, flowchart, architetture, mappe di rete, wireframe, mappe mentali e diagrammi di sequenza. Stili professionali, puliti, a mano libera o tecnici.</li>
+        <li><strong>Genera sequenze narrative</strong> — da 2 a 8 immagini sequenziali per tutorial, timeline o flussi di processo. Stile coerente o evolutivo nei frame. Output come file separati, griglia o layout a fumetto.</li>
+      </ul>
+
+      <h2>La libreria gratuita di 1.000+ prompt</h2>
+      <p>Scrivere prompt per immagini di qualità da zero è difficile. Questo sito risolve il problema: oltre 1.000 prompt NanoBanana organizzati in più di 40 casi d'uso e stili. Nessuna registrazione richiesta.</p>
+      <p><strong>youmind.com/nano-banana-pro-prompts</strong></p>
+
+      <p>Come usarla: naviga per caso d'uso (thumbnail, infografiche, annunci, riprese cinematografiche, render 3D, post social) o per stile (neon cyberpunk, retrò vintage, minimal pulito, acquerello, anime). Trovato un prompt che ti piace, copialo, incollalo in Claude Code, sostituisci il soggetto e genera. Due minuti dall'idea all'immagine finita.</p>
+
+      <h2>I casi d'uso migliori dalla libreria</h2>
+      <ul>
+        <li><strong>Thumbnail YouTube</strong> — design d'impatto che attirano i click. Stili multipli dal bold e grafico al cinematografico e cupo.</li>
+        <li><strong>Infografiche</strong> — visualizzazioni di idee complesse. Layout puliti con data visualization, flussi di processo e griglie comparative.</li>
+        <li><strong>Creatività per annunci</strong> — foto prodotto, immagini lifestyle e grafiche promozionali. Ottimizzate per feed social, stories e display ads.</li>
+        <li><strong>Post social</strong> — visual ferma-scroll per Instagram, LinkedIn e X. Grafiche con citazioni, post di annuncio e header per contenuti.</li>
+        <li><strong>Render 3D di prodotti</strong> — foto prodotto fotorealistiche senza fotografo. Perfette per ecommerce, pitch deck e marketing.</li>
+        <li><strong>Riprese cinematografiche</strong> — composizioni di scene di qualità cinematografica. Ottime per header di blog, sfondi per presentazioni e progetti creativi.</li>
+      </ul>
+
+      <h2>Workflow reali</h2>
+
+      <p><strong>Featured image per blog post</strong> — stai scrivendo un articolo in Claude Code? Quando hai finito, chiedi a Claude di generare una featured image basata sull'argomento. Legge il contenuto, sceglie un concetto visivo appropriato e genera l'immagine direttamente nella directory delle immagini del blog. Nessun cambio di contesto.</p>
+
+      <p><strong>Hero graphic per landing page</strong> — invece di cercare foto stock, chiedi a Claude di generare un'immagine hero che corrisponda al brand e al messaggio. Genera più variazioni, scegli la migliore, è già nella cartella del progetto.</p>
+
+      <p><strong>Varianti creative per A/B test</strong> — hai bisogno di cinque varianti di annuncio per l'A/B test? Generale tutte in una sessione. Stesso prodotto, stili diversi — fotorealistico, minimale, grafico bold, lifestyle, cinematografico.</p>
+
+      <h2>Prompt da copiare subito</h2>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Thumbnail YouTube</p>
+        <pre id="prompt-text-4">Genera una thumbnail YouTube per un video su [IL TUO ARGOMENTO]. Testo bold, alto contrasto, composizione d'impatto. Formato 16:9. Deve sembrare qualcosa su cui si clicca.</pre>
+        <button class="copy-btn" onclick="copyById('prompt-text-4','btn4','lbl4')" id="btn4"><span id="lbl4">Copia il prompt</span></button>
+      </div>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Featured image blog</p>
+        <pre id="prompt-text-5">Genera una featured image per questo articolo del blog. Leggi il contenuto e crea un visual che cattura il concetto principale. Stile pulito e moderno. Paesaggio 16:9. Nessun testo sull'immagine.</pre>
+        <button class="copy-btn" onclick="copyById('prompt-text-5','btn5','lbl5')" id="btn5"><span id="lbl5">Copia il prompt</span></button>
+      </div>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Varianti creative per annunci</p>
+        <pre id="prompt-text-6">Genera 4 varianti creative per [IL TUO PRODOTTO]. Ognuna deve usare uno stile visivo diverso: fotorealistico, minimale, grafico bold e lifestyle. Formato quadrato (1:1) per i feed social.</pre>
+        <button class="copy-btn" onclick="copyById('prompt-text-6','btn6','lbl6')" id="btn6"><span id="lbl6">Copia il prompt</span></button>
+      </div>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Foto prodotto professionale</p>
+        <pre id="prompt-text-7">Genera una foto prodotto professionale di [IL TUO PRODOTTO] su sfondo neutro. Illuminazione da studio. Leggera ombra. Stile fotorealistico. Alta risoluzione.</pre>
+        <button class="copy-btn" onclick="copyById('prompt-text-7','btn7','lbl7')" id="btn7"><span id="lbl7">Copia il prompt</span></button>
+      </div>
+
+    </div>
+    <div class="unlock-note" id="unlock-note">Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.</div>
+  </div>
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row"><label class="form-label" for="nome">Nome</label><input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name"></div>
+      <div class="form-row"><label class="form-label" for="email">Email</label><input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required></div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+</div>
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+  <footer class="site-footer"><div class="footer-inner"><span class="f-text">© 2026 @giampiero.ai</span><a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a></div></footer>
+</div>
+<script>
+(function(){
+  var STORE='giampiero_ai_subscriber';
+  var gate=document.getElementById('paywall-gate');
+  var full=document.getElementById('article-full');
+  var mask=document.getElementById('preview-mask');
+  var note=document.getElementById('unlock-note');
+  var form=document.getElementById('access-form');
+  function unlock(){if(gate)gate.style.display='none';if(full)full.classList.add('visible');if(mask)mask.classList.add('unlocked');if(note)note.classList.add('visible');}
+  try{if(localStorage.getItem(STORE))unlock();}catch(_){}
+  if(form){form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=form.querySelector('[name="email"]').value.trim();
+    var nome=form.querySelector('[name="nome"]').value.trim();
+    if(!email||!email.includes('@')){form.querySelector('[name="email"]').focus();return;}
+    try{localStorage.setItem(STORE,JSON.stringify({nome:nome,email:email,ts:Date.now()}));}catch(_){}
+    fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,email:email,guida:'Genera qualsiasi immagine in Claude Code con NanoBanana',ts:new Date().toISOString()})}).catch(function(){});
+    unlock();
+  });}
+})();
+function copyById(textId,btnId,lblId){var text=document.getElementById(textId).innerText;var btn=document.getElementById(btnId);var lbl=document.getElementById(lblId);navigator.clipboard.writeText(text).then(function(){btn.classList.add('copied');lbl.textContent='Copiato ✓';setTimeout(function(){btn.classList.remove('copied');lbl.textContent='Copia';},2200);});}
+</script>
+</body>
+</html>

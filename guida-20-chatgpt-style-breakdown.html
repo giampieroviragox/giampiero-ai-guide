@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Il Tuo Lookbook Personale con ChatGPT — @giampiero.ai</title>
+<meta name="description" content="Un selfie, tre prompt, e ottieni un'analisi completa del tuo stile: taglio di capelli ideale per la tua forma del viso, montatura degli occhiali perfetta e la tua palette di colori personale.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{--bg:oklch(98% 0.004 95);--surface:oklch(100% 0.002 95);--fg:oklch(20% 0.018 70);--muted:oklch(48% 0.012 70);--border:oklch(90% 0.006 95);--accent:oklch(52% 0.10 28);--font-display:'Iowan Old Style','Charter',Georgia,serif;--font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;--font-mono:ui-monospace,'SF Mono',Menlo,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+.article-wrap{max-width:660px;margin:0 auto;padding:0 24px}
+.site-header{padding:20px 0;border-bottom:1px solid var(--border)}
+.header-inner{max-width:860px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:0.02em;color:var(--fg);text-decoration:none}
+.avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;display:block;flex-shrink:0}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-ig{font-family:var(--font-mono);font-size:11px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.15s}
+.nav-ig:hover{color:var(--fg)}
+.breadcrumb{padding:20px 0 0;font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--fg)}
+.breadcrumb span{margin:0 6px}
+.article-header{padding:32px 0 40px;border-bottom:1px solid var(--border)}
+.article-tag{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.article-title{font-family:var(--font-display);font-size:clamp(30px,4vw,44px);font-weight:400;line-height:1.15;letter-spacing:-0.02em;color:var(--fg);margin-bottom:18px;max-width:22ch;text-wrap:pretty}
+.article-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.article-content{padding:40px 0 0}
+.article-content p{font-size:17px;line-height:1.7;color:var(--fg);max-width:65ch;margin-bottom:20px}
+.article-content h2{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;color:var(--fg);margin:36px 0 14px}
+.article-content ul{margin:0 0 20px 0;padding-left:20px}
+.article-content ul li{font-size:17px;line-height:1.65;color:var(--fg);max-width:60ch;margin-bottom:8px}
+.article-content ul li strong{font-weight:550}
+.step{display:flex;gap:16px;align-items:baseline;margin-bottom:12px;max-width:60ch}
+.step-num{font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--accent);flex-shrink:0;margin-top:2px}
+.step-text{font-size:17px;line-height:1.65;color:var(--fg)}
+.prompt-box{position:relative;background:var(--fg);padding:28px 28px 24px;margin:28px 0 24px;max-width:65ch}
+.prompt-box .prompt-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.prompt-box pre{font-family:var(--font-mono);font-size:13px;line-height:1.7;color:oklch(92% 0.004 95);white-space:pre-wrap;word-break:break-word;margin:0}
+.copy-btn{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;background:transparent;border:1px solid oklch(38% 0.012 70);color:oklch(75% 0.006 70);padding:8px 14px;cursor:pointer;transition:border-color 0.15s,color 0.15s}
+.copy-btn:hover{border-color:oklch(65% 0.008 70);color:oklch(90% 0.004 95)}
+.copy-btn.copied{color:oklch(75% 0.12 145);border-color:oklch(55% 0.10 145)}
+.preview-wrap{position:relative}
+.preview-mask{position:relative;overflow:hidden}
+.preview-mask::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
+.preview-mask.unlocked::after{display:none}
+#paywall-gate{padding:48px 0 60px;border-top:1px solid var(--border);margin-top:8px}
+.paywall-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.paywall-title{font-family:var(--font-display);font-size:26px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;color:var(--fg);margin-bottom:10px}
+.paywall-sub{font-size:15px;color:var(--muted);max-width:44ch;line-height:1.6;margin-bottom:28px}
+.access-form{display:flex;flex-direction:column;gap:10px;max-width:360px}
+.form-row{display:flex;flex-direction:column;gap:5px}
+.form-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted)}
+.form-input{font-family:var(--font-body);font-size:15px;color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:0;padding:10px 12px;outline:none;width:100%;transition:border-color 0.15s;-webkit-appearance:none}
+.form-input:focus{border-color:var(--fg)}
+.form-input::placeholder{color:var(--muted)}
+.form-submit{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.02em;color:var(--surface);background:var(--accent);border:none;padding:11px 20px;cursor:pointer;border-radius:0;width:100%;margin-top:4px;transition:opacity 0.15s;-webkit-appearance:none}
+.form-submit:hover{opacity:0.88}
+.form-note{font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;color:var(--muted);margin-top:4px}
+#article-full{display:none}
+#article-full.visible{display:block}
+.unlock-note{display:none;font-family:var(--font-mono);font-size:11px;letter-spacing:0.05em;color:var(--muted);padding:20px 0 0;border-top:1px solid var(--border);margin-top:8px}
+.unlock-note.visible{display:block}
+.cta-callout{background:var(--fg);padding:44px 40px}
+.cta-callout .cta-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.cta-callout h3{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.25;color:var(--surface);max-width:38ch;margin-bottom:28px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.cta-btn{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.01em;padding:11px 20px;text-decoration:none;border-radius:0;transition:opacity 0.15s;display:inline-block}
+.cta-btn-primary{background:var(--surface);color:var(--fg)}
+.cta-btn-secondary{background:transparent;color:var(--surface);border:1px solid oklch(38% 0.012 70)}
+.cta-btn:hover{opacity:0.75}
+.site-footer{border-top:1px solid var(--border);padding:32px 0}
+.footer-inner{display:flex;align-items:center;justify-content:space-between}
+.f-text{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted);text-decoration:none}
+.f-text:hover{color:var(--fg)}
+@media(max-width:580px){.article-title{font-size:28px}.paywall-title{font-size:22px}.prompt-box{padding:22px 18px 18px}.cta-callout{padding:36px 24px}.site-footer .footer-inner{flex-direction:column;gap:8px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html"><img class="avatar" src="avatar.png" alt="Giampiero"><span class="logo">@giampiero.ai</span></a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+<div class="article-wrap">
+  <nav class="breadcrumb"><a href="index.html">Guide</a><span>·</span><span>Lookbook ChatGPT</span></nav>
+  <header class="article-header">
+    <span class="article-tag">Immagini</span>
+    <h1 class="article-title">Il Tuo Lookbook Personale con ChatGPT</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 5 min di lettura</p>
+  </header>
+  <div class="article-content">
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>Un selfie. Tre prompt. Il risultato: un'analisi del tuo stile degna di una rivista di moda — con cinque tagli di capelli personalizzati per la forma del tuo viso, la montatura ideale degli occhiali e la tua palette di colori personale. Tutto gratis, in meno di 5 minuti, senza uscire di casa.</p>
+        <p>I parrucchieri chiedono dai 50 ai 300 euro per consigliarti un taglio, e gran parte di quella consulenza si basa su qualcosa che guardano per 10 secondi: la forma del tuo viso. ChatGPT fa la stessa analisi da un selfie in 30 secondi, senza ego, dandoti 5 opzioni invece di 1, con immagini di riferimento in stile lookbook da salone che puoi portare direttamente dal parrucchiere.</p>
+        <p>Le sei forme del viso principali (ovale, rotondo, quadrato, a cuore, allungato, a diamante) si abbinano ciascuna a specifiche lunghezze di taglio, pattern di scalature, forme della frangia e stili di riga. ChatGPT identifica la tua forma da un selfie frontale nitido e ti abbina i tagli più adatti — con immagini di riferimento per ciascuno. Ecco come farlo nel modo giusto.</p>
+      </div>
+    </div>
+    <div id="article-full">
+
+      <h2>Cosa ti serve prima di iniziare</h2>
+      <p>Solo due cose: un account ChatGPT (il piano gratuito funziona, ma con GPT-4o ottieni immagini migliori) e un selfie decente. La qualità del selfie è la variabile più importante di tutto il processo. Un selfie scadente dà raccomandazioni scadenti.</p>
+
+      <h2>Passo 1 — Scatta il selfie giusto</h2>
+      <p>Tre regole fondamentali per un selfie che funziona davvero:</p>
+      <ul>
+        <li><strong>Frontale, occhi al livello della fotocamera</strong> — non dall'alto o dal basso.</li>
+        <li><strong>Luce naturale chiara</strong> — idealmente vicino a una finestra.</li>
+        <li><strong>Capelli raccolti o dietro le orecchie</strong> — mascella e fronte devono essere ben visibili.</li>
+      </ul>
+      <p>Niente filtri, niente effetti, niente foto con trucco pesante. ChatGPT ha bisogno della forma reale del viso, non di una versione ritoccata.</p>
+
+      <h2>Passo 2 — Il prompt del lookbook editoriale</h2>
+      <p>Apri ChatGPT su chat.openai.com. Carica il tuo selfie nella chat. Poi incolla questo prompt:</p>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Prompt — copia e incolla</div>
+        <pre id="prompt-text-1">You're a senior celebrity stylist creating a salon lookbook style guide for me. Here's my selfie.
+PART 1 (write first, as text): Tell me my face shape, the 3 proportions that define it, 3 hairstyle structures that flatter it, 2 to avoid, and one principle that would change my whole vibe.
+PART 2 (one composite image, editorial): Generate ONE image styled like a Vogue Hair editorial. 3-on-top, 2-on-bottom grid. 5 portraits of me with the same face, same studio backdrop (warm gray seamless), same neutral wardrobe (black knit), only the hair changes. Vary cuts dramatically: clean professional, modern textured, bold statement, low-maintenance, long flowing length. Editorial typography (serif masthead, sans body), cream background, single warm accent color. Header: STYLE BREAKDOWN. Footer: ranking from most to least flattering. Use image_gen exactly ONCE. My facial features must be IDENTICAL across all 5 cells. Do BOTH parts in this same response. Don't ask follow-ups, execute.</pre>
+        <button class="copy-btn" id="copy-btn-1" onclick="copyPrompt('prompt-text-1','copy-btn-1','copy-label-1')"><span id="copy-label-1">Copia il prompt</span></button>
+      </div>
+
+      <p>ChatGPT nominerà la tua forma del viso, scriverà l'analisi, poi genererà l'immagine lookbook composita. Ottieni una pagina di riferimento degna di una rivista che puoi mandare direttamente al tuo parrucchiere. Ogni taglio è etichettato con un nome e classificato in fondo per quanto ti valorizza.</p>
+
+      <h2>Passo 3 — Porta il lookbook dal parrucchiere</h2>
+      <p>Scegli uno o due dei tagli generati. Fai uno screenshot dell'immagine lookbook e dell'analisi scritta. Mandali al tuo parrucchiere prima dell'appuntamento, o mostrali direttamente sulla sedia. L'immagine rende impossibile essere frainteso.</p>
+      <p>Dimentica il solito "solo una spuntatina, ma diversa". Mostra il lookbook e di': <em>"questo taglio, questa lunghezza, questo stile."</em> I parrucchieri adorano questo approccio perché elimina l'ambiguità. Esci con il taglio che volevi davvero.</p>
+
+      <h2>Bonus 1 — Il prompt per gli occhiali</h2>
+      <p>Stesso selfie, secondo caso d'uso. Non caricare una nuova foto. Nella stessa chat di ChatGPT (così ricorda la forma del tuo viso), incolla questo prompt:</p>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Prompt occhiali — copia e incolla</div>
+        <pre id="prompt-text-2">Using the same face shape, recommend 4-5 glasses frame styles that would look best on me. Generate ONE composite image: my selfie in the center, the 5 frames arranged around it as labeled portraits (same face, same lighting, only the frames change). For each: name the frame shape (aviator, round, square, cat-eye, etc.), describe the color and material that works, explain why it complements my face shape, and suggest 1-2 brands that carry that style. Editorial typography, warm cream background. ONE image, image_gen tool used ONCE.</pre>
+        <button class="copy-btn" id="copy-btn-2" onclick="copyPrompt('prompt-text-2','copy-btn-2','copy-label-2')"><span id="copy-label-2">Copia il prompt</span></button>
+      </div>
+
+      <p>ChatGPT sceglie le montature usando la stessa forma del viso già identificata, quindi le raccomandazioni sono coerenti. Risparmia un'ora all'ottico e entra sapendo già cosa provare per primo.</p>
+
+      <h2>Bonus 2 — La tua analisi dei colori personale</h2>
+      <p>Stesso selfie, terzo caso d'uso. Questa è l'analisi dei colori di tendenza per cui le persone pagano oltre 200 euro dal professionista. ChatGPT la fa gratis nella stessa chat. Incolla questo:</p>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Prompt analisi colori — copia e incolla</div>
+        <pre id="prompt-text-3">Using the same selfie, do a personal color analysis on me. Identify my season (Spring, Summer, Autumn, or Winter — and the variant: true, light, soft, deep, warm, or cool). Generate ONE composite image: my selfie at the top, 12 colors that flatter me arranged as labeled swatches in a grid below. Group them: 4 best colors (clothing/hero pieces), 4 neutral colors (basics), 4 colors to avoid. Each swatch labeled with hex code and a use case. Include a 1-line reason why each group works (or doesn't) for my season. Same magazine-editorial typography as the hairstyle lookbook. ONE image, image_gen tool used ONCE.</pre>
+        <button class="copy-btn" id="copy-btn-3" onclick="copyPrompt('prompt-text-3','copy-btn-3','copy-label-3')"><span id="copy-label-3">Copia il prompt</span></button>
+      </div>
+
+      <p>Ora hai la tua palette personale completa. Usala per vestiti, accessori, anche colori per la casa. La maggior parte delle persone improvvisa per anni. Tu lo saprai in 30 secondi.</p>
+
+      <h2>Cosa questo sistema non sostituisce</h2>
+      <p>ChatGPT analizza la forma del viso e il colore visibile. Non può analizzare la texture dei capelli (ricci, fini, spessi, grossolani), i problemi del cuoio capelluto o le direzioni di crescita. Un buon parrucchiere aggiunge ancora valore su questi aspetti. Il prompt rende la conversazione migliore, non il parrucchiere obsoleto.</p>
+      <p>Entra con l'immagine lookbook E con l'esperienza del tuo parrucchiere. Mostra le raccomandazioni. Chiedi quali funzionano per la texture e la crescita dei tuoi capelli. La combinazione batte entrambi da soli.</p>
+
+    </div>
+    <div class="unlock-note" id="unlock-note">Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.</div>
+  </div>
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row"><label class="form-label" for="nome">Nome</label><input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name"></div>
+      <div class="form-row"><label class="form-label" for="email">Email</label><input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required></div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+</div>
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+  <footer class="site-footer"><div class="footer-inner"><span class="f-text">© 2026 @giampiero.ai</span><a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a></div></footer>
+</div>
+<script>
+(function(){
+  var STORE='giampiero_ai_subscriber';
+  var gate=document.getElementById('paywall-gate');
+  var full=document.getElementById('article-full');
+  var mask=document.getElementById('preview-mask');
+  var note=document.getElementById('unlock-note');
+  var form=document.getElementById('access-form');
+  function unlock(){if(gate)gate.style.display='none';if(full)full.classList.add('visible');if(mask)mask.classList.add('unlocked');if(note)note.classList.add('visible');}
+  try{if(localStorage.getItem(STORE))unlock();}catch(_){}
+  if(form){form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=form.querySelector('[name="email"]').value.trim();
+    var nome=form.querySelector('[name="nome"]').value.trim();
+    if(!email||!email.includes('@')){form.querySelector('[name="email"]').focus();return;}
+    try{localStorage.setItem(STORE,JSON.stringify({nome:nome,email:email,ts:Date.now()}));}catch(_){}
+    fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,email:email,guida:'Il Tuo Lookbook Personale con ChatGPT',ts:new Date().toISOString()})}).catch(function(){});
+    unlock();
+  });}
+})();
+function copyPrompt(textId, btnId, labelId){
+  var text=document.getElementById(textId).innerText;
+  var btn=document.getElementById(btnId);
+  var lbl=document.getElementById(labelId);
+  navigator.clipboard.writeText(text).then(function(){
+    btn.classList.add('copied');
+    lbl.textContent='Copiato ✓';
+    setTimeout(function(){btn.classList.remove('copied');lbl.textContent='Copia il prompt';},2200);
+  });
+}
+</script>
+</body>
+</html>

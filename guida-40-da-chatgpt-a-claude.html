@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Da ChatGPT a Claude: la guida definitiva al passaggio — @giampiero.ai</title>
+<meta name="description" content="Tutto quello che devi sapere prima di passare da ChatGPT a Claude: le 5 differenze chiave, come riscrivere i tuoi prompt, cosa Claude fa meglio e cosa ancora no.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{--bg:oklch(98% 0.004 95);--surface:oklch(100% 0.002 95);--fg:oklch(20% 0.018 70);--muted:oklch(48% 0.012 70);--border:oklch(90% 0.006 95);--accent:oklch(52% 0.10 28);--font-display:'Iowan Old Style','Charter',Georgia,serif;--font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;--font-mono:ui-monospace,'SF Mono',Menlo,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+.article-wrap{max-width:660px;margin:0 auto;padding:0 24px}
+.site-header{padding:20px 0;border-bottom:1px solid var(--border)}
+.header-inner{max-width:860px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:0.02em;color:var(--fg);text-decoration:none}
+.avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;display:block;flex-shrink:0}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-ig{font-family:var(--font-mono);font-size:11px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.15s}
+.nav-ig:hover{color:var(--fg)}
+.breadcrumb{padding:20px 0 0;font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--fg)}
+.breadcrumb span{margin:0 6px}
+.article-header{padding:32px 0 40px;border-bottom:1px solid var(--border)}
+.article-tag{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.article-title{font-family:var(--font-display);font-size:clamp(30px,4vw,44px);font-weight:400;line-height:1.15;letter-spacing:-0.02em;color:var(--fg);margin-bottom:18px;max-width:22ch;text-wrap:pretty}
+.article-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.article-content{padding:40px 0 0}
+.article-content p{font-size:17px;line-height:1.7;color:var(--fg);max-width:65ch;margin-bottom:20px}
+.article-content h2{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;color:var(--fg);margin:36px 0 14px}
+.article-content ul{margin:0 0 20px 0;padding-left:20px}
+.article-content ul li{font-size:17px;line-height:1.65;color:var(--fg);max-width:60ch;margin-bottom:8px}
+.article-content ul li strong{font-weight:550}
+.step{display:flex;gap:16px;align-items:baseline;margin-bottom:12px;max-width:60ch}
+.step-num{font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--accent);flex-shrink:0;margin-top:2px}
+.step-text{font-size:17px;line-height:1.65;color:var(--fg)}
+.prompt-box{position:relative;background:var(--fg);padding:28px 28px 24px;margin:28px 0 24px;max-width:65ch}
+.prompt-box .prompt-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.prompt-box pre{font-family:var(--font-mono);font-size:13px;line-height:1.7;color:oklch(92% 0.004 95);white-space:pre-wrap;word-break:break-word;margin:0}
+.copy-btn{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;background:transparent;border:1px solid oklch(38% 0.012 70);color:oklch(75% 0.006 70);padding:8px 14px;cursor:pointer;transition:border-color 0.15s,color 0.15s}
+.copy-btn:hover{border-color:oklch(65% 0.008 70);color:oklch(90% 0.004 95)}
+.copy-btn.copied{color:oklch(75% 0.12 145);border-color:oklch(55% 0.10 145)}
+.preview-wrap{position:relative}
+.preview-mask{position:relative;overflow:hidden}
+.preview-mask::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
+.preview-mask.unlocked::after{display:none}
+#paywall-gate{padding:48px 0 60px;border-top:1px solid var(--border);margin-top:8px}
+.paywall-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.paywall-title{font-family:var(--font-display);font-size:26px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;color:var(--fg);margin-bottom:10px}
+.paywall-sub{font-size:15px;color:var(--muted);max-width:44ch;line-height:1.6;margin-bottom:28px}
+.access-form{display:flex;flex-direction:column;gap:10px;max-width:360px}
+.form-row{display:flex;flex-direction:column;gap:5px}
+.form-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted)}
+.form-input{font-family:var(--font-body);font-size:15px;color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:0;padding:10px 12px;outline:none;width:100%;transition:border-color 0.15s;-webkit-appearance:none}
+.form-input:focus{border-color:var(--fg)}
+.form-input::placeholder{color:var(--muted)}
+.form-submit{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.02em;color:var(--surface);background:var(--accent);border:none;padding:11px 20px;cursor:pointer;border-radius:0;width:100%;margin-top:4px;transition:opacity 0.15s;-webkit-appearance:none}
+.form-submit:hover{opacity:0.88}
+.form-note{font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;color:var(--muted);margin-top:4px}
+#article-full{display:none}
+#article-full.visible{display:block}
+.unlock-note{display:none;font-family:var(--font-mono);font-size:11px;letter-spacing:0.05em;color:var(--muted);padding:20px 0 0;border-top:1px solid var(--border);margin-top:8px}
+.unlock-note.visible{display:block}
+.cta-callout{background:var(--fg);padding:44px 40px}
+.cta-callout .cta-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.cta-callout h3{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.25;color:var(--surface);max-width:38ch;margin-bottom:28px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.cta-btn{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.01em;padding:11px 20px;text-decoration:none;border-radius:0;transition:opacity 0.15s;display:inline-block}
+.cta-btn-primary{background:var(--surface);color:var(--fg)}
+.cta-btn-secondary{background:transparent;color:var(--surface);border:1px solid oklch(38% 0.012 70)}
+.cta-btn:hover{opacity:0.75}
+.site-footer{border-top:1px solid var(--border);padding:32px 0}
+.footer-inner{display:flex;align-items:center;justify-content:space-between}
+.f-text{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted);text-decoration:none}
+.f-text:hover{color:var(--fg)}
+@media(max-width:580px){.article-title{font-size:28px}.paywall-title{font-size:22px}.prompt-box{padding:22px 18px 18px}.cta-callout{padding:36px 24px}.site-footer .footer-inner{flex-direction:column;gap:8px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html"><img class="avatar" src="avatar.png" alt="Giampiero"><span class="logo">@giampiero.ai</span></a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+<div class="article-wrap">
+  <nav class="breadcrumb"><a href="index.html">Guide</a><span>·</span><span>Da ChatGPT a Claude</span></nav>
+  <header class="article-header">
+    <span class="article-tag">Claude</span>
+    <h1 class="article-title">Da ChatGPT a Claude: la guida definitiva al passaggio</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 8 min di lettura</p>
+  </header>
+  <div class="article-content">
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>Milioni di persone stanno passando a Claude in questo momento. La maggior parte scriverà gli stessi prompt che usava in ChatGPT, otterrà risposte mediocri, e tornerà quietamente indietro entro una settimana. Non perché Claude sia peggiore — ma perché nessuno ha spiegato loro che funziona in modo diverso.</p>
+        <p>ChatGPT è stato addestrato con RLHF (ottimizzando per le reazioni positive degli utenti). Claude è stato addestrato con Constitutional AI (ottimizzando per onestà, utilità e sicurezza). Questa singola differenza spiega quasi tutto quello che leggerai in questa guida.</p>
+        <p>Ci sono 5 differenze chiave da capire subito — e per ognuna c'è una soluzione pratica. Se le conosci prima di iniziare, eviti il periodo di disorientamento e vai direttamente ai risultati.</p>
+      </div>
+    </div>
+    <div id="article-full">
+
+      <h2>Differenza 1 — Claude non genera immagini</h2>
+      <p>ChatGPT ha DALL-E e Sora integrati. Claude non può generare immagini o video. Se la creazione di immagini fa parte del tuo flusso di lavoro quotidiano, questo sembrerà un passo indietro il primo giorno.</p>
+      <p><strong>Cosa fare:</strong> tieni ChatGPT (o Midjourney) per la generazione di immagini. Usa Claude per tutto il resto: scrittura, analisi, strategia, codice, ragionamento. Claude può analizzare immagini che carichi — semplicemente non può crearne di nuove. Suggerimento: genera un'immagine in ChatGPT, poi caricala su Claude per ricevere feedback sul brand.</p>
+
+      <h2>Differenza 2 — Claude dà risposte più brevi</h2>
+      <p>ChatGPT risponde con cinque paragrafi su tutto. Claude dice quello che deve dire e si ferma. È voluto — Claude è addestrato a essere utile senza riempitivi. Se hai bisogno di più dettagli, queste frasi funzionano immediatamente:</p>
+      <ul>
+        <li>"Approfondisci il punto due."</li>
+        <li>"Espandi in un'analisi completa."</li>
+        <li>"Scrivi questo come un approfondimento di 2.000 parole, non un riassunto."</li>
+        <li>"Scomponi passo per passo con esempi."</li>
+      </ul>
+      <p>Aggiungi questo alle istruzioni del tuo Progetto: "Preferisco risposte complete e dettagliate. Includi esempi e casi limite." Claude lo seguirà in ogni conversazione dentro quel Progetto.</p>
+
+      <h2>Differenza 3 — Claude non ti conosce ancora</h2>
+      <p>ChatGPT ha passato mesi ad imparare le tue preferenze. Claude parte da zero. Risolvilo in 5 minuti: vai su Claude.ai, clicca Progetti, creane uno e inserisci chi sei e come lavori. Carica documenti di riferimento. Ogni conversazione dentro quel Progetto conosce già il tuo contesto.</p>
+      <p>Esempio di istruzioni per un copywriter freelance B2B:</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Istruzioni Progetto — Copywriter B2B</p>
+        <pre id="prompt-text">Sono un copywriter freelance per aziende SaaS B2B. I miei clienti sono direttori marketing di aziende di medie dimensioni.
+Il mio stile di scrittura è diretto e colloquiale. Niente gergo. Paragrafi brevi.
+Ho bisogno di: sequenze email, copy per landing page e post del blog. Italiano.
+Ho caricato la mia guida alla voce del brand e i miei 3 migliori post del blog.</pre>
+        <button class="copy-btn" id="copy-btn" onclick="copyPrompt()"><span id="copy-label">Copia il prompt</span></button>
+      </div>
+
+      <p>Crea Progetti separati per ogni area del tuo lavoro: copywriting clienti, blog personale, strategia aziendale, codice. Ognuno mantiene il proprio contesto. Puoi anche importare la memoria di ChatGPT: Impostazioni → Capacità → Importa.</p>
+
+      <h2>Differenza 4 — Claude non ti darà sempre ragione</h2>
+      <p>ChatGPT ha un problema di sycophancy ben documentato — era così estremo dopo un aggiornamento del 2025 di GPT-4o che OpenAI ha dovuto fare un rollback. Claude è addestrato a essere onesto, non d'accordo. Segnalerà i problemi e metterà in discussione la tua impostazione.</p>
+      <p>Usa questi prompt per ottenere feedback onesto:</p>
+      <ul>
+        <li>"Trova i punti deboli di questo piano. Cosa mi sfugge?"</li>
+        <li>"Qual è la parte più debole di questa strategia?"</li>
+        <li>"Sii brutalmente onesto — investiresti in questo?"</li>
+        <li>"In che modi potrebbe fallire che non ho considerato?"</li>
+      </ul>
+      <p>Esempio reale: condividi un piano di assunzioni che presuppone un ramp-up di 3 mesi. ChatGPT: "Ottimo piano di assunzioni! Ecco come eseguire ogni fase..." Claude: "La tua ipotesi di 3 mesi è aggressiva. I dati di settore mostrano 6-9 mesi. Se pianifichi su 3 mesi, sarai a corto di personale per il Q3."</p>
+
+      <h2>Differenza 5 — I prompt funzionano in modo completamente diverso</h2>
+      <p>In ChatGPT scrivi comandi: "Scrivimi una lettera di presentazione." Claude risponde bene ai comandi, ma risponde in modo drammaticamente migliore alle <strong>situazioni</strong>. Invece di dire a Claude cosa produrre, racconta cosa stai affrontando.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Confronto — Comando vs Situazione</p>
+        <pre>COMANDO (ChatGPT):
+"Scrivimi un'email di follow-up a un cliente."
+
+SITUAZIONE (Claude):
+"Devo fare un follow-up con un cliente che è
+sparito dopo la mia proposta da 5.000€ due
+settimane fa. Sembrava entusiasta ma non ha
+risposto a due email. Non voglio sembrare
+disperato ma devo chiudere entro fine mese."</pre>
+      </div>
+
+      <p>Stesso task. La versione situazione produce un'email molto migliore. La formula: <strong>Contesto + Vincolo + Obiettivo = Output eccellente.</strong></p>
+      <ul>
+        <li>Comando: "Scrivimi un post LinkedIn sull'AI" → Situazione: "Gestisco un'agenzia di 15 persone e ho risparmiato 20 ore/settimana con l'AI. Il mio pubblico è composto da titolari di agenzie scettici. Scrivi un post onesto sulla curva di apprendimento ma che mostri un ROI reale."</li>
+        <li>Comando: "Aiutami con il mio CV" → Situazione: "Sono un Senior PM in una startup fintech che si candida per VP Product in un'azienda Serie C. Il mio CV sembra un elenco di mansioni. Ristrutturalo per mettere in evidenza i risultati."</li>
+      </ul>
+
+      <h2>Cosa ChatGPT fa ancora meglio</h2>
+      <p>Una guida non è utile se non è onesta:</p>
+      <ul>
+        <li><strong>Generazione immagini/video</strong> (DALL-E + Sora): Claude non può creare visuals.</li>
+        <li><strong>Modalità voce</strong>: la voce in tempo reale di ChatGPT è più rifinita.</li>
+        <li><strong>Navigazione web (piano gratuito)</strong>: la ricerca web di Claude richiede un piano a pagamento.</li>
+        <li><strong>Marketplace di GPT personalizzati</strong>: Claude non ha un equivalente.</li>
+        <li><strong>Ragionamento matematico avanzato</strong>: GPT-5.2 ottiene 100% su AIME 2025 contro il 92.8% di Claude.</li>
+        <li><strong>Memoria globale passiva</strong>: la memoria passiva di ChatGPT è più fluida nel quotidiano.</li>
+      </ul>
+      <p>La mossa intelligente: tienili entrambi. Claude per scrittura, analisi, strategia, codice e ragionamento. ChatGPT per immagini, voce, ricerche web e matematica. Il costo di entrambi gli abbonamenti è inferiore a un'ora di consulenza.</p>
+
+      <h2>La tua prima ora con Claude: 6 cose da fare subito</h2>
+
+      <div class="step"><span class="step-num">01</span><span class="step-text"><strong>Importa la tua memoria di ChatGPT.</strong> Impostazioni → Capacità → Importa memoria. Ci vogliono 2 minuti.</span></div>
+      <div class="step"><span class="step-num">02</span><span class="step-text"><strong>Crea il tuo primo Progetto.</strong> Aggiungi il tuo ruolo, pubblico, stile di scrittura e carica 2-3 documenti di riferimento.</span></div>
+      <div class="step"><span class="step-num">03</span><span class="step-text"><strong>Prova un prompt situazione.</strong> Descrivi un problema reale con contesto completo. Confronta l'output con ChatGPT.</span></div>
+      <div class="step"><span class="step-num">04</span><span class="step-text"><strong>Attiva il ragionamento esteso.</strong> Attivalo per una domanda complessa. Guarda Claude ragionare passo dopo passo.</span></div>
+      <div class="step"><span class="step-num">05</span><span class="step-text"><strong>Chiedi a Claude di criticare qualcosa.</strong> Condividi un piano e di': "Trova i punti deboli." Vedi cosa emerge.</span></div>
+      <div class="step"><span class="step-num">06</span><span class="step-text"><strong>Crea un secondo Progetto.</strong> Per un'altra area del tuo lavoro. Più specifico = performance migliore.</span></div>
+
+      <p>Traduzione rapida delle abitudini:</p>
+      <ul>
+        <li>"Scrivimi un..." → "Ecco la mia situazione... Ho bisogno di..."</li>
+        <li>Nuova chat per ogni task → Usa i Progetti per mantenere il contesto</li>
+        <li>Accetti la prima risposta → Chiedi "approfondisci" per più dettagli</li>
+        <li>"È una buona idea?" → "Trova i punti deboli. Cosa mi sfugge?"</li>
+        <li>Rispieghi le preferenze a ogni chat → Imposta le istruzioni del Progetto una volta sola</li>
+      </ul>
+
+    </div>
+    <div class="unlock-note" id="unlock-note">Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.</div>
+  </div>
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row"><label class="form-label" for="nome">Nome</label><input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name"></div>
+      <div class="form-row"><label class="form-label" for="email">Email</label><input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required></div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+</div>
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+  <footer class="site-footer"><div class="footer-inner"><span class="f-text">© 2026 @giampiero.ai</span><a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a></div></footer>
+</div>
+<script>
+(function(){
+  var STORE='giampiero_ai_subscriber';
+  var gate=document.getElementById('paywall-gate');
+  var full=document.getElementById('article-full');
+  var mask=document.getElementById('preview-mask');
+  var note=document.getElementById('unlock-note');
+  var form=document.getElementById('access-form');
+  function unlock(){if(gate)gate.style.display='none';if(full)full.classList.add('visible');if(mask)mask.classList.add('unlocked');if(note)note.classList.add('visible');}
+  try{if(localStorage.getItem(STORE))unlock();}catch(_){}
+  if(form){form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=form.querySelector('[name="email"]').value.trim();
+    var nome=form.querySelector('[name="nome"]').value.trim();
+    if(!email||!email.includes('@')){form.querySelector('[name="email"]').focus();return;}
+    try{localStorage.setItem(STORE,JSON.stringify({nome:nome,email:email,ts:Date.now()}));}catch(_){}
+    fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,email:email,guida:'Da ChatGPT a Claude: la guida definitiva al passaggio',ts:new Date().toISOString()})}).catch(function(){});
+    unlock();
+  });}
+})();
+function copyPrompt(){var text=document.getElementById('prompt-text').innerText;var btn=document.getElementById('copy-btn');var lbl=document.getElementById('copy-label');navigator.clipboard.writeText(text).then(function(){btn.classList.add('copied');lbl.textContent='Copiato ✓';setTimeout(function(){btn.classList.remove('copied');lbl.textContent='Copia il prompt';},2200);});}
+</script>
+</body>
+</html>

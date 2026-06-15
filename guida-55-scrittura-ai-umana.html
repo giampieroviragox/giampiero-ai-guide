@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Come far sembrare umana la scrittura AI — @giampiero.ai</title>
+<meta name="description" content="I 24 pattern che tradiscono la scrittura AI — e come eliminarli tutti con uno skill gratuito per Claude. Dalla ricerca degli editor di Wikipedia su migliaia di testi generati.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{--bg:oklch(98% 0.004 95);--surface:oklch(100% 0.002 95);--fg:oklch(20% 0.018 70);--muted:oklch(48% 0.012 70);--border:oklch(90% 0.006 95);--accent:oklch(52% 0.10 28);--font-display:'Iowan Old Style','Charter',Georgia,serif;--font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;--font-mono:ui-monospace,'SF Mono',Menlo,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+.article-wrap{max-width:660px;margin:0 auto;padding:0 24px}
+.site-header{padding:20px 0;border-bottom:1px solid var(--border)}
+.header-inner{max-width:860px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:0.02em;color:var(--fg);text-decoration:none}
+.avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;display:block;flex-shrink:0}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-ig{font-family:var(--font-mono);font-size:11px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.15s}
+.nav-ig:hover{color:var(--fg)}
+.breadcrumb{padding:20px 0 0;font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--fg)}
+.breadcrumb span{margin:0 6px}
+.article-header{padding:32px 0 40px;border-bottom:1px solid var(--border)}
+.article-tag{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.article-title{font-family:var(--font-display);font-size:clamp(30px,4vw,44px);font-weight:400;line-height:1.15;letter-spacing:-0.02em;color:var(--fg);margin-bottom:18px;max-width:22ch;text-wrap:pretty}
+.article-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.article-content{padding:40px 0 0}
+.article-content p{font-size:17px;line-height:1.7;color:var(--fg);max-width:65ch;margin-bottom:20px}
+.article-content h2{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;color:var(--fg);margin:36px 0 14px}
+.article-content ul{margin:0 0 20px 0;padding-left:20px}
+.article-content ul li{font-size:17px;line-height:1.65;color:var(--fg);max-width:60ch;margin-bottom:8px}
+.article-content ul li strong{font-weight:550}
+.pattern-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:24px 0;max-width:65ch;border:1px solid var(--border)}
+.pattern-item{padding:14px 16px;border-bottom:1px solid var(--border);border-right:1px solid var(--border)}
+.pattern-item:nth-child(even){border-right:none}
+.pattern-num{font-family:var(--font-mono);font-size:10px;letter-spacing:0.06em;color:var(--accent);margin-bottom:4px}
+.pattern-name{font-size:14px;font-weight:550;color:var(--fg);margin-bottom:2px}
+.pattern-fix{font-size:13px;color:var(--muted);line-height:1.4}
+.step{display:flex;gap:16px;align-items:baseline;margin-bottom:12px;max-width:60ch}
+.step-num{font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--accent);flex-shrink:0;margin-top:2px}
+.step-text{font-size:17px;line-height:1.65;color:var(--fg)}
+.prompt-box{position:relative;background:var(--fg);padding:28px 28px 24px;margin:28px 0 24px;max-width:65ch}
+.prompt-box .prompt-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.prompt-box pre{font-family:var(--font-mono);font-size:13px;line-height:1.7;color:oklch(92% 0.004 95);white-space:pre-wrap;word-break:break-word;margin:0}
+.copy-btn{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;background:transparent;border:1px solid oklch(38% 0.012 70);color:oklch(75% 0.006 70);padding:8px 14px;cursor:pointer;transition:border-color 0.15s,color 0.15s}
+.copy-btn:hover{border-color:oklch(65% 0.008 70);color:oklch(90% 0.004 95)}
+.copy-btn.copied{color:oklch(75% 0.12 145);border-color:oklch(55% 0.10 145)}
+.compare-block{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;max-width:65ch}
+.compare-col{padding:20px}
+.compare-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px}
+.compare-label.bad{color:oklch(55% 0.15 25)}
+.compare-label.good{color:oklch(50% 0.12 145)}
+.compare-text{font-size:15px;line-height:1.6;color:var(--fg)}
+.compare-col.bad-col{background:oklch(97% 0.008 25)}
+.compare-col.good-col{background:oklch(97% 0.006 145)}
+.preview-wrap{position:relative}
+.preview-mask{position:relative;overflow:hidden}
+.preview-mask::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
+.preview-mask.unlocked::after{display:none}
+#paywall-gate{padding:48px 0 60px;border-top:1px solid var(--border);margin-top:8px}
+.paywall-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.paywall-title{font-family:var(--font-display);font-size:26px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;color:var(--fg);margin-bottom:10px}
+.paywall-sub{font-size:15px;color:var(--muted);max-width:44ch;line-height:1.6;margin-bottom:28px}
+.access-form{display:flex;flex-direction:column;gap:10px;max-width:360px}
+.form-row{display:flex;flex-direction:column;gap:5px}
+.form-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted)}
+.form-input{font-family:var(--font-body);font-size:15px;color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:0;padding:10px 12px;outline:none;width:100%;transition:border-color 0.15s;-webkit-appearance:none}
+.form-input:focus{border-color:var(--fg)}
+.form-input::placeholder{color:var(--muted)}
+.form-submit{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.02em;color:var(--surface);background:var(--accent);border:none;padding:11px 20px;cursor:pointer;border-radius:0;width:100%;margin-top:4px;transition:opacity 0.15s;-webkit-appearance:none}
+.form-submit:hover{opacity:0.88}
+.form-note{font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;color:var(--muted);margin-top:4px}
+#article-full{display:none}
+#article-full.visible{display:block}
+.unlock-note{display:none;font-family:var(--font-mono);font-size:11px;letter-spacing:0.05em;color:var(--muted);padding:20px 0 0;border-top:1px solid var(--border);margin-top:8px}
+.unlock-note.visible{display:block}
+.cta-callout{background:var(--fg);padding:44px 40px}
+.cta-callout .cta-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.cta-callout h3{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.25;color:var(--surface);max-width:38ch;margin-bottom:28px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.cta-btn{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.01em;padding:11px 20px;text-decoration:none;border-radius:0;transition:opacity 0.15s;display:inline-block}
+.cta-btn-primary{background:var(--surface);color:var(--fg)}
+.cta-btn-secondary{background:transparent;color:var(--surface);border:1px solid oklch(38% 0.012 70)}
+.cta-btn:hover{opacity:0.75}
+.site-footer{border-top:1px solid var(--border);padding:32px 0}
+.footer-inner{display:flex;align-items:center;justify-content:space-between}
+.f-text{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted);text-decoration:none}
+.f-text:hover{color:var(--fg)}
+@media(max-width:580px){.article-title{font-size:28px}.paywall-title{font-size:22px}.prompt-box{padding:22px 18px 18px}.cta-callout{padding:36px 24px}.site-footer .footer-inner{flex-direction:column;gap:8px;align-items:flex-start}.pattern-grid{grid-template-columns:1fr}.pattern-item:nth-child(even){border-right:1px solid var(--border)}.compare-block{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html"><img class="avatar" src="avatar.png" alt="Giampiero"><span class="logo">@giampiero.ai</span></a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+<div class="article-wrap">
+  <nav class="breadcrumb"><a href="index.html">Guide</a><span>·</span><span>Scrittura AI che sembra umana</span></nav>
+  <header class="article-header">
+    <span class="article-tag">Contenuti</span>
+    <h1 class="article-title">Come far sembrare umana la scrittura AI</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 6 min di lettura</p>
+  </header>
+  <div class="article-content">
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>Gli editor di Wikipedia hanno identificato 24 pattern specifici che rendono il testo generato dall'AI immediatamente riconoscibile. Non sono intuizioni — vengono dalla revisione di migliaia di modifiche AI sull'enciclopedia più grande del mondo.</p>
+        <p>Il motivo di fondo è semplice: i modelli linguistici indovinano la parola statisticamente più probabile come prossima. Il risultato tende verso la formulazione più ampia, più sicura, più generica possibile. Ecco perché tutto suona uguale.</p>
+        <p>La buona notizia: basta uno skill gratuito installato una volta in Claude Code per eliminare tutti e 24 i pattern automaticamente — su ogni cosa Claude scrive per te, senza dover fare prompt engineering ogni volta.</p>
+      </div>
+    </div>
+    <div id="article-full">
+      <h2>I 24 pattern che ti tradiscono</h2>
+      <p>Divisi in quattro categorie: contenuto, linguaggio, stile e filler comunicativi.</p>
+
+      <p><strong>Pattern di contenuto</strong></p>
+      <ul>
+        <li><strong>Gonfiamento dell'importanza:</strong> "segnando un momento cruciale nell'evoluzione di..." — dì solo il fatto.</li>
+        <li><strong>Name-dropping di notorietà:</strong> "citato su NYT, BBC, FT" — cita una fonte correttamente.</li>
+        <li><strong>Analisi superficiali con -ando/-endo:</strong> "simbolizzando... riflettendo... mostrando..." — rimuovi o espandi con fonti.</li>
+        <li><strong>Linguaggio promozionale:</strong> "immersa nella suggestiva regione di..." — "è una città nella regione di..."</li>
+        <li><strong>Attribuzioni vaghe:</strong> "gli esperti ritengono" — "secondo un sondaggio del 2019 di..."</li>
+        <li><strong>Sfide formulariche:</strong> "Nonostante le sfide... continua a prosperare" — fatti specifici sulle sfide reali.</li>
+      </ul>
+
+      <p><strong>Pattern di linguaggio</strong></p>
+      <ul>
+        <li><strong>Vocabolario AI:</strong> "Inoltre... testimonianza... panorama... mostrando" — "anche... rimane comune."</li>
+        <li><strong>Verbi giri</strong>: "funge da... presenta... vanta" — "è... ha."</li>
+        <li><strong>Parallelismi negativi:</strong> "Non è solo X, è Y" — vai dritto al punto.</li>
+        <li><strong>Regola del tre:</strong> "innovazione, ispirazione e intuizioni" — usa il numero naturale di elementi.</li>
+        <li><strong>Ciclo di sinonimi:</strong> "protagonista... personaggio principale... figura centrale" — scegline uno e ripetilo.</li>
+        <li><strong>Range falsi:</strong> "dal Big Bang alla materia oscura" — elenca gli argomenti direttamente.</li>
+      </ul>
+
+      <p><strong>Pattern di stile</strong></p>
+      <ul>
+        <li><strong>Abuso del trattino em:</strong> più trattini per frase — usa virgole o punti.</li>
+        <li><strong>Abuso del grassetto:</strong> grassetto su ogni parola chiave — solo quello che conta davvero.</li>
+        <li><strong>Liste con intestazioni inline:</strong> "Prestazioni: Le prestazioni sono migliorate" — converti in prosa.</li>
+        <li><strong>Titoli con maiuscole ovunque:</strong> "Negoziazioni Strategiche E Partnership" — solo prima lettera maiuscola.</li>
+        <li><strong>Emoji:</strong> razzi e lampadine — rimuovi del tutto.</li>
+        <li><strong>Virgolette curve:</strong> virgolette tipografiche — usa quelle dritte.</li>
+      </ul>
+
+      <p><strong>Filler comunicativi</strong></p>
+      <ul>
+        <li><strong>Artefatti da chatbot:</strong> "Spero che questo aiuti! Fammi sapere se..." — rimuovi del tutto.</li>
+        <li><strong>Disclaimer di cutoff:</strong> "Mentre i dettagli sono limitati..." — trova fonti o rimuovi.</li>
+        <li><strong>Tono sycophantic:</strong> "Ottima domanda! Hai assolutamente ragione!" — rispondi direttamente.</li>
+        <li><strong>Frasi di riempimento:</strong> "Al fine di", "A causa del fatto che" — "Per", "Perché".</li>
+        <li><strong>Hedging eccessivo:</strong> "potrebbe potenzialmente forse" — "potrebbe".</li>
+        <li><strong>Conclusioni generiche:</strong> "Il futuro è luminoso" — piani specifici o fatti.</li>
+      </ul>
+
+      <h2>Installa lo skill Humanizer</h2>
+      <p>Un comando installa lo skill in Claude Code. Funziona su tutto quello che Claude scrive per te da quel momento in poi — senza dover incollare prompt in ogni conversazione.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Comando di installazione</p>
+        <pre id="prompt-text-1">mkdir -p ~/.claude/skills
+git clone https://github.com/blader/humanizer.git ~/.claude/skills/humanizer</pre>
+        <button class="copy-btn" id="copy-btn-1" onclick="copyPromptById('prompt-text-1','copy-btn-1','copy-label-1')">
+          <span id="copy-label-1">Copia il comando</span>
+        </button>
+      </div>
+
+      <h2>Come usarlo</h2>
+      <div class="step"><span class="step-num">01</span><span class="step-text"><strong>Attiva lo skill:</strong> scrivi <code>/humanizer</code> in Claude Code, poi incolla il tuo testo. Oppure scrivi semplicemente "umanizza questo" con qualsiasi testo.</span></div>
+      <div class="step"><span class="step-num">02</span><span class="step-text"><strong>Prima passata — riscrittura:</strong> Claude scansiona tutti i 24 pattern e riscrive l'intero testo per suonare naturale.</span></div>
+      <div class="step"><span class="step-num">03</span><span class="step-text"><strong>Seconda passata — audit:</strong> un controllo finale "ovviamente generato da AI" cattura quello che la prima passata si è persa — poi riscrive di nuovo.</span></div>
+
+      <p>Lo skill funziona su tutto l'output di Claude da quel momento in poi. Scrivi un'email, un post, una proposta — evita automaticamente i 24 pattern AI. Zero prompt engineering richiesto.</p>
+
+      <h2>Prima e dopo: la differenza in pratica</h2>
+      <div class="compare-block">
+        <div class="compare-col bad-col">
+          <p class="compare-label bad">Prima (suona AI)</p>
+          <p class="compare-text">Il coding assistito dall'AI funge da testimonianza duratura del potenziale trasformativo dei large language model, segnando un momento cruciale nell'evoluzione dello sviluppo software. Nel panorama tecnologico in rapida evoluzione di oggi, questi strumenti rivoluzionari stanno ridefinendo come gli ingegneri ideano, iterano e consegnano.</p>
+        </div>
+        <div class="compare-col good-col">
+          <p class="compare-label good">Dopo (suona umano)</p>
+          <p class="compare-text">Gli assistenti AI per il codice velocizzano le parti noiose del lavoro. Sono bravi con il boilerplate. La parte pericolosa è quanto appaiano sicuri i suggerimenti. Se lo tratti come un autocomplete e rivedi ogni riga, è utile. L'unico vero controllo sono i test.</p>
+        </div>
+      </div>
+
+      <h2>Perché funziona davvero</h2>
+      <p>La maggior parte delle soluzioni al problema "suona AI" richiede di riscrivere i prompt ogni volta, o di usare tool a pagamento che rilevano il testo AI. Questo approccio è diverso: insegna a Claude quei 24 pattern una volta sola, e Claude li evita automaticamente su tutto quello che produce per te. Il risultato non è testo che "ha passato un detector" — è testo che non aveva mai quei pattern to begin with.</p>
+      <p>Il consiglio pratico più importante: inizia a riconoscere i pattern nel tuo stesso output prima ancora di usare lo skill. Appena vedi "panorama", "testimonianza", "nonostante le sfide" o un trattino em dove non serve — sai già cosa tagliare. Lo skill automatizza questa revisione, ma l'occhio critico è tuo.</p>
+    </div>
+    <div class="unlock-note" id="unlock-note">Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.</div>
+  </div>
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row"><label class="form-label" for="nome">Nome</label><input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name"></div>
+      <div class="form-row"><label class="form-label" for="email">Email</label><input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required></div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+</div>
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+  <footer class="site-footer"><div class="footer-inner"><span class="f-text">© 2026 @giampiero.ai</span><a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a></div></footer>
+</div>
+<script>
+(function(){
+  var STORE='giampiero_ai_subscriber';
+  var gate=document.getElementById('paywall-gate');
+  var full=document.getElementById('article-full');
+  var mask=document.getElementById('preview-mask');
+  var note=document.getElementById('unlock-note');
+  var form=document.getElementById('access-form');
+  function unlock(){if(gate)gate.style.display='none';if(full)full.classList.add('visible');if(mask)mask.classList.add('unlocked');if(note)note.classList.add('visible');}
+  try{if(localStorage.getItem(STORE))unlock();}catch(_){}
+  if(form){form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=form.querySelector('[name="email"]').value.trim();
+    var nome=form.querySelector('[name="nome"]').value.trim();
+    if(!email||!email.includes('@')){form.querySelector('[name="email"]').focus();return;}
+    try{localStorage.setItem(STORE,JSON.stringify({nome:nome,email:email,ts:Date.now()}));}catch(_){}
+    fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,email:email,guida:'Come far sembrare umana la scrittura AI',ts:new Date().toISOString()})}).catch(function(){});
+    unlock();
+  });}
+})();
+function copyPromptById(textId,btnId,labelId){
+  var text=document.getElementById(textId).innerText;
+  var btn=document.getElementById(btnId);
+  var lbl=document.getElementById(labelId);
+  navigator.clipboard.writeText(text).then(function(){
+    btn.classList.add('copied');lbl.textContent='Copiato ✓';
+    setTimeout(function(){btn.classList.remove('copied');lbl.textContent='Copia il comando';},2200);
+  });
+}
+</script>
+</body>
+</html>
