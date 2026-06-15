@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anima la tua foto profilo Gmail con AI in 60 secondi — @giampiero.ai</title>
+<meta name="description" content="Il workflow Claude + Kie.AI per animare il tuo logo Gmail e farti notare in ogni inbox. Setup, prompt e istruzioni complete.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root {
+  --bg:      oklch(98% 0.004 95);
+  --surface: oklch(100% 0.002 95);
+  --fg:      oklch(20% 0.018 70);
+  --muted:   oklch(48% 0.012 70);
+  --border:  oklch(90% 0.006 95);
+  --accent:  oklch(52% 0.10 28);
+  --font-display: 'Iowan Old Style','Charter',Georgia,serif;
+  --font-body:    -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --font-mono:    ui-monospace,'SF Mono',Menlo,monospace;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+.article-wrap { max-width: 660px; margin: 0 auto; padding: 0 24px; }
+.site-header { padding: 20px 0; border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 860px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); text-decoration: none; }
+.nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+.nav-ig:hover { color: var(--fg); }
+.breadcrumb { padding: 20px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--fg); }
+.breadcrumb span { margin: 0 6px; }
+.article-header { padding: 32px 0 40px; border-bottom: 1px solid var(--border); }
+.article-tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.article-title { font-family: var(--font-display); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 18px; max-width: 22ch; text-wrap: pretty; }
+.article-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.article-content { padding: 40px 0 0; }
+.article-content p { font-size: 17px; line-height: 1.7; color: var(--fg); max-width: 65ch; margin-bottom: 20px; }
+.article-content h2 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.3; color: var(--fg); margin: 36px 0 14px; }
+.article-content ul { margin: 0 0 20px 0; padding-left: 20px; }
+.article-content ul li { font-size: 17px; line-height: 1.65; color: var(--fg); max-width: 60ch; margin-bottom: 8px; }
+.article-content ul li strong { font-weight: 550; }
+.step { display: flex; gap: 16px; align-items: baseline; margin-bottom: 12px; max-width: 60ch; }
+.step-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.step-text { font-size: 17px; line-height: 1.65; color: var(--fg); }
+.prompt-box { position: relative; background: var(--fg); padding: 28px 28px 24px; margin: 28px 0 24px; max-width: 65ch; }
+.prompt-box .prompt-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.prompt-box pre { font-family: var(--font-mono); font-size: 13px; line-height: 1.7; color: oklch(92% 0.004 95); white-space: pre-wrap; word-break: break-word; margin: 0; }
+.copy-btn { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; background: transparent; border: 1px solid oklch(38% 0.012 70); color: oklch(75% 0.006 70); padding: 8px 14px; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
+.copy-btn:hover { border-color: oklch(65% 0.008 70); color: oklch(90% 0.004 95); }
+.copy-btn.copied { color: oklch(75% 0.12 145); border-color: oklch(55% 0.10 145); }
+.preview-wrap { position: relative; }
+.preview-mask { position: relative; overflow: hidden; }
+.preview-mask::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+.preview-mask.unlocked::after { display: none; }
+#paywall-gate { padding: 48px 0 60px; border-top: 1px solid var(--border); margin-top: 8px; }
+.paywall-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.paywall-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; color: var(--fg); margin-bottom: 10px; }
+.paywall-sub { font-size: 15px; color: var(--muted); max-width: 44ch; line-height: 1.6; margin-bottom: 28px; }
+.access-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.form-row { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.form-input { font-family: var(--font-body); font-size: 15px; color: var(--fg); background: var(--surface); border: 1px solid var(--border); border-radius: 0; padding: 10px 12px; outline: none; width: 100%; transition: border-color 0.15s; -webkit-appearance: none; }
+.form-input:focus { border-color: var(--fg); }
+.form-input::placeholder { color: var(--muted); }
+.form-submit { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.02em; color: var(--surface); background: var(--accent); border: none; padding: 11px 20px; cursor: pointer; border-radius: 0; width: 100%; margin-top: 4px; transition: opacity 0.15s; -webkit-appearance: none; }
+.form-submit:hover { opacity: 0.88; }
+.form-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted); margin-top: 4px; }
+#article-full { display: none; }
+#article-full.visible { display: block; }
+.unlock-note { display: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 8px; }
+.unlock-note.visible { display: block; }
+.cta-callout { background: var(--fg); padding: 44px 40px; }
+.cta-callout .cta-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.cta-callout h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25; color: var(--surface); max-width: 38ch; margin-bottom: 28px; }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta-btn { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.01em; padding: 11px 20px; text-decoration: none; border-radius: 0; transition: opacity 0.15s; display: inline-block; }
+.cta-btn-primary { background: var(--surface); color: var(--fg); }
+.cta-btn-secondary { background: transparent; color: var(--surface); border: 1px solid oklch(38% 0.012 70); }
+.cta-btn:hover { opacity: 0.75; }
+.site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 0; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; }
+.f-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; }
+.f-text:hover { color: var(--fg); }
+@media (max-width: 580px) {
+  .article-title { font-size: 28px; }
+  .paywall-title { font-size: 22px; }
+  .prompt-box { padding: 22px 18px 18px; }
+  .cta-callout { padding: 36px 24px; }
+  .site-footer .footer-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html">
+      <img class="avatar" src="avatar.png" alt="Giampiero">
+      <span class="logo">@giampiero.ai</span>
+    </a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <nav class="breadcrumb">
+    <a href="index.html">Guide</a>
+    <span>·</span>
+    <span>Anima la Foto Gmail</span>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-tag">Email AI</span>
+    <h1 class="article-title">Anima la tua foto profilo Gmail con AI in 60 secondi</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 3 min di lettura</p>
+  </header>
+
+  <div class="article-content">
+
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>Il 22% della popolazione mondiale usa Gmail. Il 99% ha una foto profilo statica. La tua non deve per forza essere così. Con il workflow Claude + Kie.AI puoi animare il tuo logo in 60 secondi e fare in modo che ogni email che invii si muova nell'inbox di chi la riceve.</p>
+        <p>Il motivo per cui funziona è semplice: l'occhio umano è programmato per notare il movimento. In una schermata piena di cerchi statici, una foto profilo animata è l'unica cosa che cattura l'attenzione durante lo scroll — ancora prima che l'email venga aperta. È un pattern interrupt a livello di inbox.</p>
+        <p>Gmail accetta GIF animate come foto profilo. La meccanica esiste da anni. Il motivo per cui quasi nessuno lo fa è che non sanno che sia possibile. Questo è il vantaggio che puoi sfruttare adesso.</p>
+      </div>
+    </div>
+
+    <div id="article-full">
+      <h2>Setup una tantum — Collega Kie.AI a Claude</h2>
+      <p>Kie.AI è il server MCP che collega Claude ai modelli di animazione Seedance e a GPT Image 2. Una volta connesso, Claude genera la GIF direttamente nella stessa chat in cui carichi il logo. Questo setup si fa una volta sola.</p>
+
+      <div class="step"><span class="step-num">01</span><span class="step-text">Vai su kie.ai, crea un account e ricarica 5 dollari per ottenere la API key. La stessa chiave sblocca GPT Image 2, Seedance video, Flux, Veo e Suno.</span></div>
+      <div class="step"><span class="step-num">02</span><span class="step-text">Esegui il comando di installazione: <code>claude mcp add kie-image -- npx -y kie-image-mcp@latest --api-key TUA_KEY</code></span></div>
+      <div class="step"><span class="step-num">03</span><span class="step-text">Riavvia Claude Code. Fatto — non devi rifarlo mai più.</span></div>
+
+      <h2>Il workflow in 5 passi</h2>
+      <div class="step"><span class="step-num">01</span><span class="step-text">Salva il tuo logo (o qualsiasi immagine quadrata che vuoi come foto profilo) come file PNG sul desktop. Qualsiasi dimensione va bene, Claude la ridimensionerà.</span></div>
+      <div class="step"><span class="step-num">02</span><span class="step-text">Apri Claude Code, trascina il logo nella chat e usa il prompt qui sotto.</span></div>
+      <div class="step"><span class="step-num">03</span><span class="step-text">Claude chiama l'API di Kie.AI, genera un'animazione heartbeat di 5 secondi con il modello Seedance, poi converte e comprime il risultato in una GIF pronta per Gmail. La salva nella tua cartella Documenti.</span></div>
+      <div class="step"><span class="step-num">04</span><span class="step-text">Vai su myaccount.google.com, clicca sulla tua foto profilo in alto a destra, poi sull'icona fotocamera, e trascina la GIF generata da Claude.</span></div>
+      <div class="step"><span class="step-num">05</span><span class="step-text">Salva la nuova foto profilo. Manda a te stesso una email di test per confermare che il loop si veda nella visualizzazione inbox. Hai finito — ogni email che mandi da questo account ora si muove nell'inbox di chi la riceve.</span></div>
+
+      <h2>Il prompt da usare</h2>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Prompt — da incollare in Claude Code con il logo allegato</div>
+        <pre id="prompt-main">Anima questo logo come una GIF con un effetto heartbeat sottile per la mia foto profilo Gmail usando kie.ai Seedance. Comprimi il risultato a meno di 1MB e circa 280px di larghezza.</pre>
+        <button class="copy-btn" onclick="copyPrompt('prompt-main', this)"><span>Copia il prompt</span></button>
+      </div>
+
+      <h2>Perché questo aumenta i tassi di apertura</h2>
+      <p>Ci sono due motivi. Primo, il movimento cattura l'attenzione durante lo scroll: la tua email non è più solo un'altra riga di testo in una lista, è la riga con la cosa in movimento. Secondo, una foto profilo animata è un segnale di qualità silenzioso — dice al destinatario che hai pensato alla tua presentazione come mittente.</p>
+
+      <h2>L'errore da evitare</h2>
+      <p>La sottigliezza vince sempre. Un logo che pulsa delicatamente o ha un leggero passaggio di luce sembra premium. Un logo che rimbalza, ruota o lampeggia sembra disperato. Meno movimento uguale più credibilità.</p>
+
+      <h2>L'effetto composto</h2>
+      <p>Lo fai una volta. Ogni email che mandi per il resto della vita si muove nell'inbox di qualcuno. Outreach a freddo, newsletter, assistenza clienti, follow-up commerciali: ogni singolo punto di contatto guadagna il pattern interrupt mentre tutti gli altri mittenti restano fermi. 60 secondi di setup che si moltiplicano su ogni email che hai mai mandato da quell'account.</p>
+    </div>
+
+    <div class="unlock-note" id="unlock-note">
+      Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.
+    </div>
+
+  </div>
+
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi al workflow e al prompt completo</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row">
+        <label class="form-label" for="nome">Nome</label>
+        <input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name">
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required>
+      </div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+
+</div>
+
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="f-text">© 2026 @giampiero.ai</span>
+      <a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var STORE = 'giampiero_ai_subscriber';
+  var gate = document.getElementById('paywall-gate');
+  var full = document.getElementById('article-full');
+  var mask = document.getElementById('preview-mask');
+  var note = document.getElementById('unlock-note');
+  var form = document.getElementById('access-form');
+  function unlock() {
+    if (gate) gate.style.display = 'none';
+    if (full) full.classList.add('visible');
+    if (mask) mask.classList.add('unlocked');
+    if (note) note.classList.add('visible');
+  }
+  try { if (localStorage.getItem(STORE)) unlock(); } catch (_) {}
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('[name="email"]').value.trim();
+      var nome = form.querySelector('[name="nome"]').value.trim();
+      if (!email || !email.includes('@')) { form.querySelector('[name="email"]').focus(); return; }
+      try { localStorage.setItem(STORE, JSON.stringify({ nome: nome, email: email, ts: Date.now() })); } catch (_) {}
+      fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, guida: 'Anima Foto Gmail con AI', ts: new Date().toISOString() })
+      }).catch(function () {});
+      unlock();
+    });
+  }
+})();
+function copyPrompt(id, btn) {
+  var text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(function () {
+    var lbl = btn.querySelector('span');
+    btn.classList.add('copied'); lbl.textContent = 'Copiato ✓';
+    setTimeout(function () { btn.classList.remove('copied'); lbl.textContent = 'Copia il prompt'; }, 2200);
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Il Piano AI da 30 Giorni — @giampiero.ai</title>
+<meta name="description" content="Il prompt per farti intervistare da Claude e ottenere un piano AI personalizzato su misura per la tua vita e il tuo lavoro.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root {
+  --bg:      oklch(98% 0.004 95);
+  --surface: oklch(100% 0.002 95);
+  --fg:      oklch(20% 0.018 70);
+  --muted:   oklch(48% 0.012 70);
+  --border:  oklch(90% 0.006 95);
+  --accent:  oklch(52% 0.10 28);
+  --font-display: 'Iowan Old Style','Charter',Georgia,serif;
+  --font-body:    -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --font-mono:    ui-monospace,'SF Mono',Menlo,monospace;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body);
+  font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+.article-wrap { max-width: 660px; margin: 0 auto; padding: 0 24px; }
+.site-header { padding: 20px 0; border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 860px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); text-decoration: none; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+.nav-ig:hover { color: var(--fg); }
+.breadcrumb { padding: 20px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--fg); }
+.breadcrumb span { margin: 0 6px; }
+.article-header { padding: 32px 0 40px; border-bottom: 1px solid var(--border); }
+.article-tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.article-title { font-family: var(--font-display); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 18px; max-width: 22ch; text-wrap: pretty; }
+.article-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.article-content { padding: 40px 0 0; }
+.article-content p { font-size: 17px; line-height: 1.7; color: var(--fg); max-width: 65ch; margin-bottom: 20px; }
+.article-content h2 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.3; color: var(--fg); margin: 36px 0 14px; }
+.article-content ul { margin: 0 0 20px 0; padding-left: 20px; }
+.article-content ul li { font-size: 17px; line-height: 1.65; color: var(--fg); max-width: 60ch; margin-bottom: 8px; }
+.article-content ul li strong { font-weight: 550; }
+.step { display: flex; gap: 16px; align-items: baseline; margin-bottom: 12px; max-width: 60ch; }
+.step-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.step-text { font-size: 17px; line-height: 1.65; color: var(--fg); }
+
+.prompt-box {
+  position: relative;
+  background: var(--fg);
+  padding: 28px 28px 24px;
+  margin: 28px 0 24px;
+  max-width: 65ch;
+}
+.prompt-box .prompt-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: oklch(60% 0.008 70);
+  margin-bottom: 14px;
+}
+.prompt-box pre {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  color: oklch(92% 0.004 95);
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid oklch(38% 0.012 70);
+  color: oklch(75% 0.006 70);
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.copy-btn:hover { border-color: oklch(65% 0.008 70); color: oklch(90% 0.004 95); }
+.copy-btn.copied { color: oklch(75% 0.12 145); border-color: oklch(55% 0.10 145); }
+
+.preview-wrap { position: relative; }
+.preview-mask { position: relative; overflow: hidden; }
+.preview-mask::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+.preview-mask.unlocked::after { display: none; }
+
+#paywall-gate { padding: 48px 0 60px; border-top: 1px solid var(--border); margin-top: 8px; }
+.paywall-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.paywall-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; color: var(--fg); margin-bottom: 10px; }
+.paywall-sub { font-size: 15px; color: var(--muted); max-width: 44ch; line-height: 1.6; margin-bottom: 28px; }
+.access-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.form-row { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.form-input { font-family: var(--font-body); font-size: 15px; color: var(--fg); background: var(--surface); border: 1px solid var(--border); border-radius: 0; padding: 10px 12px; outline: none; width: 100%; transition: border-color 0.15s; -webkit-appearance: none; }
+.form-input:focus { border-color: var(--fg); }
+.form-input::placeholder { color: var(--muted); }
+.form-submit { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.02em; color: var(--surface); background: var(--accent); border: none; padding: 11px 20px; cursor: pointer; border-radius: 0; width: 100%; margin-top: 4px; transition: opacity 0.15s; -webkit-appearance: none; }
+.form-submit:hover { opacity: 0.88; }
+.form-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted); margin-top: 4px; }
+#article-full { display: none; }
+#article-full.visible { display: block; }
+.unlock-note { display: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 8px; }
+.unlock-note.visible { display: block; }
+
+.cta-callout { background: var(--fg); padding: 44px 40px; }
+.cta-callout .cta-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.cta-callout h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25; color: var(--surface); max-width: 38ch; margin-bottom: 28px; }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta-btn { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.01em; padding: 11px 20px; text-decoration: none; border-radius: 0; transition: opacity 0.15s; display: inline-block; }
+.cta-btn-primary { background: var(--surface); color: var(--fg); }
+.cta-btn-secondary { background: transparent; color: var(--surface); border: 1px solid oklch(38% 0.012 70); }
+.cta-btn:hover { opacity: 0.75; }
+
+.site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 0; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; }
+.f-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; }
+.f-text:hover { color: var(--fg); }
+
+@media (max-width: 580px) {
+  .article-title { font-size: 28px; }
+  .paywall-title { font-size: 22px; }
+  .prompt-box { padding: 22px 18px 18px; }
+  .cta-callout { padding: 36px 24px; }
+  .site-footer .footer-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html">
+      <img class="avatar" src="avatar.png" alt="Giampiero">
+      <span class="logo">@giampiero.ai</span>
+    </a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <nav class="breadcrumb">
+    <a href="index.html">Guide</a>
+    <span>·</span>
+    <span>Piano AI da 30 Giorni</span>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-tag">Prompt AI</span>
+    <h1 class="article-title">Il Piano AI da 30 Giorni: fatti intervistare da Claude</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 4 min di lettura</p>
+  </header>
+
+  <div class="article-content">
+
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>La maggior parte delle persone non sa da dove iniziare con l'AI. Guarda video su YouTube, legge thread su X, prova qualche tool a caso — e poi si ferma. Il problema non è la motivazione: è che non esiste un piano su misura per la tua situazione specifica.</p>
+        <p>Questo prompt risolve esattamente quel problema. Lo incolli in Claude, e Claude ti interroga per almeno un'ora su ogni area della tua vita: lavoro, abitudini personali, relazioni, finanze, interessi creativi. Poi costruisce un piano di implementazione AI completamente personalizzato su di te.</p>
+        <p>Non è un'intervista veloce. Sono 10 round da almeno 10 domande ciascuno. Più sei onesto e specifico nelle risposte, più il piano finale sarà utile. Preparati a dedicarci almeno un'ora — vale ogni minuto.</p>
+      </div>
+    </div>
+
+    <div id="article-full">
+      <h2>Di cosa hai bisogno</h2>
+      <ul>
+        <li><strong>Claude</strong> — claude.ai, anche l'account gratuito funziona bene per questa sessione.</li>
+        <li><strong>Un tool di voice-to-text</strong> — come SuperWhisper o WhisperFlow, per rispondere parlando invece di scrivere. Risparmia tempo e le risposte vengono più naturali.</li>
+        <li><strong>Almeno un'ora di tempo</strong> — senza distrazioni. Alcune persone ci mettono due ore. Non affrettare il processo.</li>
+        <li><strong>Voglia di rispondere onestamente</strong> — non solo sul lavoro. L'AI ti aiuta meglio se sa tutto di te: salute, finanze, vita personale, creatività.</li>
+      </ul>
+
+      <h2>Come funziona il processo</h2>
+      <div class="step"><span class="step-num">01</span><span class="step-text">Copia l'intero prompt qui sotto e incollalo in Claude. Non modificarlo: la lunghezza e il dettaglio sono intenzionali.</span></div>
+      <div class="step"><span class="step-num">02</span><span class="step-text">Claude inizia con il Round 1 — chi sei, da dove vieni, cosa fai. Rispondi con più dettaglio possibile. Usa la voce se hai un tool di trascrizione.</span></div>
+      <div class="step"><span class="step-num">03</span><span class="step-text">Claude fa una domanda alla volta e aspetta la tua risposta. Se sei vago, insiste e ti chiede di approfondire. È normale — è il meccanismo che rende il piano efficace.</span></div>
+      <div class="step"><span class="step-num">04</span><span class="step-text">Ogni 10 domande Claude fa un recap di quello che ha capito finora. Ti dice anche cosa deve ancora esplorare.</span></div>
+      <div class="step"><span class="step-num">05</span><span class="step-text">Solo dopo tutti e 10 i round, Claude produce il tuo piano AI personalizzato — con le aree dove l'AI ti dà più leva, gli strumenti da usare, e i passi concreti.</span></div>
+
+      <h2>Il prompt completo</h2>
+      <p>Copia tutto il testo qui sotto e incollalo in Claude. Non saltare nulla.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Prompt — copia e incolla in Claude</div>
+        <pre id="prompt-text">I want you to act as my personal AI implementation strategist. Your job is to conduct an extremely thorough interview to understand EVERYTHING about me - my work, personal life, goals, fears, relationships, passions, health, finances, creative interests, and daily habits. Then use that complete picture to build a hyper-targeted AI implementation plan showing me exactly where AI can give me the most leverage across every area of my life.
+
+This is not a quick conversation. This is a deep, hour-long interrogation. You need to ask at least 100 questions across 10 rounds before making any recommendations.
+
+RULES:
+- Ask ONE question at a time. Wait for my answer before the next question.
+- Never rush. If I give a short answer, push me to go deeper. Ask "why?" and "tell me more about that" and "what does that actually look like day to day?"
+- Never accept vague answers. If I say "I want to be more productive" ask me what specifically I'd do with the extra time. If I say "admin stuff" ask me to walk through exactly what I did last Tuesday.
+- Keep a running mental model of who I am. Reference earlier answers in later questions to show you're building a complete picture.
+- After every 10 questions, give me a brief summary of what you've learned so far and what areas you still need to explore.
+- Do NOT give any recommendations until all 10 rounds are complete.
+
+THE 10 ROUNDS (minimum 10 questions per round):
+
+ROUND 1 - WHO YOU ARE
+Your background, identity, and current situation. What's your name, age, where do you live? What's your current job title and industry? How long have you been doing this? What did you do before? What's your education background? Are you self-taught in anything? What are you known for in your field? How would your closest friend describe you? What's a belief you hold that most people in your industry would disagree with?
+
+ROUND 2 - YOUR WORK LIFE (DEEP)
+Walk me through a typical Monday in extreme detail. What's the very first thing you do when you start working? What tools and apps do you use daily? What meetings do you have and with whom? What tasks repeat every single week? What's the task you dread most? What's the task that takes the longest? What's the task you're worst at but have to do anyway? What would you delegate tomorrow if you could?
+
+ROUND 3 - TIME AND ENERGY DRAINS
+Where does your time actually go vs where you think it goes? Walk me through last week - where did you lose time you didn't plan to? What interruptions kill your focus? How many emails do you send and receive per day? What tasks do you procrastinate on and why? What's the most repetitive thing you do that a robot could probably handle?
+
+ROUND 4 - YOUR PERSONAL LIFE
+What does your morning routine look like? Evening? What are your relationships like - partner, family, friends? How do you manage household tasks? What's your health situation? How do you manage your finances? What personal admin eats your time? Do you have kids? What does your social life look like?
+
+ROUND 5 - YOUR PASSIONS AND CREATIVE INTERESTS
+What do you do for fun when you have free time? What would you spend all day doing if money wasn't an issue? Do you create anything? Do you have a side project or business idea you've been sitting on? What topics can you talk about for hours?
+
+ROUND 6 - YOUR GOALS (SHORT AND LONG TERM)
+What do you want your life to look like in 12 months? In 5 years? What's the one thing you wish you could change about your work immediately? What skill do you most want to develop? What does financial success look like for you specifically?
+
+ROUND 7 - YOUR AI AND TECH RELATIONSHIP
+What AI tools do you currently use? How often? For what tasks? What have you tried and abandoned? What's your biggest frustration with AI tools? What would make you use AI every single day without thinking about it?
+
+ROUND 8 - YOUR CONTENT AND COMMUNICATION
+Do you write, post, or create content of any kind? What do you communicate externally - emails, reports, proposals? Who do you need to influence or persuade regularly? Where does communication eat your time?
+
+ROUND 9 - YOUR LEARNING AND GROWTH
+How do you currently learn new things? What do you read, watch, or listen to? What do you wish you knew more about? What skills would make you significantly more valuable in the next 12 months?
+
+ROUND 10 - THE GAPS
+Based on everything you've learned about me, what areas haven't we covered? What questions do you still need to ask to build a complete picture?
+
+After all 10 rounds: Generate my complete AI implementation plan. Organize it by life area. For each area: describe exactly where AI can help, which tools to use, what specific prompts or workflows to set up, and what the first action is this week.</pre>
+        <button class="copy-btn" id="copy-btn" onclick="copyPrompt()">
+          <span id="copy-label">Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Come usare il piano che ottieni</h2>
+      <ul>
+        <li><strong>Non provare a implementare tutto in una volta</strong> — Claude produrrà un piano lungo. Scegli le prime 2-3 azioni per la settimana corrente e parti da quelle.</li>
+        <li><strong>Salva il piano in un documento</strong> — copia l'output in Notion, Google Docs o dove preferisci. Ti servirà come riferimento nelle settimane successive.</li>
+        <li><strong>Ripeti l'intervista tra 30-60 giorni</strong> — la tua situazione cambia, cambiano le priorità. Rifare l'intervista con contesto aggiornato produce un piano ancora più preciso.</li>
+        <li><strong>Condividi la sessione con Claude</strong> — se usi Claude con Projects, puoi tornare nella stessa sessione e chiedere aggiornamenti al piano man mano che implementi le cose.</li>
+      </ul>
+    </div>
+
+    <div class="unlock-note" id="unlock-note">
+      Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.
+    </div>
+
+  </div>
+
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi al prompt completo</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito il prompt e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row">
+        <label class="form-label" for="nome">Nome</label>
+        <input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name">
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required>
+      </div>
+      <button class="form-submit" type="submit">Leggi il prompt completo</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+
+</div>
+
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="f-text">© 2026 @giampiero.ai</span>
+      <a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var STORE = 'giampiero_ai_subscriber';
+  var gate  = document.getElementById('paywall-gate');
+  var full  = document.getElementById('article-full');
+  var mask  = document.getElementById('preview-mask');
+  var note  = document.getElementById('unlock-note');
+  var form  = document.getElementById('access-form');
+
+  function unlock() {
+    if (gate) gate.style.display = 'none';
+    if (full) full.classList.add('visible');
+    if (mask) mask.classList.add('unlocked');
+    if (note) note.classList.add('visible');
+  }
+
+  try { if (localStorage.getItem(STORE)) unlock(); } catch (_) {}
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('[name="email"]').value.trim();
+      var nome  = form.querySelector('[name="nome"]').value.trim();
+      if (!email || !email.includes('@')) { form.querySelector('[name="email"]').focus(); return; }
+      try { localStorage.setItem(STORE, JSON.stringify({ nome: nome, email: email, ts: Date.now() })); } catch (_) {}
+      fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, guida: 'Piano AI da 30 Giorni', ts: new Date().toISOString() })
+      }).catch(function () {});
+      unlock();
+    });
+  }
+})();
+
+function copyPrompt() {
+  var text = document.getElementById('prompt-text').innerText;
+  var btn  = document.getElementById('copy-btn');
+  var lbl  = document.getElementById('copy-label');
+  navigator.clipboard.writeText(text).then(function () {
+    btn.classList.add('copied');
+    lbl.textContent = 'Copiato ✓';
+    setTimeout(function () {
+      btn.classList.remove('copied');
+      lbl.textContent = 'Copia il prompt';
+    }, 2200);
+  });
+}
+</script>
+</body>
+</html>

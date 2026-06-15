@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La Libreria Completa dei Corsi Anthropic — @giampiero.ai</title>
+<meta name="description" content="Tutti i 16 corsi Anthropic gratuiti, organizzati per percorso. Come usarli per ottenere il lavoro AI più richiesto del 2026.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root {
+  --bg:      oklch(98% 0.004 95);
+  --surface: oklch(100% 0.002 95);
+  --fg:      oklch(20% 0.018 70);
+  --muted:   oklch(48% 0.012 70);
+  --border:  oklch(90% 0.006 95);
+  --accent:  oklch(52% 0.10 28);
+  --font-display: 'Iowan Old Style','Charter',Georgia,serif;
+  --font-body:    -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --font-mono:    ui-monospace,'SF Mono',Menlo,monospace;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+.article-wrap { max-width: 660px; margin: 0 auto; padding: 0 24px; }
+.site-header { padding: 20px 0; border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 860px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); text-decoration: none; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+.nav-ig:hover { color: var(--fg); }
+.breadcrumb { padding: 20px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--fg); }
+.breadcrumb span { margin: 0 6px; }
+.article-header { padding: 32px 0 40px; border-bottom: 1px solid var(--border); }
+.article-tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.article-title { font-family: var(--font-display); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 18px; max-width: 22ch; text-wrap: pretty; }
+.article-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.article-content { padding: 40px 0 0; }
+.article-content p { font-size: 17px; line-height: 1.7; color: var(--fg); max-width: 65ch; margin-bottom: 20px; }
+.article-content h2 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.3; color: var(--fg); margin: 36px 0 14px; }
+.article-content ul { margin: 0 0 20px 0; padding-left: 20px; }
+.article-content ul li { font-size: 17px; line-height: 1.65; color: var(--fg); max-width: 60ch; margin-bottom: 8px; }
+.article-content ul li strong { font-weight: 550; }
+.step { display: flex; gap: 16px; align-items: baseline; margin-bottom: 12px; max-width: 60ch; }
+.step-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.step-text { font-size: 17px; line-height: 1.65; color: var(--fg); }
+.preview-wrap { position: relative; }
+.preview-mask { position: relative; overflow: hidden; }
+.preview-mask::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+.preview-mask.unlocked::after { display: none; }
+#paywall-gate { padding: 48px 0 60px; border-top: 1px solid var(--border); margin-top: 8px; }
+.paywall-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.paywall-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; color: var(--fg); margin-bottom: 10px; }
+.paywall-sub { font-size: 15px; color: var(--muted); max-width: 44ch; line-height: 1.6; margin-bottom: 28px; }
+.access-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.form-row { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.form-input { font-family: var(--font-body); font-size: 15px; color: var(--fg); background: var(--surface); border: 1px solid var(--border); border-radius: 0; padding: 10px 12px; outline: none; width: 100%; transition: border-color 0.15s; -webkit-appearance: none; }
+.form-input:focus { border-color: var(--fg); }
+.form-input::placeholder { color: var(--muted); }
+.form-submit { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.02em; color: var(--surface); background: var(--accent); border: none; padding: 11px 20px; cursor: pointer; border-radius: 0; width: 100%; margin-top: 4px; transition: opacity 0.15s; -webkit-appearance: none; }
+.form-submit:hover { opacity: 0.88; }
+.form-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted); margin-top: 4px; }
+#article-full { display: none; }
+#article-full.visible { display: block; }
+.unlock-note { display: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 8px; }
+.unlock-note.visible { display: block; }
+.cta-callout { background: var(--fg); padding: 44px 40px; }
+.cta-callout .cta-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.cta-callout h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25; color: var(--surface); max-width: 38ch; margin-bottom: 28px; }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta-btn { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.01em; padding: 11px 20px; text-decoration: none; border-radius: 0; transition: opacity 0.15s; display: inline-block; }
+.cta-btn-primary { background: var(--surface); color: var(--fg); }
+.cta-btn-secondary { background: transparent; color: var(--surface); border: 1px solid oklch(38% 0.012 70); }
+.cta-btn:hover { opacity: 0.75; }
+.site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 0; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; }
+.f-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; }
+.f-text:hover { color: var(--fg); }
+@media (max-width: 580px) {
+  .article-title { font-size: 28px; }
+  .paywall-title { font-size: 22px; }
+  .cta-callout { padding: 36px 24px; }
+  .site-footer .footer-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html">
+      <img class="avatar" src="avatar.png" alt="Giampiero">
+      <span class="logo">@giampiero.ai</span>
+    </a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <nav class="breadcrumb">
+    <a href="index.html">Guide</a>
+    <span>·</span>
+    <span>Corsi Anthropic Completi</span>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-tag">Formazione AI</span>
+    <h1 class="article-title">La libreria completa dei corsi Anthropic gratuiti</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 6 min di lettura</p>
+  </header>
+
+  <div class="article-content">
+
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>Forbes ha documentato in silenzio un lavoro che non esisteva 18 mesi fa. I titoli variano da azienda ad azienda — AI Agent Manager, Chief Agent Officer, AI Operations Lead — ma descrivono tutti lo stesso ruolo. Le aziende pagano fino a 300.000 dollari l'anno per trovarlo. E Forbes è esplicito: le persone che vengono assunte non hanno lauree in informatica o background tecnici.</p>
+        <p>Quello che hanno è giudizio. Capiscono profondamente una funzione aziendale specifica e sanno come dirigere gli agenti AI per eseguirla. L'altra metà del set di competenze — il lato AI — è quello che Anthropic ha appena messo online gratuitamente.</p>
+        <p>Anthropic Academy si trova su anthropic.skilljar.com. Ogni corso è gratuito. Ogni corso termina con un certificato di completamento rilasciato da Anthropic tramite la piattaforma Skilljar. In totale ci sono 13 corsi principali con certificato e 16 tile complessivi contando i sotto-percorsi.</p>
+      </div>
+    </div>
+
+    <div id="article-full">
+      <h2>I 16 corsi della libreria completa</h2>
+
+      <p><strong>Fondamenti</strong></p>
+      <ul>
+        <li>Claude 101 — il corso introduttivo senza prerequisiti su cos'è Claude e come usarlo nei prompt</li>
+        <li>AI Fluency - Framework e Fondamenti — la cornice concettuale su cui si costruisce tutto il resto</li>
+      </ul>
+
+      <p><strong>Track Builder</strong></p>
+      <ul>
+        <li>Claude Code 101 — l'esperienza Claude a livello IDE che gira nel tuo terminale</li>
+        <li>Claude Code in Action — workflow reali costruiti con Claude Code</li>
+        <li>Building with the Claude API — pattern di integrazione API diretta per applicazioni in produzione</li>
+      </ul>
+
+      <p><strong>Stack Agentivo</strong></p>
+      <ul>
+        <li>Intro to MCP — Model Context Protocol, lo standard agente-strumento</li>
+        <li>MCP Advanced Topics — pattern MCP per produzione</li>
+        <li>Intro to Agent Skills — come dare a Claude capacità specializzate riutilizzabili</li>
+        <li>Intro to Subagents — delegare il lavoro ad agenti specialisti all'interno di un workflow</li>
+      </ul>
+
+      <p><strong>Cowork e Integrazioni</strong></p>
+      <ul>
+        <li>Introduction to Claude Cowork — il prodotto di collaborazione per team</li>
+        <li>Claude with Amazon Bedrock — il corso più credibile per il tuo profilo LinkedIn (vedi sotto)</li>
+        <li>Claude with Google Cloud Vertex AI — l'equivalente per Google Cloud</li>
+      </ul>
+
+      <p><strong>Sotto-percorsi Education</strong></p>
+      <ul>
+        <li>AI Fluency for Educators, AI Fluency for Students, AI Fluency for Nonprofits, Teaching AI Fluency</li>
+      </ul>
+
+      <h2>Il corso Amazon Bedrock: la credenziale più potente</h2>
+      <p>Il segnale di credibilità più forte su Anthropic Academy è il corso "Claude with Amazon Bedrock". La descrizione del corso di Anthropic dice letteralmente "primo training del suo tipo costruito per i dipendenti AWS". Hanno costruito il programma di formazione reale per gli ingegneri Amazon, poi hanno messo lo stesso corso pubblicamente su Skilljar.</p>
+      <p>Quello che significa per te: la stessa formazione che Anthropic costruisce per uno dei più grandi clienti cloud del pianeta è disponibile su un URL pubblico senza paywall. Fallo. Aggiungilo a LinkedIn. La credenziale arriva allo stesso modo sullo schermo di un recruiter come su quello di un ingegnere Amazon.</p>
+
+      <h2>Percorso A — solo i corsi (risultato più rapido)</h2>
+      <p>Se hai solo un weekend, questo è il percorso. Da 8 a 12 ore di studio concentrato e sei avanti al 99% delle persone nella tua azienda su Claude.</p>
+      <div class="step"><span class="step-num">01</span><span class="step-text">Claude 101 — inizia da qui, anche se hai già usato Claude. L'intro strutturata copre i pattern di comportamento del modello che tutti gli altri corsi danno per scontati.</span></div>
+      <div class="step"><span class="step-num">02</span><span class="step-text">AI Fluency - Framework e Fondamenti — il livello concettuale che fa scattare tutto il resto.</span></div>
+      <div class="step"><span class="step-num">03</span><span class="step-text">Claude Code 101 — l'esperienza Claude da terminale. È qui che inizia il percorso operatore.</span></div>
+      <div class="step"><span class="step-num">04</span><span class="step-text">Intro to MCP — il Model Context Protocol è ciò che permette a Claude di parlare con i tuoi strumenti esistenti. Salta questo e incontri un muro appena provi a costruire qualcosa di reale.</span></div>
+      <div class="step"><span class="step-num">05</span><span class="step-num" style="display:none"></span><span class="step-text">Intro to Agent Skills — il corso che ti trasforma da utente Claude a operatore Claude.</span></div>
+      <div class="step"><span class="step-num">06</span><span class="step-text">Claude with Amazon Bedrock o Vertex AI — la credenziale CV che supera il primo filtro di assunzione.</span></div>
+
+      <h2>Percorso B — corsi più certificazione (massimo vantaggio)</h2>
+      <p>Anthropic gestisce anche una valutazione solo-certificazione per AI Fluency su anthropic.skilljar.com. È un percorso con supervisore: 60 domande, 2 ore, webcam accesa. Scenari reali come progettare un agente per supporto clienti o integrare Claude in una pipeline di deployment.</p>
+      <p>Come procedere: fai prima il Percorso A. Anche se il tuo obiettivo è il certificato, fai i corsi prima. L'esame testa scenari, non nozioni. Un progetto reale è il modo più veloce per riconoscere le risposte giuste.</p>
+
+      <h2>La timeline di applicazione</h2>
+      <ul>
+        <li><strong>Questa settimana</strong> — fai Claude 101 (o Claude Code 101 se usi già Claude). Ottieni il cert. Aggiungilo a LinkedIn sotto Licenze e Certificazioni, emittente: Anthropic.</li>
+        <li><strong>Questo mese</strong> — Cowork più Building with the API. Costruisci qualcosa di piccolo dopo ogni corso — un'automazione personale, un workflow contenuti, qualsiasi cosa che provi l'applicazione.</li>
+        <li><strong>Il mese prossimo</strong> — MCP, Agent Skills, Subagents. Ora puoi definirti un operatore agente con un portfolio di sistemi reali.</li>
+        <li><strong>Poi candidati</strong> — cerca su LinkedIn "AI agent", "agent operator", "AI workflow", "Claude". Candidati con i tuoi certificati Anthropic visibili. Il mercato è aperto e il pool qualificato è piccolo.</li>
+      </ul>
+    </div>
+
+    <div class="unlock-note" id="unlock-note">
+      Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.
+    </div>
+
+  </div>
+
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row">
+        <label class="form-label" for="nome">Nome</label>
+        <input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name">
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required>
+      </div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+
+</div>
+
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="f-text">© 2026 @giampiero.ai</span>
+      <a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var STORE = 'giampiero_ai_subscriber';
+  var gate  = document.getElementById('paywall-gate');
+  var full  = document.getElementById('article-full');
+  var mask  = document.getElementById('preview-mask');
+  var note  = document.getElementById('unlock-note');
+  var form  = document.getElementById('access-form');
+  function unlock() {
+    if (gate) gate.style.display = 'none';
+    if (full) full.classList.add('visible');
+    if (mask) mask.classList.add('unlocked');
+    if (note) note.classList.add('visible');
+  }
+  try { if (localStorage.getItem(STORE)) unlock(); } catch (_) {}
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('[name="email"]').value.trim();
+      var nome  = form.querySelector('[name="nome"]').value.trim();
+      if (!email || !email.includes('@')) { form.querySelector('[name="email"]').focus(); return; }
+      try { localStorage.setItem(STORE, JSON.stringify({ nome: nome, email: email, ts: Date.now() })); } catch (_) {}
+      fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, guida: 'Corsi Anthropic Completi', ts: new Date().toISOString() })
+      }).catch(function () {});
+      unlock();
+    });
+  }
+})();
+</script>
+</body>
+</html>

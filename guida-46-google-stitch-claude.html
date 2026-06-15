@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Stitch + Claude Code: trasforma le tue app in prodotti professionali — @giampiero.ai</title>
+<meta name="description" content="Come collegare Google Stitch a Claude Code per avere un designer AI integrato nel tuo flusso di sviluppo. Setup in 2 minuti.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root {
+  --bg:      oklch(98% 0.004 95);
+  --surface: oklch(100% 0.002 95);
+  --fg:      oklch(20% 0.018 70);
+  --muted:   oklch(48% 0.012 70);
+  --border:  oklch(90% 0.006 95);
+  --accent:  oklch(52% 0.10 28);
+  --font-display: 'Iowan Old Style','Charter',Georgia,serif;
+  --font-body:    -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --font-mono:    ui-monospace,'SF Mono',Menlo,monospace;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body);
+  font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+.article-wrap { max-width: 660px; margin: 0 auto; padding: 0 24px; }
+.site-header { padding: 20px 0; border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 860px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); text-decoration: none; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+.nav-ig:hover { color: var(--fg); }
+.breadcrumb { padding: 20px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--fg); }
+.breadcrumb span { margin: 0 6px; }
+.article-header { padding: 32px 0 40px; border-bottom: 1px solid var(--border); }
+.article-tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.article-title { font-family: var(--font-display); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 18px; max-width: 22ch; text-wrap: pretty; }
+.article-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.article-content { padding: 40px 0 0; }
+.article-content p { font-size: 17px; line-height: 1.7; color: var(--fg); max-width: 65ch; margin-bottom: 20px; }
+.article-content h2 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.3; color: var(--fg); margin: 36px 0 14px; }
+.article-content ul { margin: 0 0 20px 0; padding-left: 20px; }
+.article-content ul li { font-size: 17px; line-height: 1.65; color: var(--fg); max-width: 60ch; margin-bottom: 8px; }
+.article-content ul li strong { font-weight: 550; }
+.step { display: flex; gap: 16px; align-items: baseline; margin-bottom: 12px; max-width: 60ch; }
+.step-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.step-text { font-size: 17px; line-height: 1.65; color: var(--fg); }
+.prompt-box { position: relative; background: var(--fg); padding: 28px 28px 24px; margin: 28px 0 24px; max-width: 65ch; }
+.prompt-box .prompt-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.prompt-box pre { font-family: var(--font-mono); font-size: 13px; line-height: 1.7; color: oklch(92% 0.004 95); white-space: pre-wrap; word-break: break-word; margin: 0; }
+.copy-btn { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; background: transparent; border: 1px solid oklch(38% 0.012 70); color: oklch(75% 0.006 70); padding: 8px 14px; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
+.copy-btn:hover { border-color: oklch(65% 0.008 70); color: oklch(90% 0.004 95); }
+.copy-btn.copied { color: oklch(75% 0.12 145); border-color: oklch(55% 0.10 145); }
+.preview-wrap { position: relative; }
+.preview-mask { position: relative; overflow: hidden; }
+.preview-mask::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+.preview-mask.unlocked::after { display: none; }
+#paywall-gate { padding: 48px 0 60px; border-top: 1px solid var(--border); margin-top: 8px; }
+.paywall-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.paywall-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; color: var(--fg); margin-bottom: 10px; }
+.paywall-sub { font-size: 15px; color: var(--muted); max-width: 44ch; line-height: 1.6; margin-bottom: 28px; }
+.access-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.form-row { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.form-input { font-family: var(--font-body); font-size: 15px; color: var(--fg); background: var(--surface); border: 1px solid var(--border); border-radius: 0; padding: 10px 12px; outline: none; width: 100%; transition: border-color 0.15s; -webkit-appearance: none; }
+.form-input:focus { border-color: var(--fg); }
+.form-input::placeholder { color: var(--muted); }
+.form-submit { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.02em; color: var(--surface); background: var(--accent); border: none; padding: 11px 20px; cursor: pointer; border-radius: 0; width: 100%; margin-top: 4px; transition: opacity 0.15s; -webkit-appearance: none; }
+.form-submit:hover { opacity: 0.88; }
+.form-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted); margin-top: 4px; }
+#article-full { display: none; }
+#article-full.visible { display: block; }
+.unlock-note { display: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 8px; }
+.unlock-note.visible { display: block; }
+.cta-callout { background: var(--fg); padding: 44px 40px; }
+.cta-callout .cta-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.cta-callout h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25; color: var(--surface); max-width: 38ch; margin-bottom: 28px; }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta-btn { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.01em; padding: 11px 20px; text-decoration: none; border-radius: 0; transition: opacity 0.15s; display: inline-block; }
+.cta-btn-primary { background: var(--surface); color: var(--fg); }
+.cta-btn-secondary { background: transparent; color: var(--surface); border: 1px solid oklch(38% 0.012 70); }
+.cta-btn:hover { opacity: 0.75; }
+.site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 0; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; }
+.f-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; }
+.f-text:hover { color: var(--fg); }
+@media (max-width: 580px) {
+  .article-title { font-size: 28px; }
+  .paywall-title { font-size: 22px; }
+  .prompt-box { padding: 22px 18px 18px; }
+  .cta-callout { padding: 36px 24px; }
+  .site-footer .footer-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html">
+      <img class="avatar" src="avatar.png" alt="Giampiero">
+      <span class="logo">@giampiero.ai</span>
+    </a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <nav class="breadcrumb">
+    <a href="index.html">Guide</a>
+    <span>·</span>
+    <span>Google Stitch + Claude Code</span>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-tag">Claude Code · Design AI</span>
+    <h1 class="article-title">Google Stitch + Claude Code: il designer AI integrato nel tuo progetto</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 4 min di lettura</p>
+  </header>
+
+  <div class="article-content">
+
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>Hai mai costruito un'app con Claude Code e alla fine sembrava fatta con uno strumento AI? Quel look generico, quegli stili di default, quell'assenza di personalità visiva che ti fa capire immediatamente che non c'è un designer dietro. Google Stitch risolve esattamente questo problema.</p>
+        <p>Google Stitch è una canvas di design AI che genera interfacce complete a partire da prompt testuali, screenshot o URL. Crea layout, palette colori, tipografia e componenti interattivi. Ogni elemento è modificabile. I prototipi sono immediati. Le anteprime responsive funzionano su tutti i device.</p>
+        <p>Quando colleghi Stitch a Claude Code tramite il suo MCP, Claude diventa un designer full-stack. Può creare tavole di design, generare sistemi di design completi e ridisegnare progetti esistenti — tutto da un singolo prompt.</p>
+      </div>
+    </div>
+
+    <div id="article-full">
+      <h2>Setup: collega Stitch a Claude Code</h2>
+
+      <div class="step"><span class="step-num">01</span><span class="step-text">Vai su Google Stitch e crea un account. Poi entra in Impostazioni, scorri alla sezione API e crea una chiave API. Copiala — ti servirà nel prossimo passo.</span></div>
+      <div class="step"><span class="step-num">02</span><span class="step-text">Vai alla pagina di documentazione dello Stitch MCP e trova il comando di installazione per Claude Code. Copialo e incollalo in Claude Code insieme alla tua API key. Claude configurerà il server MCP per te.</span></div>
+      <div class="step"><span class="step-num">03</span><span class="step-text">Riavvia Claude Code e vedrai Stitch connesso come strumento disponibile. Da questo momento Claude può elencare i tuoi progetti Stitch, recuperare singole schermate, leggere l'HTML e il CSS dei tuoi design e accedere al tuo sistema di design — tutto senza uscire da Claude Code.</span></div>
+
+      <h2>Come usarlo</h2>
+
+      <p><strong>Design da zero.</strong> Descrivi come vuoi che appaia la tua app e Claude userà Stitch per creare design UI completi — layout, colori, font, componenti interattivi. Puoi anche dare a Claude degli screenshot o URL di riferimento e progetterà basandosi su quelli.</p>
+
+      <p><strong>Ridisegnare progetti esistenti.</strong> Prendi un'app esistente che sembra fatta con l'AI. Dai a Claude degli screenshot o puntalo al tuo progetto. Claude usa Stitch per generare una direzione di design professionale, poi la applica al tuo codebase reale. La trasformazione richiede circa 5 minuti.</p>
+
+      <h2>Il file design.md</h2>
+      <p>Mentre Stitch genera i design, crea automaticamente un file design.md — un documento markdown che cattura l'intero sistema di design. Tipografia, palette colori, spaziatura, regole dei componenti, da fare e da non fare. Questo file è ciò che mantiene i tuoi design coerenti in tutto il progetto.</p>
+      <p>Claude Code può leggere questo file e seguirlo come riferimento per ogni modifica che fa. Man mano che il design evolve, aggiorna design.md e Claude mantiene la coerenza automaticamente.</p>
+
+      <h2>Casi d'uso principali</h2>
+      <ul>
+        <li><strong>Ridisegnare un'app vibe-coded</strong> che sembra generica trasformandola in qualcosa di professionale</li>
+        <li><strong>Creare un sistema di design completo</strong> per un nuovo progetto prima di scrivere qualsiasi riga di codice</li>
+        <li><strong>Generare design di web app responsive</strong> da una singola descrizione testuale</li>
+        <li><strong>Costruire landing page, dashboard e interfacce SaaS</strong> che sembrano prodotti reali</li>
+        <li><strong>Mantenere stili coerenti</strong> su più pagine e funzionalità</li>
+        <li><strong>Creare tavole di design e prototipi</strong> da condividere con clienti o team</li>
+      </ul>
+
+      <h2>L'intuizione chiave</h2>
+      <p>Stitch non crea solo belle immagini. Crea design reali e interattivi supportati da un sistema di design che Claude Code può leggere e seguire. Questo significa che il gap tra ciò che progetti e ciò che viene costruito scompare. Quello che vedi in Stitch è quello che Claude costruisce nella tua app.</p>
+    </div>
+
+    <div class="unlock-note" id="unlock-note">
+      Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.
+    </div>
+
+  </div>
+
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito il setup completo e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row">
+        <label class="form-label" for="nome">Nome</label>
+        <input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name">
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required>
+      </div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+
+</div>
+
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="f-text">© 2026 @giampiero.ai</span>
+      <a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var STORE = 'giampiero_ai_subscriber';
+  var gate  = document.getElementById('paywall-gate');
+  var full  = document.getElementById('article-full');
+  var mask  = document.getElementById('preview-mask');
+  var note  = document.getElementById('unlock-note');
+  var form  = document.getElementById('access-form');
+  function unlock() {
+    if (gate) gate.style.display = 'none';
+    if (full) full.classList.add('visible');
+    if (mask) mask.classList.add('unlocked');
+    if (note) note.classList.add('visible');
+  }
+  try { if (localStorage.getItem(STORE)) unlock(); } catch (_) {}
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('[name="email"]').value.trim();
+      var nome  = form.querySelector('[name="nome"]').value.trim();
+      if (!email || !email.includes('@')) { form.querySelector('[name="email"]').focus(); return; }
+      try { localStorage.setItem(STORE, JSON.stringify({ nome: nome, email: email, ts: Date.now() })); } catch (_) {}
+      fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, guida: 'Google Stitch + Claude Code', ts: new Date().toISOString() })
+      }).catch(function () {});
+      unlock();
+    });
+  }
+})();
+function copyPrompt(id, btn) {
+  var text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(function () {
+    var lbl = btn.querySelector('span');
+    btn.classList.add('copied');
+    lbl.textContent = 'Copiato ✓';
+    setTimeout(function () { btn.classList.remove('copied'); lbl.textContent = 'Copia il prompt'; }, 2200);
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claude Design: walkthrough completo e i 10 migliori prompt — @giampiero.ai</title>
+<meta name="description" content="Come usare claude.ai/design per creare slide deck, prototipi, landing page e asset grafici. Il sistema di brand automatico e le 10 prompts migliori da usare subito.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root {
+  --bg:      oklch(98% 0.004 95);
+  --surface: oklch(100% 0.002 95);
+  --fg:      oklch(20% 0.018 70);
+  --muted:   oklch(48% 0.012 70);
+  --border:  oklch(90% 0.006 95);
+  --accent:  oklch(52% 0.10 28);
+  --font-display: 'Iowan Old Style','Charter',Georgia,serif;
+  --font-body:    -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --font-mono:    ui-monospace,'SF Mono',Menlo,monospace;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+.article-wrap { max-width: 660px; margin: 0 auto; padding: 0 24px; }
+.site-header { padding: 20px 0; border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 860px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); text-decoration: none; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+.nav-ig:hover { color: var(--fg); }
+.breadcrumb { padding: 20px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--fg); }
+.breadcrumb span { margin: 0 6px; }
+.article-header { padding: 32px 0 40px; border-bottom: 1px solid var(--border); }
+.article-tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.article-title { font-family: var(--font-display); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 18px; max-width: 22ch; text-wrap: pretty; }
+.article-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.article-content { padding: 40px 0 0; }
+.article-content p { font-size: 17px; line-height: 1.7; color: var(--fg); max-width: 65ch; margin-bottom: 20px; }
+.article-content h2 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.3; color: var(--fg); margin: 36px 0 14px; }
+.article-content ul { margin: 0 0 20px 0; padding-left: 20px; }
+.article-content ul li { font-size: 17px; line-height: 1.65; color: var(--fg); max-width: 60ch; margin-bottom: 8px; }
+.article-content ul li strong { font-weight: 550; }
+.step { display: flex; gap: 16px; align-items: baseline; margin-bottom: 12px; max-width: 60ch; }
+.step-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.step-text { font-size: 17px; line-height: 1.65; color: var(--fg); }
+.prompt-box { position: relative; background: var(--fg); padding: 28px 28px 24px; margin: 28px 0 24px; max-width: 65ch; }
+.prompt-box .prompt-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.prompt-box pre { font-family: var(--font-mono); font-size: 13px; line-height: 1.7; color: oklch(92% 0.004 95); white-space: pre-wrap; word-break: break-word; margin: 0; }
+.copy-btn { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; background: transparent; border: 1px solid oklch(38% 0.012 70); color: oklch(75% 0.006 70); padding: 8px 14px; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
+.copy-btn:hover { border-color: oklch(65% 0.008 70); color: oklch(90% 0.004 95); }
+.copy-btn.copied { color: oklch(75% 0.12 145); border-color: oklch(55% 0.10 145); }
+.preview-wrap { position: relative; }
+.preview-mask { position: relative; overflow: hidden; }
+.preview-mask::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+.preview-mask.unlocked::after { display: none; }
+#paywall-gate { padding: 48px 0 60px; border-top: 1px solid var(--border); margin-top: 8px; }
+.paywall-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.paywall-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; color: var(--fg); margin-bottom: 10px; }
+.paywall-sub { font-size: 15px; color: var(--muted); max-width: 44ch; line-height: 1.6; margin-bottom: 28px; }
+.access-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.form-row { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.form-input { font-family: var(--font-body); font-size: 15px; color: var(--fg); background: var(--surface); border: 1px solid var(--border); border-radius: 0; padding: 10px 12px; outline: none; width: 100%; transition: border-color 0.15s; -webkit-appearance: none; }
+.form-input:focus { border-color: var(--fg); }
+.form-input::placeholder { color: var(--muted); }
+.form-submit { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.02em; color: var(--surface); background: var(--accent); border: none; padding: 11px 20px; cursor: pointer; border-radius: 0; width: 100%; margin-top: 4px; transition: opacity 0.15s; -webkit-appearance: none; }
+.form-submit:hover { opacity: 0.88; }
+.form-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted); margin-top: 4px; }
+#article-full { display: none; }
+#article-full.visible { display: block; }
+.unlock-note { display: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 8px; }
+.unlock-note.visible { display: block; }
+.cta-callout { background: var(--fg); padding: 44px 40px; }
+.cta-callout .cta-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.cta-callout h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25; color: var(--surface); max-width: 38ch; margin-bottom: 28px; }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta-btn { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.01em; padding: 11px 20px; text-decoration: none; border-radius: 0; transition: opacity 0.15s; display: inline-block; }
+.cta-btn-primary { background: var(--surface); color: var(--fg); }
+.cta-btn-secondary { background: transparent; color: var(--surface); border: 1px solid oklch(38% 0.012 70); }
+.cta-btn:hover { opacity: 0.75; }
+.site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 0; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; }
+.f-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; }
+.f-text:hover { color: var(--fg); }
+@media (max-width: 580px) {
+  .article-title { font-size: 28px; }
+  .paywall-title { font-size: 22px; }
+  .prompt-box { padding: 22px 18px 18px; }
+  .cta-callout { padding: 36px 24px; }
+  .site-footer .footer-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html">
+      <img class="avatar" src="avatar.png" alt="Giampiero">
+      <span class="logo">@giampiero.ai</span>
+    </a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <nav class="breadcrumb">
+    <a href="index.html">Guide</a>
+    <span>·</span>
+    <span>Claude Design</span>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-tag">Design AI</span>
+    <h1 class="article-title">Claude Design: walkthrough completo e i 10 migliori prompt</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 6 min di lettura</p>
+  </header>
+
+  <div class="article-content">
+
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>Claude Design è una piattaforma nuova disponibile su claude.ai/design. Descrivi quello che vuoi, Claude lo progetta usando Opus 4.7, e tu lo raffini attraverso conversazione, commenti in linea, modifica diretta del testo o cursori di regolazione personalizzati. Crea slide deck, prototipi, landing page, one-pager, wireframe, pitch deck, asset per social media, materiale marketing e siti web interattivi.</p>
+        <p>Disponibile su piani Pro, Max, Team ed Enterprise. Nelle ore successive all'annuncio, le azioni di Figma sono cadute del 7%, Adobe del 2.7%, Wix del 4.7% e GoDaddy del 3%. Il mercato vede Claude Design come una minaccia concreta all'intero ecosistema del design.</p>
+        <p>La funzione più potente è quella che la maggior parte delle persone trascura: durante il setup iniziale, Claude legge il tuo codebase e i tuoi file di design e costruisce automaticamente un sistema di design — colori, tipografia e componenti. Tutti i progetti successivi useranno il tuo brand in automatico.</p>
+      </div>
+    </div>
+
+    <div id="article-full">
+      <h2>Come iniziare</h2>
+      <div class="step"><span class="step-num">01</span><span class="step-text">Vai su <strong>claude.ai/design</strong>. Disponibile sui piani Pro, Max, Team ed Enterprise — incluso nel tuo abbonamento.</span></div>
+      <div class="step"><span class="step-num">02</span><span class="step-text">Configura il tuo brand: Claude chiederà di leggere il tuo sito web o i file di design. Lascialo fare — costruisce il sistema di design in automatico.</span></div>
+      <div class="step"><span class="step-num">03</span><span class="step-text">Scegli cosa vuoi creare: slide deck, prototipo, landing page, one-pager, wireframe. Scegli il tipo e descrivi quello che ti serve.</span></div>
+      <div class="step"><span class="step-num">04</span><span class="step-text">Affina fino a quando è giusto: chatta con Claude, lascia commenti in linea su elementi specifici, modifica il testo direttamente o usa i cursori di regolazione per adattare spazio, colore e layout.</span></div>
+      <div class="step"><span class="step-num">05</span><span class="step-text">Esporta in Canva, PowerPoint, PDF, HTML standalone, oppure passa direttamente a Claude Code per costruire la versione reale.</span></div>
+
+      <h2>I 10 prompt da provare subito</h2>
+
+      <div class="prompt-box">
+        <div class="prompt-label">10 prompt Claude Design — copia e adatta</div>
+        <pre id="prompt-text">1. PITCH DECK DA UNA FRASE
+Crea un pitch deck da 10 slide per [la tua attività]. Includi problema, soluzione, dimensione mercato, traction, team e richiesta. Usa il mio brand.
+
+2. LANDING PAGE DA UNA DESCRIZIONE PRODOTTO
+Progetta una landing page per [prodotto]. Sezione hero con headline, 3 value prop, sezione testimonial, prezzi e CTA. Sul mio brand.
+
+3. PROTOTIPO APP DA UNA LISTA FEATURE
+Progetta un prototipo app mobile per [idea app]. Includi flusso di onboarding, dashboard principale e pagina impostazioni. Abbina i miei colori brand.
+
+4. CAROSELLO SOCIAL MEDIA
+Crea un carosello Instagram da 5 slide su [argomento]. Hook sulla slide 1, un punto chiave per slide, CTA sull'ultima. Usa il mio brand.
+
+5. ONE-PAGER PROPOSTA CLIENTE
+Progetta una proposta di una pagina per [progetto] per [cliente]. Includi scope, timeline, investimento e prossimi passi. Layout professionale sul mio brand.
+
+6. WIREFRAME DASHBOARD
+Progetta una dashboard per [caso d'uso] con [3-4 metriche chiave]. Includi navigazione sidebar, area grafici e tabella dati. Abbina il mio brand.
+
+7. TEMPLATE EMAIL NEWSLETTER
+Progetta un template newsletter per [brand]. Header con logo, sezione articolo principale, 3 articoli più piccoli, footer con link social.
+
+8. PAGINA COMPARATIVA
+Progetta una pagina comparativa che mostra [tuo prodotto] vs [competitor 1] vs [competitor 2]. Matrice feature, riga prezzi e CTA vincitore chiara.
+
+9. INVITO EVENTO
+Progetta un invito digitale per [evento]. Includi data, ora, luogo, punti salienti dell'agenda e pulsante RSVP. Sul mio brand.
+
+10. WALKTHROUGH FEATURE PRODOTTO
+Crea un deck da 6 slide che illustra [feature]. Screenshot su ogni slide con overlay di annotazioni che spiegano cosa vede l'utente.</pre>
+        <button class="copy-btn" id="copy-btn" onclick="copyPrompt()">
+          <span id="copy-label">Copia i prompt</span>
+        </button>
+      </div>
+
+      <h2>Controlli di modifica integrati</h2>
+      <p>Claude Design ha strumenti di modifica che vanno oltre il semplice prompting. Puoi lasciare commenti in linea su qualsiasi elemento specifico. Puoi modificare il testo direttamente sul design. Claude crea cursori di regolazione personalizzati per spaziatura, colore e layout. Puoi chiedere a Claude di applicare una modifica all'intero design in un colpo solo.</p>
+
+      <h2>Opzioni di esportazione</h2>
+      <ul>
+        <li><strong>PowerPoint (.pptx)</strong> — si apre in PowerPoint, Google Slides o Keynote</li>
+        <li><strong>Canva</strong> — export diretto come design Canva completamente modificabile</li>
+        <li><strong>PDF</strong> — export piatto per condivisione o stampa</li>
+        <li><strong>HTML standalone</strong> — file HTML autonomo, si apre in qualsiasi browser</li>
+        <li><strong>Handoff a Claude Code</strong> — Claude pacchettizza tutto in un bundle da passare a Claude Code per costruire la versione reale</li>
+      </ul>
+    </div>
+
+    <div class="unlock-note" id="unlock-note">
+      Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.
+    </div>
+
+  </div>
+
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row">
+        <label class="form-label" for="nome">Nome</label>
+        <input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name">
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required>
+      </div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+
+</div>
+
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="f-text">© 2026 @giampiero.ai</span>
+      <a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var STORE = 'giampiero_ai_subscriber';
+  var gate  = document.getElementById('paywall-gate');
+  var full  = document.getElementById('article-full');
+  var mask  = document.getElementById('preview-mask');
+  var note  = document.getElementById('unlock-note');
+  var form  = document.getElementById('access-form');
+
+  function unlock() {
+    if (gate) gate.style.display = 'none';
+    if (full) full.classList.add('visible');
+    if (mask) mask.classList.add('unlocked');
+    if (note) note.classList.add('visible');
+  }
+
+  try { if (localStorage.getItem(STORE)) unlock(); } catch (_) {}
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('[name="email"]').value.trim();
+      var nome  = form.querySelector('[name="nome"]').value.trim();
+      if (!email || !email.includes('@')) { form.querySelector('[name="email"]').focus(); return; }
+      try { localStorage.setItem(STORE, JSON.stringify({ nome: nome, email: email, ts: Date.now() })); } catch (_) {}
+      fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, guida: 'Claude Design: walkthrough e 10 prompt', ts: new Date().toISOString() })
+      }).catch(function () {});
+      unlock();
+    });
+  }
+})();
+
+function copyPrompt() {
+  var text = document.getElementById('prompt-text').innerText;
+  var btn  = document.getElementById('copy-btn');
+  var lbl  = document.getElementById('copy-label');
+  navigator.clipboard.writeText(text).then(function () {
+    btn.classList.add('copied');
+    lbl.textContent = 'Copiato ✓';
+    setTimeout(function () {
+      btn.classList.remove('copied');
+      lbl.textContent = 'Copia i prompt';
+    }, 2200);
+  });
+}
+</script>
+</body>
+</html>

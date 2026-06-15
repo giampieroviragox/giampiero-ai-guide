@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Il mio Playbook dei Prompt AI — @giampiero.ai</title>
+<meta name="description" content="Il sistema in 6 leve che uso ogni giorno con Claude. Prompt strutturati, template riutilizzabili e i trucchi che Anthropic usa internamente.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root {
+  --bg:      oklch(98% 0.004 95);
+  --surface: oklch(100% 0.002 95);
+  --fg:      oklch(20% 0.018 70);
+  --muted:   oklch(48% 0.012 70);
+  --border:  oklch(90% 0.006 95);
+  --accent:  oklch(52% 0.10 28);
+  --font-display: 'Iowan Old Style','Charter',Georgia,serif;
+  --font-body:    -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --font-mono:    ui-monospace,'SF Mono',Menlo,monospace;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body);
+  font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+.article-wrap { max-width: 660px; margin: 0 auto; padding: 0 24px; }
+.site-header { padding: 20px 0; border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 860px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); text-decoration: none; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+.nav-ig:hover { color: var(--fg); }
+.breadcrumb { padding: 20px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--fg); }
+.breadcrumb span { margin: 0 6px; }
+.article-header { padding: 32px 0 40px; border-bottom: 1px solid var(--border); }
+.article-tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.article-title { font-family: var(--font-display); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 18px; max-width: 22ch; text-wrap: pretty; }
+.article-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.article-content { padding: 40px 0 0; }
+.article-content p { font-size: 17px; line-height: 1.7; color: var(--fg); max-width: 65ch; margin-bottom: 20px; }
+.article-content h2 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.3; color: var(--fg); margin: 36px 0 14px; }
+.article-content ul { margin: 0 0 20px 0; padding-left: 20px; }
+.article-content ul li { font-size: 17px; line-height: 1.65; color: var(--fg); max-width: 60ch; margin-bottom: 8px; }
+.article-content ul li strong { font-weight: 550; }
+.step { display: flex; gap: 16px; align-items: baseline; margin-bottom: 12px; max-width: 60ch; }
+.step-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.step-text { font-size: 17px; line-height: 1.65; color: var(--fg); }
+.prompt-box {
+  position: relative;
+  background: var(--fg);
+  padding: 28px 28px 24px;
+  margin: 28px 0 24px;
+  max-width: 65ch;
+}
+.prompt-box .prompt-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: oklch(60% 0.008 70);
+  margin-bottom: 14px;
+}
+.prompt-box pre {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  color: oklch(92% 0.004 95);
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid oklch(38% 0.012 70);
+  color: oklch(75% 0.006 70);
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.copy-btn:hover { border-color: oklch(65% 0.008 70); color: oklch(90% 0.004 95); }
+.copy-btn.copied { color: oklch(75% 0.12 145); border-color: oklch(55% 0.10 145); }
+.preview-wrap { position: relative; }
+.preview-mask { position: relative; overflow: hidden; }
+.preview-mask::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+.preview-mask.unlocked::after { display: none; }
+#paywall-gate { padding: 48px 0 60px; border-top: 1px solid var(--border); margin-top: 8px; }
+.paywall-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.paywall-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; color: var(--fg); margin-bottom: 10px; }
+.paywall-sub { font-size: 15px; color: var(--muted); max-width: 44ch; line-height: 1.6; margin-bottom: 28px; }
+.access-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.form-row { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.form-input { font-family: var(--font-body); font-size: 15px; color: var(--fg); background: var(--surface); border: 1px solid var(--border); border-radius: 0; padding: 10px 12px; outline: none; width: 100%; transition: border-color 0.15s; -webkit-appearance: none; }
+.form-input:focus { border-color: var(--fg); }
+.form-input::placeholder { color: var(--muted); }
+.form-submit { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.02em; color: var(--surface); background: var(--accent); border: none; padding: 11px 20px; cursor: pointer; border-radius: 0; width: 100%; margin-top: 4px; transition: opacity 0.15s; -webkit-appearance: none; }
+.form-submit:hover { opacity: 0.88; }
+.form-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted); margin-top: 4px; }
+#article-full { display: none; }
+#article-full.visible { display: block; }
+.unlock-note { display: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 8px; }
+.unlock-note.visible { display: block; }
+.cta-callout { background: var(--fg); padding: 44px 40px; }
+.cta-callout .cta-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.cta-callout h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25; color: var(--surface); max-width: 38ch; margin-bottom: 28px; }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta-btn { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.01em; padding: 11px 20px; text-decoration: none; border-radius: 0; transition: opacity 0.15s; display: inline-block; }
+.cta-btn-primary { background: var(--surface); color: var(--fg); }
+.cta-btn-secondary { background: transparent; color: var(--surface); border: 1px solid oklch(38% 0.012 70); }
+.cta-btn:hover { opacity: 0.75; }
+.site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 0; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; }
+.f-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; }
+.f-text:hover { color: var(--fg); }
+@media (max-width: 580px) {
+  .article-title { font-size: 28px; }
+  .paywall-title { font-size: 22px; }
+  .prompt-box { padding: 22px 18px 18px; }
+  .cta-callout { padding: 36px 24px; }
+  .site-footer .footer-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html">
+      <img class="avatar" src="avatar.png" alt="Giampiero">
+      <span class="logo">@giampiero.ai</span>
+    </a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <nav class="breadcrumb">
+    <a href="index.html">Guide</a>
+    <span>·</span>
+    <span>Playbook dei Prompt AI</span>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-tag">Prompt AI</span>
+    <h1 class="article-title">Il mio Playbook dei Prompt: il sistema che uso ogni giorno con Claude</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 6 min di lettura</p>
+  </header>
+
+  <div class="article-content">
+
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>Per i primi sei mesi ho usato Claude come se stessi mandando un messaggio a un amico. "Scrivimi uno script sull'AI per piccole imprese." Il risultato era confuso, generico, a volte sbagliato. Davo la colpa al modello.</p>
+        <p>Il modello stava bene. Il problema era io: saltavo ogni parte di quello che un prompt serio dovrebbe avere. La svolta è arrivata quando il team Applied AI di Anthropic ha mostrato dal vivo come costruiscono i prompt internamente — la stessa domanda, tre prompt diversi, tre risultati completamente diversi.</p>
+        <p>Da quella demo ho costruito il mio sistema. Sei leve, una struttura precisa, cinque moltiplicatori e un template che puoi copiare subito. Quello che trovi in questa guida è esattamente ciò che uso ogni giorno.</p>
+      </div>
+    </div>
+
+    <div id="article-full">
+      <h2>Le 6 leve di ogni prompt efficace</h2>
+      <p>Pensa a un prompt come a un pannello di controllo. Ogni buon prompt attiva sei leve. I principianti ne attivano una o due. Gli esperti le attivano tutte e sei.</p>
+      <ul>
+        <li><strong>Chi (il ruolo)</strong> — Dì a Claude chi è. Non "un assistente utile", ma qualcosa di specifico: "Sei il copyeditor senior della mia newsletter che odia la forma passiva."</li>
+        <li><strong>Dove (il contesto)</strong> — Descrivi il mondo in cui Claude sta lavorando: il tuo business, il tuo pubblico, a cosa serve questo output, cosa è già successo prima.</li>
+        <li><strong>Cosa (il compito)</strong> — Non "aiutami con il post LinkedIn" ma "riscrivi questo post in modo che sembri un founder che condivide una lezione, non un consulente che fa marketing."</li>
+        <li><strong>Forma (il formato)</strong> — Come appare la risposta quando arriva? Tabella, lista di 5 punti, blocco da 300 parole, un singolo tweet? Se non lo dici, Claude indovina.</li>
+        <li><strong>Evita (i guardrail)</strong> — La lista di cosa NON fare. "Niente trattini em. Niente frasi come 'nel mondo di oggi'. Non usare le parole sbloccare, sfruttare, approfondire."</li>
+        <li><strong>Standard (la qualità)</strong> — Definisci cosa significa "pronto". "Abbastanza buono da pubblicare senza riscrivere." Questa riga affina tutto il resto.</li>
+      </ul>
+
+      <h2>Come strutturare il prompt con i tag XML</h2>
+      <p>Il singolo miglioramento più efficace che puoi fare ai tuoi prompt è avvolgere ogni sezione in tag. Claude è stato addestrato a leggere testo etichettato, come un database con nomi di colonne. Quando avvolgi una sezione, Claude smette di leggere testo e inizia a leggere un contenitore etichettato.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Template base con tag XML</div>
+        <pre id="prompt-text-1">&lt;role&gt;
+Sei [PERSONA SPECIFICA CON ESPERIENZA E CARATTERISTICHE].
+&lt;/role&gt;
+&lt;context&gt;
+[IL MIO MONDO: BUSINESS, PUBBLICO, A COSA SERVE, COSA È SUCCESSO PRIMA.]
+&lt;/context&gt;
+&lt;task&gt;
+[LA RICHIESTA SPECIFICA, FORMULATA CHIARAMENTE.]
+&lt;/task&gt;
+&lt;examples&gt;
+&lt;example&gt;
+&lt;input&gt;[ESEMPIO DI INPUT]&lt;/input&gt;
+&lt;output&gt;[OUTPUT IDEALE]&lt;/output&gt;
+&lt;/example&gt;
+&lt;/examples&gt;
+&lt;guardrails&gt;
+- [COSA NON FARE + PERCHÉ]
+- [COSA NON FARE + PERCHÉ]
+&lt;/guardrails&gt;
+&lt;output_format&gt;
+[FORMA ESATTA DELLA RISPOSTA]
+&lt;/output_format&gt;
+&lt;bar&gt;
+[COSA SIGNIFICA "PRONTO" PER ME SU QUESTO COMPITO.]
+&lt;/bar&gt;
+Completa il compito.
+Dopo, rileggi e dai un voto da 1 a 10 su:
+corrispondenza con il mio stile, specificità, e se lo pubblicherei così com'è.
+Tutto sotto 8: spiega cosa è debole e correggilo.
+Mostra solo la versione finale.</pre>
+        <button class="copy-btn" id="copy-btn-1" onclick="copyPrompt('prompt-text-1','copy-btn-1','copy-label-1')">
+          <span id="copy-label-1">Copia il template</span>
+        </button>
+      </div>
+
+      <h2>5 moltiplicatori che amplificano la qualità</h2>
+      <ul>
+        <li><strong>Concatena, non stipare</strong> — Se il prompt chiede cinque cose, otterrai cinque risposte a metà. Spezza in prompt sequenziali. Ogni output sarà abbastanza profondo da usare davvero.</li>
+        <li><strong>Fai valutare a Claude il proprio lavoro</strong> — Ogni prima risposta è una bozza. Forza Claude a criticarsi e riscrivere nello stesso turno. La seconda versione è migliore più dell'80% delle volte.</li>
+        <li><strong>Dai un motivo alle regole</strong> — Regole nude vengono seguite letteralmente. Regole con motivazione vengono seguite in modo intelligente. "Niente trattini em perché sono uno dei maggiori segnali che indica testo scritto dall'AI."</li>
+        <li><strong>Forza prospettive multiple</strong> — Per decisioni con veri compromessi, chiedi a Claude di argomentare da tre angolazioni prima di rispondere. Ottieni un pensiero strategico più profondo.</li>
+        <li><strong>Lascia che Claude scriva il tuo prompt</strong> — Quando non riesci a formulare bene un prompt, smetti di provarci. Descrivi cosa vuoi e chiedi a Claude di costruire il prompt per te.</li>
+      </ul>
+
+      <h2>Il prompt di autocorrezione</h2>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Prompt — autocorrezione</div>
+        <pre id="prompt-text-2">Rileggi quello che hai scritto.
+Dagli un voto da 1 a 10 su tre cose:
+- Sembra il mio stile o sembra AI?
+- È specifico o generico?
+- Lo pubblicherei senza modifiche?
+Tutto sotto 8: spiega cosa è debole e correggilo.
+Mostra solo la versione migliorata.</pre>
+        <button class="copy-btn" id="copy-btn-2" onclick="copyPrompt('prompt-text-2','copy-btn-2','copy-label-2')">
+          <span id="copy-label-2">Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Il sistema che si accumula nel tempo</h2>
+      <p>Tengo alcuni file di testo brevi fuori da qualsiasi conversazione: <strong>voice.md</strong> con i miei tic di scrittura e vocabolario, <strong>banned-words.md</strong> con ogni parola che non voglio mai vedere, <strong>audience.md</strong> con chi legge i miei contenuti. All'inizio di ogni sessione importante, incollo il file rilevante all'inizio del prompt.</p>
+      <p>Qualsiasi prompt che produce un risultato eccellente va salvato come template. Sostituisci i dettagli specifici con parentesi, mantieni la struttura. In pochi mesi costruisci una libreria per ogni tipo di compito. Non parti mai più da zero.</p>
+      <p>Ogni venerdì, 15 minuti: guarda gli output AI della settimana. Cosa hai dovuto riscrivere prima di pubblicare? Trasforma quegli edit in nuove regole nei tuoi file. In tre mesi di pratica, il tuo prompting è a un livello completamente diverso.</p>
+
+      <h2>Il trucco segreto: inizia la risposta di Claude</h2>
+      <p>Puoi letteralmente scrivere i primi caratteri della risposta di Claude, e il modello deve continuare da lì. Nessun preambolo. Nessuna introduzione generica. Vuoi JSON? Inizia con <code>[</code>. Vuoi una risposta pulita? Inizia con <code>&lt;final_answer&gt;</code>. Un modello linguistico non può contraddire ciò che è già sulla pagina — questo trucco trasforma Claude da assistente chiacchierone a motore di output strutturato e prevedibile.</p>
+    </div>
+
+    <div class="unlock-note" id="unlock-note">
+      Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.
+    </div>
+
+  </div>
+
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi al sistema completo</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito tutti i template e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row">
+        <label class="form-label" for="nome">Nome</label>
+        <input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name">
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required>
+      </div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+
+</div>
+
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="f-text">© 2026 @giampiero.ai</span>
+      <a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var STORE = 'giampiero_ai_subscriber';
+  var gate  = document.getElementById('paywall-gate');
+  var full  = document.getElementById('article-full');
+  var mask  = document.getElementById('preview-mask');
+  var note  = document.getElementById('unlock-note');
+  var form  = document.getElementById('access-form');
+
+  function unlock() {
+    if (gate) gate.style.display = 'none';
+    if (full) full.classList.add('visible');
+    if (mask) mask.classList.add('unlocked');
+    if (note) note.classList.add('visible');
+  }
+
+  try { if (localStorage.getItem(STORE)) unlock(); } catch (_) {}
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('[name="email"]').value.trim();
+      var nome  = form.querySelector('[name="nome"]').value.trim();
+      if (!email || !email.includes('@')) { form.querySelector('[name="email"]').focus(); return; }
+      try { localStorage.setItem(STORE, JSON.stringify({ nome: nome, email: email, ts: Date.now() })); } catch (_) {}
+      fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, guida: 'Il mio Playbook dei Prompt AI', ts: new Date().toISOString() })
+      }).catch(function () {});
+      unlock();
+    });
+  }
+})();
+
+function copyPrompt(textId, btnId, labelId) {
+  var text = document.getElementById(textId).innerText;
+  var btn  = document.getElementById(btnId);
+  var lbl  = document.getElementById(labelId);
+  navigator.clipboard.writeText(text).then(function () {
+    btn.classList.add('copied');
+    lbl.textContent = 'Copiato ✓';
+    setTimeout(function () {
+      btn.classList.remove('copied');
+      lbl.textContent = 'Copia il prompt';
+    }, 2200);
+  });
+}
+</script>
+</body>
+</html>

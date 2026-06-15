@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Genera immagini 4K gratis con Banana Claude — @giampiero.ai</title>
+<meta name="description" content="Come installare Banana Claude in Claude Code per generare immagini 4K da testo. Setup, modalità e casi d'uso.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root {
+  --bg:      oklch(98% 0.004 95);
+  --surface: oklch(100% 0.002 95);
+  --fg:      oklch(20% 0.018 70);
+  --muted:   oklch(48% 0.012 70);
+  --border:  oklch(90% 0.006 95);
+  --accent:  oklch(52% 0.10 28);
+  --font-display: 'Iowan Old Style','Charter',Georgia,serif;
+  --font-body:    -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --font-mono:    ui-monospace,'SF Mono',Menlo,monospace;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+.article-wrap { max-width: 660px; margin: 0 auto; padding: 0 24px; }
+.site-header { padding: 20px 0; border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 860px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); }
+.nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+.nav-ig:hover { color: var(--fg); }
+.breadcrumb { padding: 20px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--fg); }
+.breadcrumb span { margin: 0 6px; }
+.article-header { padding: 32px 0 40px; border-bottom: 1px solid var(--border); }
+.article-tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.article-title { font-family: var(--font-display); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 18px; max-width: 22ch; text-wrap: pretty; }
+.article-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.article-content { padding: 40px 0 0; }
+.article-content p { font-size: 17px; line-height: 1.7; color: var(--fg); max-width: 65ch; margin-bottom: 20px; }
+.article-content h2 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.3; color: var(--fg); margin: 36px 0 14px; }
+.article-content ul { margin: 0 0 20px 0; padding-left: 20px; }
+.article-content ul li { font-size: 17px; line-height: 1.65; color: var(--fg); max-width: 60ch; margin-bottom: 8px; }
+.article-content ul li strong { font-weight: 550; }
+.step { display: flex; gap: 16px; align-items: baseline; margin-bottom: 12px; max-width: 60ch; }
+.step-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.step-text { font-size: 17px; line-height: 1.65; color: var(--fg); }
+.preview-wrap { position: relative; }
+.preview-mask { position: relative; overflow: hidden; }
+.preview-mask::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+.preview-mask.unlocked::after { display: none; }
+#paywall-gate { padding: 48px 0 60px; border-top: 1px solid var(--border); margin-top: 8px; }
+.paywall-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.paywall-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; color: var(--fg); margin-bottom: 10px; }
+.paywall-sub { font-size: 15px; color: var(--muted); max-width: 44ch; line-height: 1.6; margin-bottom: 28px; }
+.access-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.form-row { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.form-input { font-family: var(--font-body); font-size: 15px; color: var(--fg); background: var(--surface); border: 1px solid var(--border); border-radius: 0; padding: 10px 12px; outline: none; width: 100%; transition: border-color 0.15s; -webkit-appearance: none; }
+.form-input:focus { border-color: var(--fg); }
+.form-input::placeholder { color: var(--muted); }
+.form-submit { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.02em; color: var(--surface); background: var(--accent); border: none; padding: 11px 20px; cursor: pointer; border-radius: 0; width: 100%; margin-top: 4px; transition: opacity 0.15s; -webkit-appearance: none; }
+.form-submit:hover { opacity: 0.88; }
+.form-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted); margin-top: 4px; }
+#article-full { display: none; }
+#article-full.visible { display: block; }
+.unlock-note { display: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 8px; }
+.unlock-note.visible { display: block; }
+.cta-callout { background: var(--fg); padding: 44px 40px; }
+.cta-callout .cta-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.cta-callout h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25; color: var(--surface); max-width: 38ch; margin-bottom: 28px; }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta-btn { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.01em; padding: 11px 20px; text-decoration: none; border-radius: 0; transition: opacity 0.15s; display: inline-block; }
+.cta-btn-primary { background: var(--surface); color: var(--fg); }
+.cta-btn-secondary { background: transparent; color: var(--surface); border: 1px solid oklch(38% 0.012 70); }
+.cta-btn:hover { opacity: 0.75; }
+.site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 0; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; }
+.f-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; }
+.f-text:hover { color: var(--fg); }
+@media (max-width: 580px) {
+  .article-title { font-size: 28px; } .paywall-title { font-size: 22px; }
+  .cta-callout { padding: 36px 24px; }
+  .site-footer .footer-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html">
+      <img class="avatar" src="avatar.png" alt="Giampiero">
+      <span class="logo">@giampiero.ai</span>
+    </a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <nav class="breadcrumb">
+    <a href="index.html">Guide</a>
+    <span>·</span>
+    <span>Banana Claude Setup</span>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-tag">Generazione Immagini</span>
+    <h1 class="article-title">Genera immagini 4K gratis con Banana Claude</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 3 min di lettura</p>
+  </header>
+
+  <div class="article-content">
+
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>Banana Claude è una skill gratuita per Claude Code che gestisce la generazione di immagini al posto tuo. Descrivi quello che vuoi in italiano semplice e Claude fa il resto: sceglie lo stile giusto, scrive un prompt con luci e composizione già ottimizzate, e lo invia a Google Gemini per generare l'immagine. Risultato in circa 30 secondi, in 4K.</p>
+        <p>Il vantaggio rispetto agli altri generatori è che Claude analizza prima cosa ti serve davvero, sceglie la modalità di dominio giusta (fotografia prodotto, ritratto, paesaggio, UI, logo...) e scrive il prompt tecnico per te. Non devi fare prompt engineering — descrivi e basta.</p>
+        <p>In questa guida trovi il setup completo in 2 passi, come usare i comandi /banana generate e /banana edit, le 9 modalità di dominio disponibili e i migliori casi d'uso per chi lavora in marketing, ecommerce e content creation.</p>
+      </div>
+    </div>
+
+    <div id="article-full">
+      <h2>Setup: installa Banana Claude</h2>
+      <div class="step"><span class="step-num">01</span><span class="step-text"><strong>Installa la skill</strong> — Apri Claude Code ed esegui il comando di installazione dalla pagina GitHub di Banana Claude. Un solo comando, nessuna configurazione aggiuntiva. Claude Code scarica la skill e la aggiunge come slash command.</span></div>
+      <div class="step"><span class="step-num">02</span><span class="step-text"><strong>Configura l'accesso a Gemini</strong> — Banana Claude usa Google Gemini per generare le immagini. Se hai già il Gemini CLI installato e autenticato, sei a posto. Se no, installalo e accedi con il tuo account Google. È gratuito.</span></div>
+
+      <h2>Come si usa</h2>
+      <p>Hai due comandi a disposizione:</p>
+      <ul>
+        <li><strong>/banana generate</strong> — crea nuove immagini da una descrizione testuale.</li>
+        <li><strong>/banana edit</strong> — modifica immagini esistenti mantenendo lo stile coerente.</li>
+      </ul>
+
+      <p>Esempio per generare: scrivi <code>/banana generate</code> e descrivi quello che vuoi — ad esempio "foto prodotto di auricolari wireless su una superficie in marmo con illuminazione soft da studio". Claude capisce che è fotografia di prodotto, scrive il prompt tecnico con soggetto, composizione, luci e stile, e genera l'immagine tramite Gemini.</p>
+
+      <p>Per modificare: usa <code>/banana edit</code> e descrivi il cambiamento — "rendi lo sfondo più scuro" oppure "passa a un tono dorato al tramonto". Claude mantiene la coerenza stilistica tra le varie versioni, utile per tenere un brand consistente tra post, materiali marketing e schede prodotto.</p>
+
+      <h2>Le 9 modalità di dominio</h2>
+      <p>Claude sceglie automaticamente la modalità giusta in base alla tua descrizione. Ogni modalità è ottimizzata per un tipo specifico di immagine:</p>
+      <ul>
+        <li><strong>Cinema</strong> — luci drammatiche, composizione da film</li>
+        <li><strong>Product</strong> — fotografia da studio pulita e professionale</li>
+        <li><strong>Portrait</strong> — ritratti con luce lusinghiera</li>
+        <li><strong>Editorial</strong> — contenuti lifestyle in stile magazine</li>
+        <li><strong>UI</strong> — interfacce app, dashboard, mockup</li>
+        <li><strong>Logo</strong> — marchi, icone, design in stile vettoriale</li>
+        <li><strong>Landscape</strong> — paesaggi, architettura, ambienti</li>
+        <li><strong>Infographic</strong> — visualizzazioni dati, diagrammi</li>
+        <li><strong>Abstract</strong> — arte, concettuale, texture</li>
+      </ul>
+
+      <h2>I migliori casi d'uso</h2>
+      <ul>
+        <li><strong>Fotografia prodotto</strong> per schede ecommerce e inserzioni pubblicitarie</li>
+        <li><strong>Header per articoli e immagini in evidenza</strong> che mantengono lo stile brand</li>
+        <li><strong>Icone app e mockup UI</strong> per presentazioni e pitch</li>
+        <li><strong>Contenuti social</strong> — post Instagram, banner LinkedIn, thumbnail YouTube</li>
+        <li><strong>Materiali marketing</strong> — volantini, presentazioni, deck per clienti</li>
+        <li><strong>Libreria di asset brand</strong> con look coerente su tutto il materiale</li>
+      </ul>
+    </div>
+
+    <div class="unlock-note" id="unlock-note">
+      Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.
+    </div>
+
+  </div>
+
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi al setup e ai casi d'uso completi</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row">
+        <label class="form-label" for="nome">Nome</label>
+        <input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name">
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required>
+      </div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+
+</div>
+
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="f-text">© 2026 @giampiero.ai</span>
+      <a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var STORE = 'giampiero_ai_subscriber';
+  var gate = document.getElementById('paywall-gate');
+  var full = document.getElementById('article-full');
+  var mask = document.getElementById('preview-mask');
+  var note = document.getElementById('unlock-note');
+  var form = document.getElementById('access-form');
+  function unlock() {
+    if (gate) gate.style.display = 'none';
+    if (full) full.classList.add('visible');
+    if (mask) mask.classList.add('unlocked');
+    if (note) note.classList.add('visible');
+  }
+  try { if (localStorage.getItem(STORE)) unlock(); } catch (_) {}
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('[name="email"]').value.trim();
+      var nome = form.querySelector('[name="nome"]').value.trim();
+      if (!email || !email.includes('@')) { form.querySelector('[name="email"]').focus(); return; }
+      try { localStorage.setItem(STORE, JSON.stringify({ nome: nome, email: email, ts: Date.now() })); } catch (_) {}
+      fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, guida: 'Banana Claude Setup', ts: new Date().toISOString() })
+      }).catch(function () {});
+      unlock();
+    });
+  }
+})();
+</script>
+</body>
+</html>

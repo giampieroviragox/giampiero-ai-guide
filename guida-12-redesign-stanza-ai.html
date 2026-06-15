@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ridisegna qualsiasi stanza con AI in 30 secondi — @giampiero.ai</title>
+<meta name="description" content="Come usare Claude Code e Nano Banana per ridisegnare una stanza in 30 secondi. Prompt, stili e workflow completo.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root {
+  --bg:      oklch(98% 0.004 95);
+  --surface: oklch(100% 0.002 95);
+  --fg:      oklch(20% 0.018 70);
+  --muted:   oklch(48% 0.012 70);
+  --border:  oklch(90% 0.006 95);
+  --accent:  oklch(52% 0.10 28);
+  --font-display: 'Iowan Old Style','Charter',Georgia,serif;
+  --font-body:    -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --font-mono:    ui-monospace,'SF Mono',Menlo,monospace;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body);
+  font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+.article-wrap { max-width: 660px; margin: 0 auto; padding: 0 24px; }
+.site-header { padding: 20px 0; border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 860px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); text-decoration: none; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block; flex-shrink: 0; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-ig { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+.nav-ig:hover { color: var(--fg); }
+.breadcrumb { padding: 20px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--fg); }
+.breadcrumb span { margin: 0 6px; }
+.article-header { padding: 32px 0 40px; border-bottom: 1px solid var(--border); }
+.article-tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.article-title { font-family: var(--font-display); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 18px; max-width: 22ch; text-wrap: pretty; }
+.article-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+.article-content { padding: 40px 0 0; }
+.article-content p { font-size: 17px; line-height: 1.7; color: var(--fg); max-width: 65ch; margin-bottom: 20px; }
+.article-content h2 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.3; color: var(--fg); margin: 36px 0 14px; }
+.article-content ul { margin: 0 0 20px 0; padding-left: 20px; }
+.article-content ul li { font-size: 17px; line-height: 1.65; color: var(--fg); max-width: 60ch; margin-bottom: 8px; }
+.article-content ul li strong { font-weight: 550; }
+.step { display: flex; gap: 16px; align-items: baseline; margin-bottom: 12px; max-width: 60ch; }
+.step-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.step-text { font-size: 17px; line-height: 1.65; color: var(--fg); }
+
+/* ---- prompt box ---- */
+.prompt-box {
+  position: relative;
+  background: var(--fg);
+  padding: 28px 28px 24px;
+  margin: 28px 0 24px;
+  max-width: 65ch;
+}
+.prompt-box .prompt-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: oklch(60% 0.008 70);
+  margin-bottom: 14px;
+}
+.prompt-box pre {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  color: oklch(92% 0.004 95);
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid oklch(38% 0.012 70);
+  color: oklch(75% 0.006 70);
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.copy-btn:hover { border-color: oklch(65% 0.008 70); color: oklch(90% 0.004 95); }
+.copy-btn.copied { color: oklch(75% 0.12 145); border-color: oklch(55% 0.10 145); }
+
+/* ---- preview / mask ---- */
+.preview-wrap { position: relative; }
+.preview-mask { position: relative; overflow: hidden; }
+.preview-mask::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+.preview-mask.unlocked::after { display: none; }
+
+/* ---- paywall ---- */
+#paywall-gate { padding: 48px 0 60px; border-top: 1px solid var(--border); margin-top: 8px; }
+.paywall-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.paywall-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; color: var(--fg); margin-bottom: 10px; }
+.paywall-sub { font-size: 15px; color: var(--muted); max-width: 44ch; line-height: 1.6; margin-bottom: 28px; }
+.access-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.form-row { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.form-input { font-family: var(--font-body); font-size: 15px; color: var(--fg); background: var(--surface); border: 1px solid var(--border); border-radius: 0; padding: 10px 12px; outline: none; width: 100%; transition: border-color 0.15s; -webkit-appearance: none; }
+.form-input:focus { border-color: var(--fg); }
+.form-input::placeholder { color: var(--muted); }
+.form-submit { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.02em; color: var(--surface); background: var(--accent); border: none; padding: 11px 20px; cursor: pointer; border-radius: 0; width: 100%; margin-top: 4px; transition: opacity 0.15s; -webkit-appearance: none; }
+.form-submit:hover { opacity: 0.88; }
+.form-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted); margin-top: 4px; }
+#article-full { display: none; }
+#article-full.visible { display: block; }
+.unlock-note { display: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 8px; }
+.unlock-note.visible { display: block; }
+
+/* ---- cta callout ---- */
+.cta-callout { background: var(--fg); padding: 44px 40px; }
+.cta-callout .cta-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(60% 0.008 70); margin-bottom: 14px; }
+.cta-callout h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25; color: var(--surface); max-width: 38ch; margin-bottom: 28px; }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta-btn { font-family: var(--font-body); font-size: 14px; font-weight: 550; letter-spacing: 0.01em; padding: 11px 20px; text-decoration: none; border-radius: 0; transition: opacity 0.15s; display: inline-block; }
+.cta-btn-primary { background: var(--surface); color: var(--fg); }
+.cta-btn-secondary { background: transparent; color: var(--surface); border: 1px solid oklch(38% 0.012 70); }
+.cta-btn:hover { opacity: 0.75; }
+
+/* ---- footer ---- */
+.site-footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 0; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; }
+.f-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; }
+.f-text:hover { color: var(--fg); }
+
+@media (max-width: 580px) {
+  .article-title { font-size: 28px; }
+  .paywall-title { font-size: 22px; }
+  .prompt-box { padding: 22px 18px 18px; }
+  .cta-callout { padding: 36px 24px; }
+  .site-footer .footer-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html">
+      <img class="avatar" src="avatar.png" alt="Giampiero">
+      <span class="logo">@giampiero.ai</span>
+    </a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <nav class="breadcrumb">
+    <a href="index.html">Guide</a>
+    <span>·</span>
+    <span>Redesign Stanza con AI</span>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-tag">Design AI</span>
+    <h1 class="article-title">Ridisegna qualsiasi stanza con AI in 30 secondi</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 4 min di lettura</p>
+  </header>
+
+  <div class="article-content">
+
+    <!-- Preview visibile a tutti -->
+    <div class="preview-wrap">
+      <div class="preview-mask" id="preview-mask">
+        <p>Hai mai immaginato come sarebbe il tuo salotto con uno stile diverso, ma non hai voglia di chiamare un interior designer o passare ore su Pinterest? Con Claude Code e Nano Banana puoi ottenere una proposta visiva professionale in meno di 30 secondi — partendo da una semplice foto fatta col telefono.</p>
+        <p>Il workflow è semplice: scatti una foto della stanza, la carichi in Claude Code e descrivi cosa vuoi cambiare. Claude elabora il redesign e ti restituisce concept visivi completi con layout, colori e arredo diversi. Puoi anche chiedere di mantenere elementi specifici — come il divano o la libreria — e Claude li integra nel nuovo design.</p>
+        <p>In questa guida trovi il processo passo per passo, i 5 prompt esatti che uso per diversi stili di redesign, e i consigli pratici per ottenere risultati che sembrano usciti da uno studio di architettura.</p>
+      </div>
+    </div>
+
+    <!-- Contenuto completo -->
+    <div id="article-full">
+      <h2>Cosa ti serve</h2>
+      <ul>
+        <li><strong>Claude Code</strong> — l'agente AI di Anthropic. Installalo da claude.ai/code oppure con il comando: <code>npm install -g @anthropic-ai/claude-code</code></li>
+        <li><strong>Una API key di Google AI Studio</strong> — gratuita, serve per collegare Claude a Nano Banana, il modello che genera le immagini.</li>
+        <li><strong>La skill Nano Banana da GitHub</strong> — insegna a Claude come scrivere prompt professionali per la generazione di immagini.</li>
+        <li><strong>Una foto della stanza</strong> — anche dal telefono va bene. L'importante è che si veda bene lo spazio, la luce e i mobili.</li>
+      </ul>
+
+      <h2>Verifica rapida</h2>
+      <p>Hai già tutto installato? Scrivi <strong>/banana</strong> in una conversazione di Claude Code. Se risponde, sei pronto a partire.</p>
+
+      <h2>Il workflow di redesign</h2>
+      <div class="step"><span class="step-num">01</span><span class="step-text">Scatta una foto della stanza che vuoi ridisegnare. Il telefono va benissimo. Cerca di inquadrare tutto lo spazio in modo che si veda il layout, i mobili e la luce.</span></div>
+      <div class="step"><span class="step-num">02</span><span class="step-text">Apri Claude Code e trascina la foto direttamente nella conversazione.</span></div>
+      <div class="step"><span class="step-num">03</span><span class="step-text">Descrivi cosa vuoi: stile, atmosfera, cosa ti piace e cosa non ti piace della stanza attuale. Più sei specifico, meglio è il risultato.</span></div>
+      <div class="step"><span class="step-num">04</span><span class="step-text">In circa 30 secondi ricevi proposte di redesign complete: layout diversi, palette colori, idee per i mobili.</span></div>
+      <div class="step"><span class="step-num">05</span><span class="step-text">Puoi iterare: chiedi di aggiungere elementi specifici come una scrivania standing, una rastrelliera per la bici, una libreria — Claude le integra nel progetto.</span></div>
+
+      <h2>I 5 prompt per diversi stili</h2>
+      <p>Questi sono i prompt esatti da copiare e adattare con i tuoi dettagli.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Prompt 1 — Minimalismo moderno</div>
+        <pre id="prompt-text-1">Ecco una foto del mio salotto. Voglio ridisegnarlo in stile minimalista moderno. Linee pulite, toni neutri con un colore d'accento, pochi mobili essenziali. Budget massimo 3.000 euro. Tieni il divano — cambia tutto il resto. Genera 3 concept diversi.</pre>
+        <button class="copy-btn" onclick="copyPrompt('prompt-text-1', this)">
+          <span>Copia il prompt</span>
+        </button>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Prompt 2 — Stile Farmhouse accogliente</div>
+        <pre id="prompt-text-2">Ridisegna questa camera da letto in stile farmhouse accogliente. Legno caldo, tessuti morbidi, luci stratificate. Voglio che sembri un Airbnb di lusso. Budget flessibile. Mostrami opzioni con e senza sostituzione della testiera del letto.</pre>
+        <button class="copy-btn" onclick="copyPrompt('prompt-text-2', this)">
+          <span>Copia il prompt</span>
+        </button>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Prompt 3 — Ufficio in stile Mid-Century</div>
+        <pre id="prompt-text-3">Trasforma questo home office in uno spazio di lavoro Mid-Century Modern. Pensa a legno di noce, forme geometriche pulite, una lampada da scrivania di carattere. Ho bisogno di buona luce per lavorare 8+ ore. Genera concept che sfruttino la luce naturale dalla finestra.</pre>
+        <button class="copy-btn" onclick="copyPrompt('prompt-text-3', this)">
+          <span>Copia il prompt</span>
+        </button>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Prompt 4 — Cucina scandinava</div>
+        <pre id="prompt-text-4">Ridisegna questa cucina/zona pranzo in stile scandinavo. Legno chiaro, pareti bianche, funzionalità minimal. Voglio massimizzare lo spazio contenitore senza ingombrare. Mostrami opzioni con mensole aperte vs pensili chiusi.</pre>
+        <button class="copy-btn" onclick="copyPrompt('prompt-text-4', this)">
+          <span>Copia il prompt</span>
+        </button>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Prompt 5 — Studio industriale</div>
+        <pre id="prompt-text-5">Dai a questo monolocale un'atmosfera da loft industriale. Materiali a vista, accenti in metallo, lampadine Edison, pelle. Voglio zone distinte per dormire, lavorare e rilassarsi senza pareti. Genera un layout che faccia sembrare 50mq più grande.</pre>
+        <button class="copy-btn" onclick="copyPrompt('prompt-text-5', this)">
+          <span>Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Come ottenere risultati migliori</h2>
+      <ul>
+        <li><strong>Descrivi la sensazione, non solo lo stile</strong> — non dire solo "moderno", spiega cosa ti piace e non ti piace della stanza attuale.</li>
+        <li><strong>Specifica cosa vuoi tenere</strong> — Claude disegnerà intorno agli elementi esistenti invece di cambiare tutto.</li>
+        <li><strong>Chiedi più concept</strong> — "mostrami 3 approcci diversi" ti dà opzioni da combinare.</li>
+        <li><strong>Cita riferimenti concreti</strong> — "qualcosa come il catalogo West Elm" o "stile hotel boutique romano" danno a Claude un target preciso.</li>
+        <li><strong>Aggiungi elementi specifici</strong> — rastrelliera per la bici, scrivania standing, libreria su misura: dillo esplicitamente e Claude li integra nel progetto.</li>
+      </ul>
+
+      <h2>Mossa avanzata</h2>
+      <p>Dopo aver trovato un redesign che ti piace, chiedi a Claude di creare una lista della spesa con prezzi stimati e alternative a diverse fasce di prezzo. Scomporrà ogni mobile e accessorio con opzioni budget, mid-range e premium.</p>
+
+      <h2>Oltre la singola stanza</h2>
+      <ul>
+        <li><strong>Ridisegna casa intera</strong> — carica le foto di tutte le stanze e chiedi un linguaggio di design coerente per tutta l'abitazione.</li>
+        <li><strong>Preparazione per la vendita</strong> — staging neutro e accogliente che massimizzi il valore percepito dall'acquirente.</li>
+        <li><strong>Visualizza una ristrutturazione</strong> — mostra a Claude la situazione attuale e descrivi i cambiamenti strutturali che stai considerando, per vederne il risultato prima di decidere.</li>
+        <li><strong>Design da zero</strong> — ti trasferisci in uno spazio vuoto? Dai a Claude le dimensioni e le foto dello spazio vuoto e lascia che progetti partendo da zero.</li>
+      </ul>
+    </div>
+
+    <div class="unlock-note" id="unlock-note">
+      Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.
+    </div>
+
+  </div>
+
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi ai 5 prompt completi</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito i prompt e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row">
+        <label class="form-label" for="nome">Nome</label>
+        <input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name">
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required>
+      </div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+
+</div>
+
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="f-text">© 2026 @giampiero.ai</span>
+      <a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var STORE = 'giampiero_ai_subscriber';
+  var gate  = document.getElementById('paywall-gate');
+  var full  = document.getElementById('article-full');
+  var mask  = document.getElementById('preview-mask');
+  var note  = document.getElementById('unlock-note');
+  var form  = document.getElementById('access-form');
+
+  function unlock() {
+    if (gate) gate.style.display = 'none';
+    if (full) full.classList.add('visible');
+    if (mask) mask.classList.add('unlocked');
+    if (note) note.classList.add('visible');
+  }
+
+  try { if (localStorage.getItem(STORE)) unlock(); } catch (_) {}
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('[name="email"]').value.trim();
+      var nome  = form.querySelector('[name="nome"]').value.trim();
+      if (!email || !email.includes('@')) { form.querySelector('[name="email"]').focus(); return; }
+      try { localStorage.setItem(STORE, JSON.stringify({ nome: nome, email: email, ts: Date.now() })); } catch (_) {}
+      fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, guida: 'Redesign Stanza con AI', ts: new Date().toISOString() })
+      }).catch(function () {});
+      unlock();
+    });
+  }
+})();
+
+function copyPrompt(id, btn) {
+  var text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(function () {
+    var lbl = btn.querySelector('span');
+    btn.classList.add('copied');
+    lbl.textContent = 'Copiato ✓';
+    setTimeout(function () {
+      btn.classList.remove('copied');
+      lbl.textContent = 'Copia il prompt';
+    }, 2200);
+  });
+}
+</script>
+</body>
+</html>
