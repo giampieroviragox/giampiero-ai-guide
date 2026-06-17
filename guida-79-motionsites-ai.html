@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Creare Siti Animati con MotionSites e AI — @giampiero.ai</title>
+<meta name="description" content="Il workflow passo passo per usare MotionSites.ai come ispirazione, copiare un prompt di design e far costruire un sito animato a Claude Code, Codex o Cursor.">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{--bg:oklch(98% 0.004 95);--surface:oklch(100% 0.002 95);--fg:oklch(20% 0.018 70);--muted:oklch(48% 0.012 70);--border:oklch(90% 0.006 95);--accent:oklch(52% 0.10 28);--font-display:'Iowan Old Style','Charter',Georgia,serif;--font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;--font-mono:ui-monospace,'SF Mono',Menlo,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+.article-wrap{max-width:660px;margin:0 auto;padding:0 24px}
+.site-header{padding:20px 0;border-bottom:1px solid var(--border)}
+.header-inner{max-width:860px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:0.02em;color:var(--fg);text-decoration:none}
+.avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;display:block;flex-shrink:0}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-ig{font-family:var(--font-mono);font-size:11px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.15s}
+.nav-ig:hover{color:var(--fg)}
+.breadcrumb{padding:20px 0 0;font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--fg)}.breadcrumb span{margin:0 6px}
+.article-header{padding:32px 0 40px;border-bottom:1px solid var(--border)}
+.article-tag{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.article-title{font-family:var(--font-display);font-size:clamp(30px,4vw,44px);font-weight:400;line-height:1.15;letter-spacing:-0.02em;color:var(--fg);margin-bottom:18px;max-width:22ch;text-wrap:pretty}
+.article-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted)}
+.article-content{padding:40px 0 0}
+.article-content p{font-size:17px;line-height:1.7;color:var(--fg);max-width:65ch;margin-bottom:20px}
+.article-content h2{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;color:var(--fg);margin:36px 0 14px}
+.article-content ul{margin:0 0 20px 0;padding-left:20px}
+.article-content ul li{font-size:17px;line-height:1.65;color:var(--fg);max-width:60ch;margin-bottom:8px}
+.article-content ul li strong{font-weight:550}
+.step{display:flex;gap:16px;align-items:baseline;margin-bottom:12px;max-width:60ch}
+.step-num{font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--accent);flex-shrink:0;margin-top:2px}
+.step-text{font-size:17px;line-height:1.65;color:var(--fg)}
+.prompt-box{background:var(--fg);padding:28px 28px 24px;margin:28px 0 24px;max-width:65ch}
+.prompt-box .prompt-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.prompt-box pre{font-family:var(--font-mono);font-size:13px;line-height:1.7;color:oklch(92% 0.004 95);white-space:pre-wrap;word-break:break-word;margin:0}
+.copy-btn{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;background:transparent;border:1px solid oklch(38% 0.012 70);color:oklch(75% 0.006 70);padding:8px 14px;cursor:pointer;transition:border-color 0.15s,color 0.15s}
+.copy-btn:hover{border-color:oklch(65% 0.008 70);color:oklch(90% 0.004 95)}
+.copy-btn.copied{color:oklch(75% 0.12 145);border-color:oklch(55% 0.10 145)}
+.callout{border-left:2px solid var(--accent);padding:4px 0 4px 18px;margin:28px 0;color:var(--fg)}
+.preview-wrap{position:relative}.preview-mask{position:relative;overflow:hidden}
+.preview-mask::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
+.preview-mask.unlocked::after{display:none}
+#paywall-gate{padding:48px 0 60px;border-top:1px solid var(--border);margin-top:8px}
+.paywall-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.paywall-title{font-family:var(--font-display);font-size:26px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;color:var(--fg);margin-bottom:10px}
+.paywall-sub{font-size:15px;color:var(--muted);max-width:44ch;line-height:1.6;margin-bottom:28px}
+.access-form{display:flex;flex-direction:column;gap:10px;max-width:360px}
+.form-row{display:flex;flex-direction:column;gap:5px}
+.form-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted)}
+.form-input{font-family:var(--font-body);font-size:15px;color:var(--fg);background:var(--surface);border:1px solid var(--border);border-radius:0;padding:10px 12px;outline:none;width:100%;transition:border-color 0.15s;-webkit-appearance:none}
+.form-input:focus{border-color:var(--fg)}.form-input::placeholder{color:var(--muted)}
+.form-submit{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.02em;color:var(--surface);background:var(--accent);border:none;padding:11px 20px;cursor:pointer;border-radius:0;width:100%;margin-top:4px;transition:opacity 0.15s;-webkit-appearance:none}
+.form-submit:hover{opacity:0.88}
+.form-note{font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;color:var(--muted);margin-top:4px}
+#article-full{display:none}#article-full.visible{display:block}
+.unlock-note{display:none;font-family:var(--font-mono);font-size:11px;letter-spacing:0.05em;color:var(--muted);padding:20px 0 0;border-top:1px solid var(--border);margin-top:8px}
+.unlock-note.visible{display:block}
+.quick-links{display:flex;flex-wrap:wrap;gap:10px;margin:30px 0 0}
+.quick-link{display:inline-block;font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.01em;color:var(--surface);background:var(--accent);padding:10px 16px;text-decoration:none}
+.quick-link.secondary{color:var(--fg);background:transparent;border:1px solid var(--border)}
+.cta-callout{background:var(--fg);padding:44px 40px}
+.cta-callout .cta-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(60% 0.008 70);margin-bottom:14px}
+.cta-callout h3{font-family:var(--font-display);font-size:24px;font-weight:400;letter-spacing:-0.01em;line-height:1.25;color:var(--surface);max-width:38ch;margin-bottom:28px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.cta-btn{font-family:var(--font-body);font-size:14px;font-weight:550;letter-spacing:0.01em;padding:11px 20px;text-decoration:none;border-radius:0;transition:opacity 0.15s;display:inline-block}
+.cta-btn-primary{background:var(--surface);color:var(--fg)}.cta-btn-secondary{background:transparent;color:var(--surface);border:1px solid oklch(38% 0.012 70)}
+.cta-btn:hover{opacity:0.75}
+.site-footer{border-top:1px solid var(--border);padding:32px 0}
+.footer-inner{display:flex;align-items:center;justify-content:space-between}
+.f-text{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--muted);text-decoration:none}.f-text:hover{color:var(--fg)}
+@media(max-width:580px){.article-title{font-size:28px}.paywall-title{font-size:22px}.prompt-box{padding:22px 18px 18px}.cta-callout{padding:36px 24px}.site-footer .footer-inner{flex-direction:column;gap:8px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html"><img class="avatar" src="avatar.png" alt="Giampiero"><span class="logo">@giampiero.ai</span></a>
+    <a class="nav-ig" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</header>
+<div class="article-wrap">
+  <nav class="breadcrumb"><a href="index.html">Guide</a><span>·</span><a href="index.html?serie=ai-tools">AI Tools</a><span>·</span><span>MotionSites AI</span></nav>
+  <header class="article-header">
+    <span class="article-tag">AI Tools</span>
+    <h1 class="article-title">Crea un sito animato con MotionSites e AI, praticamente gratis</h1>
+    <p class="article-meta">Giampiero · Giugno 2026 · 5 min di lettura</p>
+  </header>
+  <div class="article-content">
+    <div class="preview-wrap"><div class="preview-mask" id="preview-mask">
+      <p>Un sito con animazioni fluide, transizioni curate e design da studio creativo una volta richiedeva settimane di lavoro e un budget importante. Oggi puoi arrivare a una base moderna e responsive in molto meno tempo usando MotionSites e un assistente AI per programmare.</p>
+      <p>Il workflow è semplice: vai su <strong>MotionSites.ai</strong>, scegli lo stile o l'hero section che ti piace, clicchi su "Copy prompt" e incolli quel prompt in Claude Code, Codex, Lovable, Cursor o qualsiasi altro tool di vibe coding.</p>
+      <p>Quel prompt contiene già indicazioni tecniche molto precise, spesso anche codice e struttura dell'animazione. Se chiedi di mantenere massima fedeltà e poi avvii il progetto, l'AI può riprodurre una base molto vicina al riferimento.</p>
+    </div></div>
+    <div id="article-full">
+      <h2>Cosa ti serve</h2>
+      <ul>
+        <li><strong>MotionSites.ai</strong> per scegliere stili, hero section e animazioni già pronte da trasformare in prompt.</li>
+        <li><strong>VS Code</strong> o un editor simile per aprire il progetto.</li>
+        <li><strong>Claude Code, Codex, Lovable, Cursor o Windsurf</strong> per generare, avviare e modificare il sito.</li>
+        <li><strong>Un'idea chiara del sito</strong>: landing page, portfolio, pagina prodotto, agenzia, SaaS, evento o personal brand.</li>
+      </ul>
+
+      <h2>Il processo in 6 passi</h2>
+      <div class="step"><span class="step-num">01 —</span><span class="step-text"><strong>Apri MotionSites.ai.</strong> Entra nella libreria e scorri gli esempi finché trovi uno stile, una hero o un'animazione che potrebbe funzionare come base per il tuo sito.</span></div>
+      <div class="step"><span class="step-num">02 —</span><span class="step-text"><strong>Scegli il riferimento giusto.</strong> Non guardare solo i colori. Valuta struttura, movimento, spaziatura, ritmo dello scroll, responsive e qualità della prima impressione.</span></div>
+      <div class="step"><span class="step-num">03 —</span><span class="step-text"><strong>Clicca "Copy prompt".</strong> MotionSites ti dà un prompt già pronto con istruzioni tecniche, codice, struttura e dettagli dell'animazione.</span></div>
+      <div class="step"><span class="step-num">04 —</span><span class="step-text"><strong>Apri il progetto nel tuo editor.</strong> Puoi partire da una cartella vuota oppure da un progetto React, Next.js, Vite o HTML già esistente.</span></div>
+      <div class="step"><span class="step-num">05 —</span><span class="step-text"><strong>Incolla il prompt nell'assistente AI.</strong> Chiedi una riproduzione ad alta fedeltà della struttura, dell'hero e delle animazioni, poi avvia il sito per vedere il risultato.</span></div>
+      <div class="step"><span class="step-num">06 —</span><span class="step-text"><strong>Rendilo tuo.</strong> Usa quella riproduzione come base, poi modifica testi, colori, sezioni, immagini e dettagli uno alla volta finché non diventa un sito originale.</span></div>
+
+      <h2>Il prompt iniziale da usare</h2>
+      <p>Dopo aver copiato il prompt da MotionSites, incollalo dentro questo template. L'obiettivo della prima richiesta è ottenere una base fedele e funzionante. La personalizzazione arriva subito dopo.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt — crea il sito dal riferimento</p>
+        <pre id="prompt-text-1">Voglio creare un sito web ispirato a questo riferimento di MotionSites.
+
+Obiettivo del sito:
+[DESCRIVI IL TUO SITO: es. landing page per consulente AI, portfolio, SaaS, agenzia, prodotto digitale]
+
+Pubblico:
+[CHI DEVE USARLO O CONVERTIRE]
+
+Contenuti da includere:
+[SEZIONI PRINCIPALI: hero, servizi, proof, processo, pricing, FAQ, CTA]
+
+Prompt copiato da MotionSites:
+[INCOLLA QUI IL PROMPT COPIATO]
+
+Istruzioni:
+- riproduci con la massima fedeltà possibile struttura, layout, animazioni, ritmo, responsive e comportamento dell'hero
+- non copiare loghi, testi, immagini, nomi o identità proprietarie del riferimento
+- mantieni lo stesso livello di qualità visiva e cura delle animazioni
+- usa tecnologie semplici e facili da modificare
+- rendilo responsive su desktop e mobile
+- aggiungi contenuti placeholder realistici se non ti do testi completi
+- dopo aver generato il sito, spiegami come avviarlo, quali file modificare e come personalizzarlo elemento per elemento</pre>
+        <button class="copy-btn" id="copy-btn-1" onclick="copyPromptById('prompt-text-1','copy-btn-1','copy-label-1','Copia il prompt')">
+          <span id="copy-label-1">Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Il consiglio vero</h2>
+      <p>Non usare questo workflow per clonare un sito e pubblicarlo identico. Usalo per saltare la parte più lenta: partire da una pagina vuota.</p>
+      <p>MotionSites ti dà una base già moderna, responsive e animata. L'AI la ricostruisce. Poi tu la trasformi: cambi la promessa dell'hero, sostituisci colori e font, riscrivi le sezioni, aggiungi i tuoi proof, modifichi le animazioni e togli tutto ciò che sembra troppo vicino al riferimento.</p>
+      <p>Il risultato migliore nasce così: prima fedeltà alta per ottenere una base solida, poi personalizzazione progressiva per renderla tua.</p>
+
+      <h2>Prompt di rifinitura</h2>
+      <p>La prima versione serve per arrivare all'80%. Poi devi comportarti come un direttore creativo: osservi, correggi, migliori. Usa questi prompt uno alla volta.</p>
+
+      <div class="prompt-box">
+        <p class="prompt-label">Prompt — migliora il risultato</p>
+        <pre id="prompt-text-2">Rivedi il sito come un senior product designer.
+
+Migliora:
+- gerarchia visiva della hero
+- spaziatura tra sezioni
+- leggibilità su mobile
+- qualità delle animazioni
+- stati hover e micro-interazioni
+- coerenza tipografica
+- CTA finale
+- differenziazione dal riferimento originale
+
+Mantieni la qualità del riferimento, ma rendi il sito più originale, pulito, premium e credibile per il mio brand.</pre>
+        <button class="copy-btn" id="copy-btn-2" onclick="copyPromptById('prompt-text-2','copy-btn-2','copy-label-2','Copia il prompt')">
+          <span id="copy-label-2">Copia il prompt</span>
+        </button>
+      </div>
+
+      <h2>Come evitare un risultato generico</h2>
+      <ul>
+        <li><strong>Dai un contesto reale.</strong> "Sito per agenzia AI che vende automazioni a studi dentistici" funziona meglio di "sito moderno per agenzia".</li>
+        <li><strong>Specifica il tono.</strong> Premium, editoriale, tecnico, minimal, energico, istituzionale: l'AI deve sapere che sensazione deve creare.</li>
+        <li><strong>Chiedi contenuti realistici.</strong> Se lasci tutto vuoto, il sito sembrerà un template. Dai almeno offerta, pubblico e CTA.</li>
+        <li><strong>Controlla il mobile.</strong> Le animazioni belle su desktop possono diventare pesanti o confuse su telefono.</li>
+        <li><strong>Fai iterazioni piccole.</strong> Una modifica alla volta: prima hero, poi copy, poi colori, poi sezioni, poi animazioni.</li>
+      </ul>
+
+      <div class="callout">
+        <p><strong>Nota importante:</strong> usa MotionSites come ispirazione e brief tecnico. Non copiare loghi, testi, immagini o identità di un altro brand. L'obiettivo è replicare la qualità del design, non clonare un sito altrui.</p>
+      </div>
+
+      <h2>Checklist finale prima di pubblicare</h2>
+      <ul>
+        <li>La pagina si legge bene da mobile senza testi sovrapposti.</li>
+        <li>Le animazioni non rallentano il caricamento.</li>
+        <li>I bottoni portano a link reali: contatto, Calendly, checkout o form.</li>
+        <li>Titolo e meta description sono personalizzati.</li>
+        <li>Le immagini sono leggere e coerenti con il brand.</li>
+        <li>Il sito è stato provato su almeno due dimensioni di schermo.</li>
+      </ul>
+
+      <h2>Stack consigliato</h2>
+      <p>Se parti da zero, scegli uno stack semplice: Vite + React per un sito interattivo, oppure HTML/CSS/JavaScript se vuoi solo una landing statica. Per pubblicare, puoi usare Vercel, Netlify, GitHub Pages o Cloudflare Pages.</p>
+
+      <p>Il punto non è diventare sviluppatore in una notte. Il punto è imparare a dirigere l'AI: darle un riferimento buono, un brief chiaro e feedback precisi finché il risultato sembra davvero un sito professionale.</p>
+
+      <div class="quick-links">
+        <a class="quick-link" href="https://motionsites.ai/" target="_blank" rel="noopener">Apri MotionSites →</a>
+        <a class="quick-link secondary" href="index.html?serie=ai-tools">Tutti gli AI Tools</a>
+      </div>
+    </div>
+    <div class="unlock-note" id="unlock-note">Hai accesso a tutte le guide. Trovi le prossime risorse direttamente via email.</div>
+  </div>
+  <div id="paywall-gate">
+    <p class="paywall-eyebrow">Continua a leggere</p>
+    <h2 class="paywall-title">Accedi alla guida completa</h2>
+    <p class="paywall-sub">Lascia la tua email — è gratis. Sblocchi subito la guida e ricevi le prossime risorse appena escono.</p>
+    <form class="access-form" id="access-form" novalidate>
+      <div class="form-row"><label class="form-label" for="nome">Nome</label><input class="form-input" type="text" id="nome" name="nome" placeholder="Il tuo nome" autocomplete="given-name"></div>
+      <div class="form-row"><label class="form-label" for="email">Email</label><input class="form-input" type="email" id="email" name="email" placeholder="tua@email.com" autocomplete="email" required></div>
+      <button class="form-submit" type="submit">Leggi la guida completa</button>
+      <p class="form-note">Niente spam. Solo risorse AI, quando escono.</p>
+    </form>
+  </div>
+</div>
+<div class="cta-callout">
+  <div style="max-width:660px;margin:0 auto;padding:0 24px">
+    <p class="cta-eyebrow">Formazione & Consulenza</p>
+    <h3>Vuoi portare l'AI in azienda o cerchi supporto per un progetto?</h3>
+    <div class="cta-btns">
+      <a class="cta-btn cta-btn-primary" href="https://cal.com/giampiero.ai/discovery-call" target="_blank" rel="noopener">Fissa una chiamata 1:1 →</a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:giampiero.virago.ai@gmail.com">Scrivimi una email</a>
+    </div>
+  </div>
+</div>
+<div class="wrap"><footer class="site-footer"><div class="footer-inner"><span class="f-text">© 2026 @giampiero.ai</span><a class="f-text" href="https://instagram.com/giampiero.ai" target="_blank" rel="noopener">Instagram ↗</a></div></footer></div>
+<script>
+(function(){
+  var STORE='giampiero_ai_subscriber';
+  var gate=document.getElementById('paywall-gate'),full=document.getElementById('article-full'),mask=document.getElementById('preview-mask'),note=document.getElementById('unlock-note'),form=document.getElementById('access-form');
+  function unlock(){if(gate)gate.style.display='none';if(full)full.classList.add('visible');if(mask)mask.classList.add('unlocked');if(note)note.classList.add('visible');}
+  try{if(localStorage.getItem(STORE))unlock();}catch(_){}
+  if(form){form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=form.querySelector('[name="email"]').value.trim(),nome=form.querySelector('[name="nome"]').value.trim();
+    if(!email||!email.includes('@')){form.querySelector('[name="email"]').focus();return;}
+    try{localStorage.setItem(STORE,JSON.stringify({nome:nome,email:email,ts:Date.now()}));}catch(_){}
+    fetch('https://n8n.165.232.126.191.sslip.io/webhook/0a2893e6-95c5-432e-a267-5e70f8864b82',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,email:email,guida:'Creare Siti Animati con MotionSites e AI',ts:new Date().toISOString()})}).catch(function(){});
+    unlock();
+  });}
+})();
+function copyPromptById(textId,btnId,labelId,resetLabel){var text=document.getElementById(textId).innerText,btn=document.getElementById(btnId),lbl=document.getElementById(labelId);navigator.clipboard.writeText(text).then(function(){btn.classList.add('copied');lbl.textContent='Copiato ✓';setTimeout(function(){btn.classList.remove('copied');lbl.textContent=resetLabel;},2200);});}
+</script>
+</body>
+</html>
